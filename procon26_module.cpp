@@ -16,20 +16,20 @@ struct Board
 	unsigned char block[128];
 };
 
-/* å®šç¾©éƒ¨ */
+/* ’è‹`•” */
 void showStone(Stone *);
-int bitCount(unsigned char);// ãƒ“ãƒƒãƒˆã‚’æ•°ãˆã‚‹ 
-Stone cutBoard(Board *, int, int); // çŸ³ã‚’åˆ‡ã‚Šå–ã‚‹
-Stone shift_up(Stone);		// ä¸Šã‚·ãƒ•ãƒˆ
-Stone shift_down(Stone);	// ä¸‹ã‚·ãƒ•ãƒˆ
-Stone shift_right(Stone);	// å³ã‚·ãƒ•ãƒˆ
-Stone shift_left(Stone);	// å·¦ã‚·ãƒ•ãƒˆ
-Stone turn_90(Stone);		// 90åº¦å›è»¢ 
-Stone turn_180(Stone);		// 180åº¦å›è»¢
-Stone turn_270(Stone);		// 270åº¦å›è»¢
-Stone reverce(Stone);		// åè»¢
+int bitCount(unsigned char);// ƒrƒbƒg‚ğ”‚¦‚é 
+Stone cutBoard(Board *, int, int); // Î‚ğØ‚èæ‚é
+Stone shift_up(Stone);		// ãƒVƒtƒg
+Stone shift_down(Stone);	// ‰ºƒVƒtƒg
+Stone shift_right(Stone);	// ‰EƒVƒtƒg
+Stone shift_left(Stone);	// ¶ƒVƒtƒg
+Stone turn_90(Stone);		// 90“x‰ñ“] 
+Stone turn_180(Stone);		// 180“x‰ñ“]
+Stone turn_270(Stone);		// 270“x‰ñ“]
+Stone reverce(Stone);		// ”½“]
 
-/* å®Ÿè£…éƒ¨ */
+/* À‘••” */
 void showStone(Stone *stone)
 {
 	for (int y = 0; y < STONE_SIZE; y++)
