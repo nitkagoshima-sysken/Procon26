@@ -16,27 +16,31 @@ struct Board
 	unsigned char block[128];
 };
 
-/* 定義部 */
+/* Definition */
 void showStone(Stone *);
-int bitCount(unsigned char);// ビットを数える 
-Stone cutBoard(Board *, int, int); // 石を切り取る
-Stone shift_up(Stone);		// 上シフト
-Stone shift_down(Stone);	// 下シフト
-Stone shift_right(Stone);	// 右シフト
-Stone shift_left(Stone);	// 左シフト
-Stone turn_90(Stone);		// 90度回転 
-Stone turn_180(Stone);		// 180度回転
-Stone turn_270(Stone);		// 270度回転
-Stone reverce(Stone);		// 反転
+int bitCount(unsigned char);// Count-Bit 
+Stone cutBoard(Board *, int, int); // Cut-Stone
+Stone shift_up(Stone);		// Shift-Up
+Stone shift_down(Stone);	// Shift-Down
+Stone shift_right(Stone);	// Shift-Right
+Stone shift_left(Stone);	// Shift-Left
+Stone turn_90(Stone);		// Turn-90  (deg) 
+Stone turn_180(Stone);		// Turn-180 (deg)
+Stone turn_270(Stone);		// Turn-270 (deg)
+Stone reverce(Stone);		// Reverce
+Stone NOT(Stone);			// Logic-NOT 
+Stone AND(Stone, Stone);	// Logic-AND
+Stone  OR(Stone, Stone);	// Logic-OR
+Stone XOR(Stone, Stone);	// Logic-XOR
 
-/* 実装部 */
+/* Implementation */
 void showStone(Stone *stone)
 {
 	for (int y = 0; y < STONE_SIZE; y++)
 	{
 		for (int x = 0; x < STONE_SIZE; x++)
 		{
-			cout << ((stone -> zuku[y] << x) & 0x80) ? block_1 : block_0;
+			cout << (((stone -> zuku[y] << x) & 0x80) ? block_1 : block_0);
 		}
 		cout << endl;
 	}
@@ -63,47 +67,47 @@ Stone cutBoard(Board *board, int x, int y)
 	return Cut;
 }
 
-Stone shift_up(Stone quest)
+Stone shift_up(Stone stone)
 {
 	for (int i = 0; i < STONE_SIZE - 1; i++)
 	{
-		quest.zuku[i] = quest.zuku[i + 1];
+		stone.zuku[i] = stone.zuku[i + 1];
 	}
-	quest.zuku[STONE_SIZE - 1] = 0;
+	stone.zuku[STONE_SIZE - 1] = 0;
 	
-	return quest;
+	return stone;
 }
 
-Stone shift_down(Stone quest)
+Stone shift_down(Stone stone)
 {
 	for (int i = STONE_SIZE - 1; i > 0; i--)
 	{
-		quest.zuku[i] = quest.zuku[i - 1];
+		stone.zuku[i] = stone.zuku[i - 1];
 	}
-	quest.zuku[0] = 0;
+	stone.zuku[0] = 0;
 	
-	return quest;
+	return stone;
 }
 
-Stone shift_right(Stone quest)
+Stone shift_right(Stone stone)
 {
 	for (int i = 0; i < STONE_SIZE; i++)
 	{
-		quest.zuku[i] = (quest.zuku[i] >> 1);
+		stone.zuku[i] = (stone.zuku[i] >> 1);
 	}
-	return quest;
+	return stone;
 }
 
-Stone shift_left(Stone quest)
+Stone shift_left(Stone stone)
 {
 	for (int i = 0; i < STONE_SIZE; i++)
 	{
-		quest.zuku[i] = (quest.zuku[i] << 1);
+		stone.zuku[i] = (stone.zuku[i] << 1);
 	}
-	return quest;
+	return stone;
 }
 
-Stone turn90(Stone source)
+Stone turn90(Stone stone)
 {
 	Stone dist;
 	for (int i = 0; i < N; i++) dist.zuku[i] = 0;
@@ -116,7 +120,7 @@ Stone turn90(Stone source)
 		int nx = N - 1 - y;
 		int ny = x;
 		
-		if ((source.zuku[y] << x) & 128)
+		if ((stone.zuku[y] << x) & 128)
 		{
 			dist.zuku[ny] += 128 >> nx;
 		}
@@ -125,7 +129,7 @@ Stone turn90(Stone source)
 	return dist;
 }
 
-Stone turn180(Stone source)
+Stone turn180(Stone stone)
 {
 	Stone dist;
 	for (int i = 0; i < N; i++) dist.zuku[i] = 0;
@@ -138,7 +142,7 @@ Stone turn180(Stone source)
 		int nx = N - 1 - x;
 		int ny = N - 1 - y;
 		
-		if ((source.zuku[y] << x) & 128)
+		if ((stone.zuku[y] << x) & 128)
 		{
 			dist.zuku[ny] += 128 >> nx;
 		}
@@ -147,7 +151,7 @@ Stone turn180(Stone source)
 	return dist;
 }
 
-Stone turn270(Stone source)
+Stone turn270(Stone stone)
 {
 	Stone dist;
 	for (int i = 0; i < N; i++) dist.zuku[i] = 0;
@@ -160,7 +164,7 @@ Stone turn270(Stone source)
 		int nx = y;
 		int ny = N - 1 - x;
 		
-		if ((source.zuku[y] << x) & 128)
+		if ((stone.zuku[y] << x) & 128)
 		{
 			dist.zuku[ny] += 128 >> nx;
 		}
@@ -169,7 +173,7 @@ Stone turn270(Stone source)
 	return dist;
 }
 
-Stone reverce(Stone source)
+Stone reverce(Stone stone)
 {
 	Stone dist;
 	for (int i = 0; i < N; i++) dist.zuku[i] = 0;
@@ -182,11 +186,47 @@ Stone reverce(Stone source)
 		int nx = N - 1 - x;
 		int ny = y;
 
-		if ((source.zuku[y] << x) & 128)
+		if ((stone.zuku[y] << x) & 128)
 		{
 			dist.zuku[ny] += 128 >> nx;
 		}
 	}
 
 	return dist;
+}
+
+Stone NOT(Stone stone)
+{
+	for(int i = 0; i < STONE_SIZE; i++)
+	{
+		stone.zuku[i] = ~stone.zuku[i];
+	}
+	return stone;
+}
+
+Stone AND(Stone stone1, Stone stone2)
+{
+	for(int i = 0; i < STONE_SIZE; i++)
+	{
+		stone1.zuku[i] = stone1.zuku[i] & stone2.zuku[i];
+	}
+	return stone1;
+}
+
+Stone OR(Stone stone1, Stone stone2)
+{
+	for(int i = 0; i < STONE_SIZE; i++)
+	{
+		stone1.zuku[i] = stone1.zuku[i] | stone2.zuku[i];
+	}
+	return stone1;
+}
+
+Stone XOR(Stone stone1, Stone stone2)
+{
+	for(int i = 0; i < STONE_SIZE; i++)
+	{
+		stone1.zuku[i] = stone1.zuku[i] ^ stone2.zuku[i];
+	}
+	return stone1;
 }
