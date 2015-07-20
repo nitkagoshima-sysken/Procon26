@@ -41,6 +41,7 @@ bool isEmptyStone(Stone *);
 Stone *getTouchingStone(Board *, Stone *, int, int);
 bool canPlace(Board *, Stone *, int, int);
 int checkPlacingStone(Board *, Stone *, int, int);
+bool checkEqual(Stone *, Stone *);
 
 /* Implementation */
 void showStone(Stone *stone)
@@ -294,4 +295,13 @@ int checkPlacingStone(Board *board, Stone *stone, int x, int y)
 {
     if(! canPlace(board, stone, x, y)) return -1;
     return countBitOfStone(getTouchingStone(board, stone, x, y));
+}
+
+bool checkEqual(Stone *stone1, Stone *stone2)
+{
+	for(int i = 0; i < STONE_SIZE; i ++)
+	{
+		if(stone1->zuku[i] != stone2->zuku[i]) return false;
+	}
+	return true;
 }
