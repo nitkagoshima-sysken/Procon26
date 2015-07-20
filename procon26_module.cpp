@@ -5,6 +5,7 @@ using namespace std;
 #define STONE_SIZE 8
 #define block_0    "0"
 #define block_1    "1"
+#define BOARD_SIZE 32
 
 struct Stone
 {
@@ -37,6 +38,7 @@ Stone *AND(Stone *, Stone *);	// Logic-AND
 Stone *OR(Stone *, Stone *);	// Logic-OR
 Stone *XOR(Stone *, Stone *);	// Logic-XOR
 bool isEmptyStone(Stone *);
+Stone *getTouchingStone(Board *, Stone *, int, int);
 
 /* Implementation */
 void showStone(Stone *stone)
@@ -258,4 +260,20 @@ bool isEmptyStone(Stone *stone)
 		if(stone->zuku[i] != 0) return false;
 	}
 	return true;
+}
+
+Stone *getTouchingStone(Board *board, Stone *stone, int x, int y)
+{
+	Stone *center = quarryStone(board, x, y);
+	return AND(
+			XOR(
+				center,
+				OR(
+					OR(
+						x == 0 ? shiftLeft(center) : quarryStone(board, x - 1, y),
+						x == BOARD_SIZE - STONE_SIZE - 1 ? shiftRight(center) : quarryStone(board, x + 1, y)),
+					OR(
+						y == 0 ? shiftUp(center) : quarryStone(board, x, y - 1),
+						y == BOARD_SIZE - STONE_SIZE - 1 ? shiftDown(center) : quarryStone(board, x, y + 1)))),
+			stone);
 }
