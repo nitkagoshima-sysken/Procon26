@@ -19,7 +19,7 @@ struct Board
 /* Definition */
 void showStone(Stone *);
 int bitCount(unsigned char);// Count-Bit 
-Stone cutBoard(Board *, int, int); // Cut-Stone
+Stone quarryStone(Board *, int, int); // Cut-Stone
 Stone shift_up(Stone);		// Shift-Up
 Stone shift_down(Stone);	// Shift-Down
 Stone shift_right(Stone);	// Shift-Right
@@ -55,13 +55,13 @@ int bitCount(unsigned char bit)
 	return bit;
 }
 
-Stone cutBoard(Board *board, int x, int y)
+Stone quarryStone(Board *board, int x, int y)
 {
 	Stone Cut;
 	
 	for(int i = 0; i < 8; i++)
 	{
-		Cut.zuku[i] = board.block[x / 8 + y + (i * 4)] << (x % 8) | board.block[x / 8 + y + (i * 4) + 1] >> (8 - (x % 8));
+		Cut.zuku[i] = board->block[x / 8 + y + (i * 4)] << (x % 8) | board->block[x / 8 + y + (i * 4) + 1] >> (8 - (x % 8));
 	}
 	
 	return Cut;
