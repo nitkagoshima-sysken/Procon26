@@ -24,13 +24,13 @@ void showStone(Stone *);
 int countBit(unsigned char);// Count-Bit
 int countBitOfStone(Stone *stone);// Count-Bit-Of-Stone
 Stone *quarryStone(Board *, int, int); // Cut-Stone
-Stone *shift_up(Stone *);		// Shift-Up
-Stone *shift_down(Stone *);	// Shift-Down
-Stone *shift_right(Stone *);	// Shift-Right
-Stone *shift_left(Stone *);	// Shift-Left
-Stone *turn_90(Stone *);		// Turn-90  (deg)
-Stone *turn_180(Stone *);		// Turn-180 (deg)
-Stone *turn_270(Stone *);		// Turn-270 (deg)
+Stone *shiftUp(Stone *);		// Shift-Up
+Stone *shiftDown(Stone *);	// Shift-Down
+Stone *shiftRight(Stone *);	// Shift-Right
+Stone *shiftLeft(Stone *);	// Shift-Left
+Stone *turn90(Stone *);		// Turn-90  (deg)
+Stone *turn180(Stone *);		// Turn-180 (deg)
+Stone *turn270(Stone *);		// Turn-270 (deg)
 Stone *reverce(Stone *);		// Reverce
 Stone *NOT(Stone *);			// Logic-NOT
 Stone *AND(Stone *, Stone *);	// Logic-AND
@@ -79,7 +79,7 @@ Stone *quarryStone(Board *board, int x, int y)
 	return quarried;
 }
 
-Stone *shift_up(Stone *stone)
+Stone *shiftUp(Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE - 1; i++)
@@ -91,7 +91,7 @@ Stone *shift_up(Stone *stone)
 	return dist;
 }
 
-Stone *shift_down(Stone *stone)
+Stone *shiftDown(Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = STONE_SIZE - 1; i > 0; i--)
@@ -103,7 +103,7 @@ Stone *shift_down(Stone *stone)
 	return dist;
 }
 
-Stone *shift_right(Stone *stone)
+Stone *shiftRight(Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++)
@@ -113,7 +113,7 @@ Stone *shift_right(Stone *stone)
 	return dist;
 }
 
-Stone *shift_left(Stone *stone)
+Stone *shiftLeft(Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++)
