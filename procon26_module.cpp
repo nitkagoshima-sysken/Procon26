@@ -16,6 +16,9 @@ struct Board
 	unsigned char block[128];
 };
 
+/* Constants */
+const Stone *EMPTY_STONE = new Stone;
+
 /* Definition */
 void showStone(Stone *);
 int countBit(unsigned char);// Count-Bit
@@ -33,6 +36,7 @@ Stone NOT(Stone);			// Logic-NOT
 Stone AND(Stone, Stone);	// Logic-AND
 Stone  OR(Stone, Stone);	// Logic-OR
 Stone XOR(Stone, Stone);	// Logic-XOR
+bool isEmptyStone(Stone *);
 
 /* Implementation */
 void showStone(Stone *stone)
@@ -239,4 +243,13 @@ Stone XOR(Stone stone1, Stone stone2)
 		stone1.zuku[i] = stone1.zuku[i] ^ stone2.zuku[i];
 	}
 	return stone1;
+}
+
+bool isEmptyStone(Stone *stone)
+{
+	for(int i = 0; i < STONE_SIZE; i ++)
+	{
+		if(stone->zuku[i] != 0) return false;
+	}
+	return true;
 }
