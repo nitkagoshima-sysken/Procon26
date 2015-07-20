@@ -283,8 +283,8 @@ Stone *getTouchingStone(Board *board, Stone *stone, int x, int y)
 
 bool canPlace(Board *board, Stone *stone, int x, int y)
 {
-    if(isEmptyStone(AND(stone, quarryStone(board, x, y)))) return true;
-    return false;
+	if(isEmptyStone(AND(stone, quarryStone(board, x, y)))) return true;
+	return false;
 }
 
 /*
@@ -293,8 +293,8 @@ bool canPlace(Board *board, Stone *stone, int x, int y)
 */
 int checkPlacingStone(Board *board, Stone *stone, int x, int y)
 {
-    if(! canPlace(board, stone, x, y)) return -1;
-    return countBitOfStone(getTouchingStone(board, stone, x, y));
+	if(! canPlace(board, stone, x, y)) return -1;
+	return countBitOfStone(getTouchingStone(board, stone, x, y));
 }
 
 bool checkEqual(Stone *stone1, Stone *stone2)
