@@ -110,14 +110,14 @@ Stone shift_left(Stone stone)
 Stone turn90(Stone stone)
 {
 	Stone dist;
-	for (int i = 0; i < N; i++) dist.zuku[i] = 0;
+	for (int i = 0; i < STONE_SIZE; i++) dist.zuku[i] = 0;
 	
 	for (int i = 0; i < 64; i++)
 	{
-		int x = i % N;
-		int y = i / N;
+		int x = i % STONE_SIZE;
+		int y = i / STONE_SIZE;
 		
-		int nx = N - 1 - y;
+		int nx = STONE_SIZE - 1 - y;
 		int ny = x;
 		
 		if ((stone.zuku[y] << x) & 128)
@@ -132,15 +132,15 @@ Stone turn90(Stone stone)
 Stone turn180(Stone stone)
 {
 	Stone dist;
-	for (int i = 0; i < N; i++) dist.zuku[i] = 0;
+	for (int i = 0; i < STONE_SIZE; i++) dist.zuku[i] = 0;
 	
 	for (int i = 0; i < 64; i++)
 	{
-		int x = i % N;
-		int y = i / N;
+		int x = i % STONE_SIZE;
+		int y = i / STONE_SIZE;
 		
-		int nx = N - 1 - x;
-		int ny = N - 1 - y;
+		int nx = STONE_SIZE - 1 - x;
+		int ny = STONE_SIZE - 1 - y;
 		
 		if ((stone.zuku[y] << x) & 128)
 		{
@@ -154,15 +154,15 @@ Stone turn180(Stone stone)
 Stone turn270(Stone stone)
 {
 	Stone dist;
-	for (int i = 0; i < N; i++) dist.zuku[i] = 0;
+	for (int i = 0; i < STONE_SIZE; i++) dist.zuku[i] = 0;
 	
 	for (int i = 0; i < 64; i++)
 	{
-		int x = i % N;
-		int y = i / N;
+		int x = i % STONE_SIZE;
+		int y = i / STONE_SIZE;
 		
 		int nx = y;
-		int ny = N - 1 - x;
+		int ny = STONE_SIZE - 1 - x;
 		
 		if ((stone.zuku[y] << x) & 128)
 		{
@@ -176,14 +176,14 @@ Stone turn270(Stone stone)
 Stone reverce(Stone stone)
 {
 	Stone dist;
-	for (int i = 0; i < N; i++) dist.zuku[i] = 0;
+	for (int i = 0; i < STONE_SIZE; i++) dist.zuku[i] = 0;
 
 	for (int i = 0; i < 64; i++)
 	{
-		int x = i % N;
-		int y = i / N;
+		int x = i % STONE_SIZE;
+		int y = i / STONE_SIZE;
 
-		int nx = N - 1 - x;
+		int nx = STONE_SIZE - 1 - x;
 		int ny = y;
 
 		if ((stone.zuku[y] << x) & 128)
