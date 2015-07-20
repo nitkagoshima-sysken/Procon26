@@ -39,6 +39,7 @@ Stone *OR(Stone *, Stone *);	// Logic-OR
 Stone *XOR(Stone *, Stone *);	// Logic-XOR
 bool isEmptyStone(Stone *);
 Stone *getTouchingStone(Board *, Stone *, int, int);
+bool canPlace(Board *, Stone *, int, int);
 int checkPlacingStone(Board *, Stone *, int, int);
 
 /* Implementation */
@@ -279,12 +280,18 @@ Stone *getTouchingStone(Board *board, Stone *stone, int x, int y)
 			stone);
 }
 
+bool canPlace(Board *board, Stone *stone, int x, int y)
+{
+    if(isEmptyStone(AND(stone, quarryStone(board, x, y)))) return true;
+    return false;
+}
+
 /*
  * その場所にブロックが置ける時はいくつのブロックが触れているかを返す
  * おけない時には-1を返す
 */
 int checkPlacingStone(Board *board, Stone *stone, int x, int y)
 {
-    if(!isEmptyStone(AND(stone, quarryStone(board, x, y)))) return -1;
+    if(! canPlace(board, stone, x, y)) return -1;
     return countBitOfStone(getTouchingStone(board, stone, x, y));
 }
