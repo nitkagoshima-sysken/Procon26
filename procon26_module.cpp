@@ -18,7 +18,8 @@ struct Board
 
 /* Definition */
 void showStone(Stone *);
-int bitCount(unsigned char);// Count-Bit 
+int countBit(unsigned char);// Count-Bit
+int countBitOfStone(Stone *stone);// Count-Bit-Of-Stone
 Stone quarryStone(Board *, int, int); // Cut-Stone
 Stone shift_up(Stone);		// Shift-Up
 Stone shift_down(Stone);	// Shift-Down
@@ -47,12 +48,21 @@ void showStone(Stone *stone)
 	cout << endl;
 }
 
-int bitCount(unsigned char bit)
+int countBit(unsigned char bit)
 {
 	bit = ((bit & 0xAA) >> 1) + (bit & 0x55);
 	bit = ((bit & 0xCC) >> 2) + (bit & 0x33);
 	bit = ((bit & 0xF0) >> 4) + (bit & 0x0F);
 	return bit;
+}
+
+int countBitOfStone(Stone *stone)
+{
+	int sum = 0;
+	for(int i = 0; i < STONE_SIZE; i ++){
+		sum += countBit(stone->zuku[i]);
+	}
+	return sum;
 }
 
 Stone quarryStone(Board *board, int x, int y)
