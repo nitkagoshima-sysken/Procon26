@@ -11,10 +11,11 @@ struct Stone
 	unsigned char zuku[STONE_SIZE];
 };
 
-// 64•¶š‚Ì•¶š—ñ‚ğ“ü—Í
-Stone inputStone(string stone)
+// 64æ–‡å­—ã®æ–‡å­—åˆ—ã‚’å…¥åŠ›
+Stone *inputStone(string stone)
 {
-	Stone ret = {{0,0,0,0,0,0,0,0}};
+	Stone *returnStone = new Stone;
+	for (int i = 0; i < STONE_SIZE; i++) returnStone->zuku[i] = 0;
 	for (int y = 0; y < STONE_SIZE; y++)
 	{
 		for (int x = 0; x < STONE_SIZE; x++)
@@ -22,11 +23,11 @@ Stone inputStone(string stone)
 			char c = stone[x + y * STONE_SIZE];
 			if (c != '0')
 			{
-				ret.zuku[y] += (0x80 >> x);
+				returnStone->zuku[y] += (0x80 >> x);
 			}
 		}
 	}
-	return ret;
+	return returnStone;
 }
 
 Stone inputStone()
