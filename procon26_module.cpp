@@ -266,7 +266,7 @@ Stone *getTouchingStone(Board *board, Stone *stone, int x, int y)
 
 bool canPlace(Board *board, Stone *stone, int x, int y)
 {
-	if(isEmptyStone(stone | quarryStone(board, x, y))) return true;
+	if(isEmptyStone(*stone & *quarryStone(board, x, y))) return true;
 	return false;
 }
 
