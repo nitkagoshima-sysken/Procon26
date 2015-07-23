@@ -9,6 +9,7 @@ do
     \${GTEST_ROOT}/libgtest.a
     \${GTEST_ROOT}/libgtest_main.a
     )" >> test/CMakeLists.txt
+    rm -f test/build/${file}_test
 done
 mkdir test/build
 cd test/build
