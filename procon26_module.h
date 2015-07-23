@@ -16,28 +16,28 @@ struct Board
 };
 
 /* Definition */
-void showStone(Stone *);
+void showStone(const Stone *);
 int countBit(unsigned char);	// Count-Bit
-int countBitOfStone(Stone *stone);// Count-Bit-Of-Stone
-Stone *quarryStone(Board *, int, int); // Cut-Stone
-Stone *shiftUp(Stone *);		// Shift-Up
-Stone *shiftDown(Stone *);		// Shift-Down
-Stone *shiftRight(Stone *);		// Shift-Right
-Stone *shiftLeft(Stone *);		// Shift-Left
-Stone *turn90(Stone *);			// Turn-90  (deg)
-Stone *turn180(Stone *);		// Turn-180 (deg)
-Stone *turn270(Stone *);		// Turn-270 (deg)
-Stone *reverce(Stone *);		// Reverce
-Stone *NOT(Stone *);			// Logic-NOT
-Stone *AND(Stone *, Stone *);	// Logic-AND
-Stone *OR(Stone *, Stone *);	// Logic-OR
-Stone *XOR(Stone *, Stone *);	// Logic-XOR
+int countBitOfStone(const Stone *stone);// Count-Bit-Of-Stone
+Stone *quarryStone(const Board *, int, int); // Cut-Stone
+Stone *shiftUp(const Stone *);		// Shift-Up
+Stone *shiftDown(const Stone *);		// Shift-Down
+Stone *shiftRight(const Stone *);		// Shift-Right
+Stone *shiftLeft(const Stone *);		// Shift-Left
+Stone *turn90(const Stone *);			// Turn-90  (deg)
+Stone *turn180(const Stone *);		// Turn-180 (deg)
+Stone *turn270(const Stone *);		// Turn-270 (deg)
+Stone *reverce(const Stone *);		// Reverce
+Stone *NOT(const Stone *);			// Logic-NOT
+Stone *AND(const Stone *, const Stone *);	// Logic-AND
+Stone *OR(const Stone *, const Stone *);	// Logic-OR
+Stone *XOR(const Stone *, const Stone *);	// Logic-XOR
 inline Stone *operator~(Stone);		// Operation Overlord Logic-NOT
 inline Stone *operator&(Stone, Stone);	// Operation Overlord Logic-AND
 inline Stone *operator|(Stone, Stone);	// Operation Overlord Logic-OR
 inline Stone *operator^(Stone, Stone);	// Operation Overlord Logic-XOR
-bool isEmptyStone(Stone *);
-Stone *getTouchingStone(Board *, Stone *, int, int);
-bool canPlace(Board *, Stone *, int, int);
-int checkPlacingStone(Board *, Stone *, int, int);
-bool checkEqual(Stone *, Stone *);
+bool isEmptyStone(const Stone *);
+Stone *getTouchingStone(const Board *, const Stone *, int, int);
+bool canPlace(const Board *, const Stone *, int, int);
+int checkPlacingStone(const Board *, const Stone *, int, int);
+bool checkEqual(const Stone *, const Stone *);

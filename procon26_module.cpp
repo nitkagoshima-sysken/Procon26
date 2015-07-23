@@ -7,7 +7,7 @@ using namespace std;
 const Stone *EMPTY_STONE = new Stone;
 
 /* Implementation */
-void showStone(Stone *stone)
+void showStone(const Stone *stone)
 {
 	for (int y = 0; y < STONE_SIZE; y++)
 	{
@@ -28,7 +28,7 @@ int countBit(unsigned char bit)
 	return bit;
 }
 
-int countBitOfStone(Stone *stone)
+int countBitOfStone(const Stone *stone)
 {
 	int sum = 0;
 	for(int i = 0; i < STONE_SIZE; i ++){
@@ -37,7 +37,7 @@ int countBitOfStone(Stone *stone)
 	return sum;
 }
 
-Stone *quarryStone(Board *board, int x, int y)
+Stone *quarryStone(const Board *board, int x, int y)
 {
 	Stone *quarried = new Stone;
 	for(int i = 0; i < 8; i++)
@@ -47,7 +47,7 @@ Stone *quarryStone(Board *board, int x, int y)
 	return quarried;
 }
 
-Stone *shiftUp(Stone *stone)
+Stone *shiftUp(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE - 1; i++)
@@ -59,7 +59,7 @@ Stone *shiftUp(Stone *stone)
 	return dist;
 }
 
-Stone *shiftDown(Stone *stone)
+Stone *shiftDown(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = STONE_SIZE - 1; i > 0; i--)
@@ -71,7 +71,7 @@ Stone *shiftDown(Stone *stone)
 	return dist;
 }
 
-Stone *shiftRight(Stone *stone)
+Stone *shiftRight(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++)
@@ -81,7 +81,7 @@ Stone *shiftRight(Stone *stone)
 	return dist;
 }
 
-Stone *shiftLeft(Stone *stone)
+Stone *shiftLeft(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++)
@@ -91,7 +91,7 @@ Stone *shiftLeft(Stone *stone)
 	return dist;
 }
 
-Stone *turn90(Stone *stone)
+Stone *turn90(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;
@@ -113,7 +113,7 @@ Stone *turn90(Stone *stone)
 	return dist;
 }
 
-Stone *turn180(Stone *stone)
+Stone *turn180(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;
@@ -135,7 +135,7 @@ Stone *turn180(Stone *stone)
 	return dist;
 }
 
-Stone *turn270(Stone *stone)
+Stone *turn270(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;
@@ -157,7 +157,7 @@ Stone *turn270(Stone *stone)
 	return dist;
 }
 
-Stone *reverce(Stone *stone)
+Stone *reverce(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;
@@ -179,7 +179,7 @@ Stone *reverce(Stone *stone)
 	return dist;
 }
 
-Stone *NOT(Stone *stone)
+Stone *NOT(const Stone *stone)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
@@ -189,7 +189,7 @@ Stone *NOT(Stone *stone)
 	return resultStone;
 }
 
-Stone *AND(Stone *stone1, Stone *stone2)
+Stone *AND(const Stone *stone1, const Stone *stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
@@ -199,7 +199,7 @@ Stone *AND(Stone *stone1, Stone *stone2)
 	return resultStone;
 }
 
-Stone *OR(Stone *stone1, Stone *stone2)
+Stone *OR(const Stone *stone1, const Stone *stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
@@ -209,7 +209,7 @@ Stone *OR(Stone *stone1, Stone *stone2)
 	return resultStone;
 }
 
-Stone *XOR(Stone *stone1, Stone *stone2)
+Stone *XOR(const Stone *stone1, const Stone *stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
@@ -239,7 +239,7 @@ inline Stone *operator^(Stone stone1, Stone stone2)
 	return XOR(&stone1, &stone2);
 }
 
-bool isEmptyStone(Stone *stone)
+bool isEmptyStone(const Stone *stone)
 {
 	for(int i = 0; i < STONE_SIZE; i ++)
 	{
@@ -248,7 +248,7 @@ bool isEmptyStone(Stone *stone)
 	return true;
 }
 
-Stone *getTouchingStone(Board *board, Stone *stone, int x, int y)
+Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y)
 {
 	Stone *center = quarryStone(board, x, y);
 	return AND(
@@ -264,7 +264,7 @@ Stone *getTouchingStone(Board *board, Stone *stone, int x, int y)
 			stone);
 }
 
-bool canPlace(Board *board, Stone *stone, int x, int y)
+bool canPlace(const Board *board, const Stone *stone, int x, int y)
 {
 	if(isEmptyStone(*stone & *quarryStone(board, x, y))) return true;
 	return false;
@@ -274,13 +274,13 @@ bool canPlace(Board *board, Stone *stone, int x, int y)
  * その場所にブロックが置ける時はいくつのブロックが触れているかを返す
  * おけない時には-1を返す
 */
-int checkPlacingStone(Board *board, Stone *stone, int x, int y)
+int checkPlacingStone(const Board *board, const Stone *stone, int x, int y)
 {
 	if(! canPlace(board, stone, x, y)) return -1;
 	return countBitOfStone(getTouchingStone(board, stone, x, y));
 }
 
-bool checkEqual(Stone *stone1, Stone *stone2)
+bool checkEqual(const Stone *stone1, const Stone *stone2)
 {
 	for(int i = 0; i < STONE_SIZE; i ++)
 	{
