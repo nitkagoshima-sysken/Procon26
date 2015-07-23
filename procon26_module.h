@@ -32,10 +32,10 @@ Stone *NOT(Stone *);			// Logic-NOT
 Stone *AND(Stone *, Stone *);	// Logic-AND
 Stone *OR(Stone *, Stone *);	// Logic-OR
 Stone *XOR(Stone *, Stone *);	// Logic-XOR
-inline Stone operator~(Stone);			// Operation Overlord Logic-NOT
-inline Stone operator&(Stone, Stone);	// Operation Overlord Logic-AND
-inline Stone operator|(Stone, Stone);	// Operation Overlord Logic-OR
-inline Stone operator^(Stone, Stone);	// Operation Overlord Logic-XOR
+inline Stone *operator~(Stone);		// Operation Overlord Logic-NOT
+inline Stone *operator&(Stone, Stone);	// Operation Overlord Logic-AND
+inline Stone *operator|(Stone, Stone);	// Operation Overlord Logic-OR
+inline Stone *operator^(Stone, Stone);	// Operation Overlord Logic-XOR
 bool isEmptyStone(Stone *);
 Stone *getTouchingStone(Board *, Stone *, int, int);
 bool canPlace(Board *, Stone *, int, int);

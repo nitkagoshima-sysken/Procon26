@@ -219,28 +219,24 @@ Stone *XOR(Stone *stone1, Stone *stone2)
 	return resultStone;
 }
 
-inline Stone operator~(Stone stone)
+inline Stone *operator~(Stone stone)
 {
-	Stone resultStone = *NOT(&stone);
-	return resultStone;
+	return NOT(&stone); 
 }
 
-inline Stone operator&(Stone stone1, Stone stone2)
+inline Stone *operator&(Stone stone1, Stone stone2)
 {
-	Stone resultStone = *AND(&stone1, &stone2);
-	return resultStone;
+	return AND(&stone1, &stone2);
 }
 
-inline Stone operator|(Stone stone1, Stone stone2)
+inline Stone *operator|(Stone stone1, Stone stone2)
 {
-	Stone resultStone = *OR(&stone1, &stone2);
-	return resultStone;	
+	return OR(&stone1, &stone2);
 }
 
-inline Stone operator^(Stone stone1, Stone stone2)
+inline Stone *operator^(Stone stone1, Stone stone2)
 {
-	Stone resultStone = *XOR(&stone1, &stone2);
-	return resultStone;	
+	return XOR(&stone1, &stone2);
 }
 
 bool isEmptyStone(Stone *stone)
