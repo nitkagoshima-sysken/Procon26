@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 #include "../procon26_module.h"
 #include "../procon26_module.cpp"
-#include "../for_test/test_helper.cpp"
 
 TEST(procon26_module, checkEqual)
 {

@@ -7,6 +7,24 @@ using namespace std;
 const Stone *EMPTY_STONE = new Stone;
 
 /* Implementation */
+Stone *getStoneByString(string stone)
+{
+	Stone *returnStone = new Stone;
+	for (int y = 0; y < STONE_SIZE; y++)
+	{
+		returnStone->zuku[y] = 0;
+		for (int x = 0; x < STONE_SIZE; x++)
+		{
+			char c = stone[x + y * STONE_SIZE];
+			if (c != '0')
+			{
+				returnStone->zuku[y] += (0x80 >> x);
+			}
+		}
+	}
+	return returnStone;
+}
+
 void showStone(const Stone *stone)
 {
 	for (int y = 0; y < STONE_SIZE; y++)

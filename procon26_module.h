@@ -16,6 +16,7 @@ struct Board
 };
 
 /* Definition */
+Stone *getStoneByString(std::string);
 void showStone(const Stone *);
 int countBit(unsigned char);	// Count-Bit
 int countBitOfStone(const Stone *stone);// Count-Bit-Of-Stone
