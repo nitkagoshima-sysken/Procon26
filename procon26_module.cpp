@@ -1,47 +1,10 @@
 #include <iostream>
+#include "procon26_module.h"
 
 using namespace std;
 
-#define STONE_SIZE 8
-#define block_0    "0"
-#define block_1    "1"
-#define BOARD_SIZE 32
-
-struct Stone
-{
-	unsigned char zuku[STONE_SIZE];
-};
-
-struct Board
-{
-	unsigned char block[128];
-};
-
 /* Constants */
 const Stone *EMPTY_STONE = new Stone;
-
-/* Definition */
-void showStone(Stone *);
-int countBit(unsigned char);// Count-Bit
-int countBitOfStone(Stone *stone);// Count-Bit-Of-Stone
-Stone *quarryStone(Board *, int, int); // Cut-Stone
-Stone *shiftUp(Stone *);		// Shift-Up
-Stone *shiftDown(Stone *);	// Shift-Down
-Stone *shiftRight(Stone *);	// Shift-Right
-Stone *shiftLeft(Stone *);	// Shift-Left
-Stone *turn90(Stone *);		// Turn-90  (deg)
-Stone *turn180(Stone *);		// Turn-180 (deg)
-Stone *turn270(Stone *);		// Turn-270 (deg)
-Stone *reverce(Stone *);		// Reverce
-Stone *NOT(Stone *);			// Logic-NOT
-Stone *AND(Stone *, Stone *);	// Logic-AND
-Stone *OR(Stone *, Stone *);	// Logic-OR
-Stone *XOR(Stone *, Stone *);	// Logic-XOR
-bool isEmptyStone(Stone *);
-Stone *getTouchingStone(Board *, Stone *, int, int);
-bool canPlace(Board *, Stone *, int, int);
-int checkPlacingStone(Board *, Stone *, int, int);
-bool checkEqual(Stone *, Stone *);
 
 /* Implementation */
 void showStone(Stone *stone)
@@ -256,6 +219,30 @@ Stone *XOR(Stone *stone1, Stone *stone2)
 	return resultStone;
 }
 
+inline Stone operator~(Stone stone)
+{
+	Stone resultStone = *NOT(&stone);
+	return resultStone;
+}
+
+inline Stone operator&(Stone stone1, Stone stone2)
+{
+	Stone resultStone = *AND(&stone1, &stone2);
+	return resultStone;
+}
+
+inline Stone operator|(Stone stone1, Stone stone2)
+{
+	Stone resultStone = *OR(&stone1, &stone2);
+	return resultStone;	
+}
+
+inline Stone operator^(Stone stone1, Stone stone2)
+{
+	Stone resultStone = *XOR(&stone1, &stone2);
+	return resultStone;	
+}
+
 bool isEmptyStone(Stone *stone)
 {
 	for(int i = 0; i < STONE_SIZE; i ++)
@@ -283,7 +270,7 @@ Stone *getTouchingStone(Board *board, Stone *stone, int x, int y)
 
 bool canPlace(Board *board, Stone *stone, int x, int y)
 {
-	if(isEmptyStone(AND(stone, quarryStone(board, x, y)))) return true;
+	if(isEmptyStone(stone | quarryStone(board, x, y))) return true;
 	return false;
 }
 
