@@ -65,46 +65,46 @@ Stone *quarryStone(const Board *board, int x, int y)
 	return quarried;
 }
 
-Stone *shiftUp(const Stone *stone)
+Stone *shiftUp(const Stone *stone, int times = 1)
 {
 	Stone *dist = new Stone;
-	for (int i = 0; i < STONE_SIZE - 1; i++)
+	for (int i = 0; i < STONE_SIZE - times; i++)
 	{
-		dist->zuku[i] = stone->zuku[i + 1];
+		dist->zuku[i] = stone->zuku[i + times];
 	}
 	dist->zuku[STONE_SIZE - 1] = 0;
 	
 	return dist;
 }
 
-Stone *shiftDown(const Stone *stone)
+Stone *shiftDown(const Stone *stone, int times = 1)
 {
 	Stone *dist = new Stone;
-	for (int i = STONE_SIZE - 1; i > 0; i--)
+	for (int i = times; i < STONE_SIZE; i++)
 	{
-		dist->zuku[i] = stone->zuku[i - 1];
+		dist->zuku[i] = stone->zuku[i - times];
 	}
 	dist->zuku[0] = 0;
 	
 	return dist;
 }
 
-Stone *shiftRight(const Stone *stone)
+Stone *shiftRight(const Stone *stone, int times = 1)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++)
 	{
-		dist->zuku[i] = (stone->zuku[i] >> 1);
+		dist->zuku[i] = (stone->zuku[i] >> times);
 	}
 	return dist;
 }
 
-Stone *shiftLeft(const Stone *stone)
+Stone *shiftLeft(const Stone *stone, int times = 1)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++)
 	{
-		dist->zuku[i] = (stone->zuku[i] << 1);
+		dist->zuku[i] = (stone->zuku[i] << times);
 	}
 	return dist;
 }

@@ -21,10 +21,10 @@ void showStone(const Stone *);
 int countBit(unsigned char);	// Count-Bit
 int countBitOfStone(const Stone *stone);// Count-Bit-Of-Stone
 Stone *quarryStone(const Board *, int, int); // Cut-Stone
-Stone *shiftUp(const Stone *);		// Shift-Up
-Stone *shiftDown(const Stone *);		// Shift-Down
-Stone *shiftRight(const Stone *);		// Shift-Right
-Stone *shiftLeft(const Stone *);		// Shift-Left
+Stone *shiftUp(const Stone *, int times);		// Shift-Up
+Stone *shiftDown(const Stone *, int times);		// Shift-Down
+Stone *shiftRight(const Stone *, int times);		// Shift-Right
+Stone *shiftLeft(const Stone *, int times);		// Shift-Left
 Stone *turn90(const Stone *);			// Turn-90  (deg)
 Stone *turn180(const Stone *);		// Turn-180 (deg)
 Stone *turn270(const Stone *);		// Turn-270 (deg)
