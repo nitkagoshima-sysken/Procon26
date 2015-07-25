@@ -25,6 +25,27 @@ Stone *getStoneByString(string stone)
 	return returnStone;
 }
 
+Board *getBoardByString(string board)
+{
+	Board *returnBoard = new Board;
+	for (int y = 0; y < BOARD_SIZE; y++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			returnBoard->block[i + y * 4] = 0;
+			for (int x = 0; x < 8; x++)
+			{
+				char c = board[x + 8 * i  + y * BOARD_SIZE];
+				if (c != '0')
+				{
+					returnBoard->block[i + y * 4] += (0x80 >> x);
+				}
+			}
+		}
+	}
+	return returnBoard;
+}
+
 void showStone(const Stone *stone)
 {
 	for (int y = 0; y < STONE_SIZE; y++)
@@ -32,6 +53,22 @@ void showStone(const Stone *stone)
 		for (int x = 0; x < STONE_SIZE; x++)
 		{
 			cout << (((stone -> zuku[y] << x) & 0x80) ? block_1 : block_0);
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+
+void showBoard(const Board *board)
+{
+	for (int y = 0; y < BOARD_SIZE ; y++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			for (int x = 0; x < 8; x++)
+			{
+				cout << (((board -> block[i + y * 4] << x) & 0x80) ? block_1 : block_0);
+			}
 		}
 		cout << endl;
 	}
@@ -107,6 +144,31 @@ Stone *shiftLeft(const Stone *stone)
 		dist->zuku[i] = (stone->zuku[i] << 1);
 	}
 	return dist;
+}
+
+Stone *turn(const Stone *stone, int n)
+{
+	switch(n % 4)
+	{
+		case 0:
+			// None
+			return stone;
+			
+		case 1:
+			// turn90
+			return turn90(stone);
+			
+		case 2:
+			// turn180
+			return turn180(stone);
+		
+		case 3:
+			// turn270
+			return turn270(stone);
+		
+		case default:
+			return stone;
+	}
 }
 
 Stone *turn90(const Stone *stone)
