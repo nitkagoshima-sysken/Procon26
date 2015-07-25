@@ -57,11 +57,21 @@ int countBitOfStone(const Stone *stone)
 
 Stone *quarryStone(const Board *board, int x, int y)
 {
+	int qX = x, qY = y;
+	Stone *tmp;
+	if(x < 0) qX = 0;
+	if(x >= BOARD_SIZE - STONE_SIZE) qX = BOARD_SIZE - STONE_SIZE - 1;
+	if(y < 0) qY = 0;
+	if(y >= BOARD_SIZE - STONE_SIZE) qY = BOARD_SIZE - STONE_SIZE - 1;
 	Stone *quarried = new Stone;
 	for(int i = 0; i < 8; i++)
 	{
-		quarried->zuku[i] = board->block[x / 8 + y + (i * 4)] << (x % 8) | board->block[x / 8 + y + (i * 4) + 1] >> (8 - (x % 8));
+		quarried->zuku[i] = board->block[qX / 8 + qY + (i * 4)] << (qX % 8) | board->block[qX / 8 + qY + (i * 4) + 1] >> (8 - (qX % 8));
 	}
+	if(x < 0){ tmp = shiftRight(quarried, -x); delete quarried; quarried = tmp;}
+	if(x >= BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE + 1); delete quarried; quarried = tmp;}
+	if(y < 0){ tmp = shiftDown(quarried, -y); delete quarried; quarried = tmp;}
+	if(y >= BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE + 1); delete quarried; quarried = tmp;}
 	return quarried;
 }
 
