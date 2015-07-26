@@ -62,9 +62,9 @@ int main()
 	for (int i = 0; i < n; i++) isPut[i] = false;
 	
 	// 一個目の石は適当に置く
-	for (int y = 0; y < BOARD_SIZE; y++)
+	for (int y = -STONE_SIZE + 1; y < BOARD_SIZE; y++)
 	{
-		for (int x = 0; x < BOARD_SIZE; x++)
+		for (int x = -STONE_SIZE + 1; x < BOARD_SIZE; x++)
 		{
 			if (!isPut[i] && canPlace(obstacleBoard, &stones[0], x, y))
 			{
@@ -81,9 +81,9 @@ int main()
 		int touching = 0, bestX, bestY, Turn;
 		bool canPut = false, reverced = false;
 		
-		for (int y = 0; y < BOARD_SIZE; y++)
+		for (int y = -STONE_SIZE + 1; y < BOARD_SIZE; y++)
 		{
-			for (int x = 0; x < BOARD_SIZE; x++)
+			for (int x = -STONE_SIZE + 1; x < BOARD_SIZE; x++)
 			{
 				// 回転(反転なし)
 				for (int j = 0; j < 4; j++)
