@@ -105,10 +105,10 @@ Stone *quarryStone(const Board *board, int x, int y)
 	{
 		quarried->zuku[i] = board->block[qX / 8 + qY * 4 + (i * 4)] << (qX % 8) | board->block[qX / 8 + qY * 4 + (i * 4) + 1] >> (8 - (qX % 8));
 	}
-	if(x < 0){ tmp = shiftRight(quarried, -x); delete quarried; quarried = tmp;}
-	if(x > BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE); delete quarried; quarried = tmp;}
-	if(y < 0){ tmp = shiftDown(quarried, -y); delete quarried; quarried = tmp;}
-	if(y > BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE); delete quarried; quarried = tmp;}
+	if(x < 0){ tmp = shiftRight(quarried, -x, 1); delete quarried; quarried = tmp;}
+	if(x > BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE, 1); delete quarried; quarried = tmp;}
+	if(y < 0){ tmp = shiftDown(quarried, -y, 1); delete quarried; quarried = tmp;}
+	if(y > BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE, 1); delete quarried; quarried = tmp;}
 	return quarried;
 }
 
