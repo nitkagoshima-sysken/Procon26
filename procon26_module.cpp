@@ -251,7 +251,7 @@ Stone *turn270(const Stone *stone)
 	return dist;
 }
 
-Stone *reverce(const Stone *stone)
+Stone *flip(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;

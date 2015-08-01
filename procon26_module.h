@@ -31,7 +31,7 @@ Stone *turn(Stone *, int);			// Turn-90 * n(deg)
 Stone *turn90(const Stone *);		// Turn-90  (deg)
 Stone *turn180(const Stone *);		// Turn-180 (deg)
 Stone *turn270(const Stone *);		// Turn-270 (deg)
-Stone *reverce(const Stone *);		// Reverce
+Stone *flip(const Stone *);		// flip
 Stone *NOT(const Stone *);			// Logic-NOT
 Stone *AND(const Stone *, const Stone *);	// Logic-AND
 Stone *OR(const Stone *, const Stone *);	// Logic-OR
