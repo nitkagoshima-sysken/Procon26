@@ -110,10 +110,10 @@ Stone *quarryStone(const Board *board, int x, int y)
 	for (int i = 0; i < STONE_SIZE; i++) FillStone->zuku[i] = 0;
 	FillStone = ~*FillStone;
 	
-	if(x < 0){ tmp = *shiftRight(quarried, -x) | *shiftLeft(FillStone,  STONE_SIZE + x);  quarried = tmp;}
-	if(x > BOARD_SIZE - STONE_SIZE){ tmp = *shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE) | *shiftRight(FillStone,  BOARD_SIZE - x);  quarried = tmp;}
-	if(y < 0){ tmp = *shiftDown(quarried, -y) | *shiftUp(FillStone, STONE_SIZE + y);  quarried = tmp;}
-	if(y > BOARD_SIZE - STONE_SIZE){ tmp = *shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE) | *shiftDown(FillStone,  BOARD_SIZE - y);  quarried = tmp;}
+	if(x < 0){ tmp = shiftRight(quarried, -x); delete quarried; quarried = tmp;}
+	if(x > BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE); delete quarried; quarried = tmp;}
+	if(y < 0){ tmp = shiftDown(quarried, -y); delete quarried; quarried = tmp;}
+	if(y > BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE); delete quarried; quarried = tmp;}
 	
 	delete FillStone;
 	return quarried;
