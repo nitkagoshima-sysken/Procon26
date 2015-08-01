@@ -128,7 +128,7 @@ int main()
 		if (canPut)
 		{
 			// 石を置く
-			if (!fliped)
+			if (!flipped)
 			{
 				/* put(putBoard, turn(&stone[i], Turn), bestX, bestY) */	
 			}
@@ -136,7 +136,7 @@ int main()
 			{
 				/* put(putBoard, turn(flip(&stone[i]), Turn), bestX, bestY) */
 			}
-			cout << bestX << " " << bestY << " " << (flip?"T":"H") << " " << Turn * 90 << endl;
+			cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
 		}
 		else
 		{
