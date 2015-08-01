@@ -173,10 +173,6 @@ Stone *turn(const Stone *stone, int n)
 {
 	switch(n % 4)
 	{
-		case 0:
-			// None
-			return stone;
-			
 		case 1:
 			// turn90
 			return turn90(stone);
@@ -189,8 +185,8 @@ Stone *turn(const Stone *stone, int n)
 			// turn270
 			return turn270(stone);
 		
-		case default:
-			return stone;
+		default:
+			return cloneStone(stone);
 	}
 }
 
