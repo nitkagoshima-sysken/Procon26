@@ -383,7 +383,7 @@ bool checkEqual(const Stone *stone1, const Stone *stone2)
 
 Stone *cloneStone(const Stone *stone)
 {
-	Stone *clone;
+	Stone *clone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i ++)
 	{
 		clone->zuku[i] = stone->zuku[i];
