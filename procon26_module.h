@@ -45,3 +45,4 @@ Stone *getTouchingStone(const Board *, const Stone *, int, int);
 bool canPlace(const Board *, const Stone *, int, int);
 int checkPlacingStone(const Board *, const Stone *, int, int);
 bool checkEqual(const Stone *, const Stone *);
+Stone *cloneStone(const Stone *);

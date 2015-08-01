@@ -391,3 +391,13 @@ bool checkEqual(const Stone *stone1, const Stone *stone2)
 	}
 	return true;
 }
+
+Stone *cloneStone(const Stone *stone)
+{
+	Stone *clone;
+	for(int i = 0; i < STONE_SIZE; i ++)
+	{
+		clone->zuku[i] = stone->zuku[i];
+	}
+	return clone;
+}
