@@ -112,7 +112,7 @@ Stone *quarryStone(const Board *board, int x, int y)
 	return quarried;
 }
 
-Stone *shiftUp(const Stone *stone, int times)
+Stone *shiftUp(const Stone *stone, int times, int filler)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE - times; i++)
@@ -121,13 +121,13 @@ Stone *shiftUp(const Stone *stone, int times)
 	}
 	for (int i = STONE_SIZE - times; i < STONE_SIZE; i++)
 	{
-		dist->zuku[i] = 0;
+		dist->zuku[i] = filler == 0 ? 0 : ~'\0';
 	}
 	
 	return dist;
 }
 
-Stone *shiftDown(const Stone *stone, int times)
+Stone *shiftDown(const Stone *stone, int times, int filler)
 {
 	Stone *dist = new Stone;
 	for (int i = times; i < STONE_SIZE; i++)
@@ -136,28 +136,30 @@ Stone *shiftDown(const Stone *stone, int times)
 	}
 	for (int i = 0; i < times; i++)
 	{
-		dist->zuku[i] = 0;
+		dist->zuku[i] = filler == 0 ? 0 : ~'\0';
 	}
 	
 	return dist;
 }
 
-Stone *shiftRight(const Stone *stone, int times)
+Stone *shiftRight(const Stone *stone, int times, int filler)
 {
 	Stone *dist = new Stone;
+	char filler_char = filler == 0 ? 0 : ~(((unsigned char)~'\0') >> times);
 	for (int i = 0; i < STONE_SIZE; i++)
 	{
-		dist->zuku[i] = (stone->zuku[i] >> times);
+		dist->zuku[i] = (stone->zuku[i] >> times) | filler_char;
 	}
 	return dist;
 }
 
-Stone *shiftLeft(const Stone *stone, int times)
+Stone *shiftLeft(const Stone *stone, int times, int filler)
 {
 	Stone *dist = new Stone;
+	char filler_char = filler == 0 ? 0 : ~((~'\0') << times);
 	for (int i = 0; i < STONE_SIZE; i++)
 	{
-		dist->zuku[i] = (stone->zuku[i] << times);
+		dist->zuku[i] = (stone->zuku[i] << times) | filler_char;
 	}
 	return dist;
 }
