@@ -17,7 +17,9 @@ struct Board
 
 /* Definition */
 Stone *getStoneByString(std::string);
+Board *getBoardByString(std::string board);
 void showStone(const Stone *);
+void showBoard(const Board *);
 int countBit(unsigned char);	// Count-Bit
 int countBitOfStone(const Stone *stone);// Count-Bit-Of-Stone
 Stone *quarryStone(const Board *, int, int); // Cut-Stone
@@ -25,7 +27,8 @@ Stone *shiftUp(const Stone *, int times);		// Shift-Up
 Stone *shiftDown(const Stone *, int times);		// Shift-Down
 Stone *shiftRight(const Stone *, int times);		// Shift-Right
 Stone *shiftLeft(const Stone *, int times);		// Shift-Left
-Stone *turn90(const Stone *);			// Turn-90  (deg)
+Stone *turn(Stone *, int);			// Turn-90 * n(deg)
+Stone *turn90(const Stone *);		// Turn-90  (deg)
 Stone *turn180(const Stone *);		// Turn-180 (deg)
 Stone *turn270(const Stone *);		// Turn-270 (deg)
 Stone *reverce(const Stone *);		// Reverce

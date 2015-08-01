@@ -25,6 +25,27 @@ Stone *getStoneByString(string stone)
 	return returnStone;
 }
 
+Board *getBoardByString(string board)
+{
+	Board *returnBoard = new Board;
+	for (int y = 0; y < BOARD_SIZE; y++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			returnBoard->block[i + y * 4] = 0;
+			for (int x = 0; x < 8; x++)
+			{
+				char c = board[x + 8 * i  + y * BOARD_SIZE];
+				if (c != '0')
+				{
+					returnBoard->block[i + y * 4] += (0x80 >> x);
+				}
+			}
+		}
+	}
+	return returnBoard;
+}
+
 void showStone(const Stone *stone)
 {
 	for (int y = 0; y < STONE_SIZE; y++)
@@ -32,6 +53,22 @@ void showStone(const Stone *stone)
 		for (int x = 0; x < STONE_SIZE; x++)
 		{
 			cout << (((stone -> zuku[y] << x) & 0x80) ? block_1 : block_0);
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+
+void showBoard(const Board *board)
+{
+	for (int y = 0; y < BOARD_SIZE ; y++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			for (int x = 0; x < 8; x++)
+			{
+				cout << (((board -> block[i + y * 4] << x) & 0x80) ? block_1 : block_0);
+			}
 		}
 		cout << endl;
 	}
@@ -60,18 +97,25 @@ Stone *quarryStone(const Board *board, int x, int y)
 	int qX = x, qY = y;
 	Stone *tmp;
 	if(x < 0) qX = 0;
-	if(x >= BOARD_SIZE - STONE_SIZE) qX = BOARD_SIZE - STONE_SIZE - 1;
+	if(x > BOARD_SIZE - STONE_SIZE) qX = BOARD_SIZE - STONE_SIZE;
 	if(y < 0) qY = 0;
-	if(y >= BOARD_SIZE - STONE_SIZE) qY = BOARD_SIZE - STONE_SIZE - 1;
+	if(y > BOARD_SIZE - STONE_SIZE) qY = BOARD_SIZE - STONE_SIZE;
 	Stone *quarried = new Stone;
 	for(int i = 0; i < 8; i++)
 	{
-		quarried->zuku[i] = board->block[qX / 8 + qY + (i * 4)] << (qX % 8) | board->block[qX / 8 + qY + (i * 4) + 1] >> (8 - (qX % 8));
+		quarried->zuku[i] = board->block[qX / 8 + qY * 4 + (i * 4)] << (qX % 8) | board->block[qX / 8 + qY * 4 + (i * 4) + 1] >> (8 - (qX % 8));
 	}
-	if(x < 0){ tmp = shiftRight(quarried, -x); delete quarried; quarried = tmp;}
-	if(x >= BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE + 1); delete quarried; quarried = tmp;}
-	if(y < 0){ tmp = shiftDown(quarried, -y); delete quarried; quarried = tmp;}
-	if(y >= BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE + 1); delete quarried; quarried = tmp;}
+	
+	Stone *FillStone = new Stone; 
+	for (int i = 0; i < STONE_SIZE; i++) FillStone->zuku[i] = 0;
+	FillStone = ~*FillStone;
+	
+	if(x < 0){ tmp = *shiftRight(quarried, -x) | *shiftLeft(FillStone,  STONE_SIZE + x);  quarried = tmp;}
+	if(x > BOARD_SIZE - STONE_SIZE){ tmp = *shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE) | *shiftRight(FillStone,  BOARD_SIZE - x);  quarried = tmp;}
+	if(y < 0){ tmp = *shiftDown(quarried, -y) | *shiftUp(FillStone, STONE_SIZE + y);  quarried = tmp;}
+	if(y > BOARD_SIZE - STONE_SIZE){ tmp = *shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE) | *shiftDown(FillStone,  BOARD_SIZE - y);  quarried = tmp;}
+	
+	delete FillStone;
 	return quarried;
 }
 
@@ -82,7 +126,10 @@ Stone *shiftUp(const Stone *stone, int times = 1)
 	{
 		dist->zuku[i] = stone->zuku[i + times];
 	}
-	dist->zuku[STONE_SIZE - 1] = 0;
+	for (int i = STONE_SIZE - times; i < STONE_SIZE; i++)
+	{
+		dist->zuku[i] = 0;
+	}
 	
 	return dist;
 }
@@ -94,7 +141,10 @@ Stone *shiftDown(const Stone *stone, int times = 1)
 	{
 		dist->zuku[i] = stone->zuku[i - times];
 	}
-	dist->zuku[0] = 0;
+	for (int i = 0; i < times; i++)
+	{
+		dist->zuku[i] = 0;
+	}
 	
 	return dist;
 }
@@ -117,6 +167,31 @@ Stone *shiftLeft(const Stone *stone, int times = 1)
 		dist->zuku[i] = (stone->zuku[i] << times);
 	}
 	return dist;
+}
+
+Stone *turn(const Stone *stone, int n)
+{
+	switch(n % 4)
+	{
+		case 0:
+			// None
+			return stone;
+			
+		case 1:
+			// turn90
+			return turn90(stone);
+			
+		case 2:
+			// turn180
+			return turn180(stone);
+		
+		case 3:
+			// turn270
+			return turn270(stone);
+		
+		case default:
+			return stone;
+	}
 }
 
 Stone *turn90(const Stone *stone)
