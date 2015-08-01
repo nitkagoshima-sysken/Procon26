@@ -112,7 +112,7 @@ Stone *quarryStone(const Board *board, int x, int y)
 	return quarried;
 }
 
-Stone *shiftUp(const Stone *stone, int times = 1)
+Stone *shiftUp(const Stone *stone, int times)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE - times; i++)
@@ -127,7 +127,7 @@ Stone *shiftUp(const Stone *stone, int times = 1)
 	return dist;
 }
 
-Stone *shiftDown(const Stone *stone, int times = 1)
+Stone *shiftDown(const Stone *stone, int times)
 {
 	Stone *dist = new Stone;
 	for (int i = times; i < STONE_SIZE; i++)
@@ -142,7 +142,7 @@ Stone *shiftDown(const Stone *stone, int times = 1)
 	return dist;
 }
 
-Stone *shiftRight(const Stone *stone, int times = 1)
+Stone *shiftRight(const Stone *stone, int times)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++)
@@ -152,7 +152,7 @@ Stone *shiftRight(const Stone *stone, int times = 1)
 	return dist;
 }
 
-Stone *shiftLeft(const Stone *stone, int times = 1)
+Stone *shiftLeft(const Stone *stone, int times)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++)
@@ -348,11 +348,11 @@ Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y)
 				center,
 				OR(
 					OR(
-						x == 0 ? shiftLeft(center) : quarryStone(board, x - 1, y),
-						x == BOARD_SIZE - STONE_SIZE - 1 ? shiftRight(center) : quarryStone(board, x + 1, y)),
+						x == 0 ? shiftLeft(center, 1) : quarryStone(board, x - 1, y),
+						x == BOARD_SIZE - STONE_SIZE - 1 ? shiftRight(center, 1) : quarryStone(board, x + 1, y)),
 					OR(
-						y == 0 ? shiftUp(center) : quarryStone(board, x, y - 1),
-						y == BOARD_SIZE - STONE_SIZE - 1 ? shiftDown(center) : quarryStone(board, x, y + 1)))),
+						y == 0 ? shiftUp(center, 1) : quarryStone(board, x, y - 1),
+						y == BOARD_SIZE - STONE_SIZE - 1 ? shiftDown(center, 1) : quarryStone(board, x, y + 1)))),
 			stone);
 }
 

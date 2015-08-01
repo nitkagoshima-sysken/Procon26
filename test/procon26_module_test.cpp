@@ -185,7 +185,7 @@ TEST(procon26_module, shiftUp)
                     "00000000"
                     "00000000"
                     "00000000"
-                    )
+                    ), 1
                 )));
     ASSERT_TRUE(checkEqual(
                 getStoneByString(
@@ -233,7 +233,7 @@ TEST(procon26_module, shiftDown)
                     "00000000"
                     "00000000"
                     "00000000"
-                    )
+                    ), 1
                 )));
     ASSERT_TRUE(checkEqual(
                 getStoneByString(
@@ -281,7 +281,7 @@ TEST(procon26_module, shiftLeft)
                     "00000000"
                     "00000000"
                     "00000000"
-                    )
+                    ), 1
                 )));
     ASSERT_TRUE(checkEqual(
                 getStoneByString(
@@ -329,7 +329,7 @@ TEST(procon26_module, shiftRight)
                     "00000000"
                     "00000000"
                     "00000000"
-                    )
+                    ), 1
                 )));
     ASSERT_TRUE(checkEqual(
                 getStoneByString(
