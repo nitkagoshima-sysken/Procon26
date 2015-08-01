@@ -119,7 +119,10 @@ Stone *shiftUp(const Stone *stone, int times = 1)
 	{
 		dist->zuku[i] = stone->zuku[i + times];
 	}
-	dist->zuku[STONE_SIZE - 1] = 0;
+	for (int i = STONE_SIZE - times; i < STONE_SIZE; i++)
+	{
+		dist->zuku[i] = 0;
+	}
 	
 	return dist;
 }
@@ -131,7 +134,10 @@ Stone *shiftDown(const Stone *stone, int times = 1)
 	{
 		dist->zuku[i] = stone->zuku[i - times];
 	}
-	dist->zuku[0] = 0;
+	for (int i = 0; i < times; i++)
+	{
+		dist->zuku[i] = 0;
+	}
 	
 	return dist;
 }
