@@ -79,7 +79,7 @@ int main()
 	{
 		// たくさん接した座標、反転、回転を記憶
 		int touching = 0, bestX, bestY, Turn;
-		bool canPut = false, reverced = false;
+		bool canPut = false, flipped = false;
 		
 		for (int y = -STONE_SIZE + 1; y < BOARD_SIZE; y++)
 		{
@@ -99,7 +99,7 @@ int main()
 							bestY = y;
 							Turn = j;
 							canPut = true;
-							reverced = false;
+							flipped = false;
 						}
 					}
 				}
@@ -107,8 +107,8 @@ int main()
 				// 回転(反転あり)
 				for (int j = 0; j < 4; j++)
 				{
-					int toutchNum_obstacle = checkPlacingStone(obstacleBoard, turn(reverce(&stones[i]), j), x, y);
-					int toutchNum_put      = checkPlacingStone(putBoard, turn(reverce(&stones[i]), j), x, y);
+					int toutchNum_obstacle = checkPlacingStone(obstacleBoard, turn(flip(&stones[i]), j), x, y);
+					int toutchNum_put      = checkPlacingStone(putBoard, turn(flip(&stones[i]), j), x, y);
 					if ((toutchNum_obstacle != -1) && (toutchNum_put > 0))
 					{
 						if (touching < (toutchNum_obstacle + toutchNum_put))
@@ -118,7 +118,7 @@ int main()
 							bestY = y;
 							Turn = j;
 							canPut = true;
-							reverced = true;
+							flipped = true;
 						}
 					}
 				}				
@@ -128,15 +128,15 @@ int main()
 		if (canPut)
 		{
 			// 石を置く
-			if (!reverce)
+			if (!fliped)
 			{
 				/* put(putBoard, turn(&stone[i], Turn), bestX, bestY) */	
 			}
 			else
 			{
-				/* put(putBoard, turn(reverce(&stone[i]), Turn), bestX, bestY) */
+				/* put(putBoard, turn(flip(&stone[i]), Turn), bestX, bestY) */
 			}
-			cout << bestX << " " << bestY << " " << (reverce?"T":"H") << " " << Turn * 90 << endl;
+			cout << bestX << " " << bestY << " " << (flip?"T":"H") << " " << Turn * 90 << endl;
 		}
 		else
 		{
