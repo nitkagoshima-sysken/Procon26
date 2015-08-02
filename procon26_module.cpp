@@ -145,7 +145,7 @@ Stone *shiftDown(const Stone *stone, int times, int filler)
 Stone *shiftRight(const Stone *stone, int times, int filler)
 {
 	Stone *dist = new Stone;
-	unsigned char filler_char = (filler == 0) ? 0 : (unsigned char)0xFF << STONE_SIZE - times;
+	unsigned char filler_char = (filler == 0) ? 0 : (unsigned char)0xFF << (STONE_SIZE - times);
 	for (int i = 0; i < STONE_SIZE; i++)
 	{
 		dist->zuku[i] = (stone->zuku[i] >> times) | filler_char;
@@ -156,7 +156,7 @@ Stone *shiftRight(const Stone *stone, int times, int filler)
 Stone *shiftLeft(const Stone *stone, int times, int filler)
 {
 	Stone *dist = new Stone;
-	unsigned char filler_char = (filler == 0) ? 0 : (unsigned char)0xFF >> STONE_SIZE - times;
+	unsigned char filler_char = (filler == 0) ? 0 : (unsigned char)0xFF >> (STONE_SIZE - times);
 	for (int i = 0; i < STONE_SIZE; i++)
 	{
 		dist->zuku[i] = (stone->zuku[i] << times) | filler_char;
