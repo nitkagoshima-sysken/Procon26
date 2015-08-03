@@ -888,4 +888,76 @@ TEST(procon26_module, placeStone)
                     "11111111111111111111111111111111"
                     "11111111111111111111111111111111"
                     )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(placeStone(board, stone, 0, 0), 0, 0),
+                getStoneByString(
+                    "00100000"
+                    "01110000"
+                    "00110000"
+                    "00101000"
+                    "00100000"
+                    "00111000"
+                    "00000000"
+                    "00000000"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(placeStone(board, stone, -1, -1), 0, 0),
+                getStoneByString(
+                    "11100000"
+                    "01100000"
+                    "01000000"
+                    "01001000"
+                    "01110000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(placeStone(board, stone, -2, -2), 0, 0),
+                getStoneByString(
+                    "11100000"
+                    "10000000"
+                    "10000000"
+                    "11101000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    ""
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(placeStone(board, stone, BOARD_SIZE - STONE_SIZE, BOARD_SIZE - STONE_SIZE), BOARD_SIZE - STONE_SIZE, BOARD_SIZE - STONE_SIZE),
+                getStoneByString(
+                    "00000111"
+                    "01110111"
+                    "00110111"
+                    "00100111"
+                    "11111111"
+                    "11111111"
+                    "11111111"
+                    "11111111"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(placeStone(board, stone, BOARD_SIZE - STONE_SIZE + 1, BOARD_SIZE - STONE_SIZE + 1), BOARD_SIZE - STONE_SIZE, BOARD_SIZE - STONE_SIZE),
+                getStoneByString(
+                    "00000111"
+                    "00000111"
+                    "00111111"
+                    "00011111"
+                    "11111111"
+                    "11111111"
+                    "11111111"
+                    "11111111"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(placeStone(board, stone, BOARD_SIZE - STONE_SIZE + 2, BOARD_SIZE - STONE_SIZE + 2), BOARD_SIZE - STONE_SIZE, BOARD_SIZE - STONE_SIZE),
+                getStoneByString(
+                    "00000111"
+                    "00000111"
+                    "00100111"
+                    "00011111"
+                    "11111111"
+                    "11111111"
+                    "11111111"
+                    "11111111"
+                    )));
 }
