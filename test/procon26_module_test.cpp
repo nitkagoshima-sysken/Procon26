@@ -533,27 +533,19 @@ TEST(procon26_module, shiftRight)
 
 TEST(procon26_module, cloneStone)
 {
+    Stone *stone = getStoneByString(
+            "01110101"
+            "00011111"
+            "00011111"
+            "00010100"
+            "00010000"
+            "00011110"
+            "00011110"
+            "00000010"
+            );
     ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00010100"
-                    "00010000"
-                    "00011110"
-                    "00011110"
-                    "00000010"
-                    ),
-                getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00010100"
-                    "00010000"
-                    "00011110"
-                    "00011110"
-                    "00000010"
-                )));
+                stone, cloneStone(stone)
+                ));
 }
 
 TEST(procon26_module, quarryStone)
