@@ -2,10 +2,10 @@
 #include "../procon26_module.h"
 #include "../procon26_module.cpp"
 
-TEST(procon26_module, checkEqual)
+TEST(procon26_module, isEqualStone)
 {
-    ASSERT_TRUE(checkEqual(EMPTY_STONE, EMPTY_STONE));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(EMPTY_STONE, EMPTY_STONE));
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "01110101"
                     "00011111"
@@ -31,7 +31,7 @@ TEST(procon26_module, checkEqual)
 
 TEST(procon26_module, NOT)
 {
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 ~*getStoneByString(
                     "01110101"
                     "00011111"
@@ -57,7 +57,7 @@ TEST(procon26_module, NOT)
 
 TEST(procon26_module, AND)
 {
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 *getStoneByString(
                     "01110101"
                     "00011111"
@@ -93,7 +93,7 @@ TEST(procon26_module, AND)
 
 TEST(procon26_module, OR)
 {
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 *getStoneByString(
                     "01110101"
                     "00011111"
@@ -129,7 +129,7 @@ TEST(procon26_module, OR)
 
 TEST(procon26_module, XOR)
 {
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 *getStoneByString(
                     "01110101"
                     "00011111"
@@ -165,7 +165,7 @@ TEST(procon26_module, XOR)
 
 TEST(procon26_module, shiftUp)
 {
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "00011111"
                     "00011111"
@@ -187,7 +187,7 @@ TEST(procon26_module, shiftUp)
                     "00000000"
                     ), 1
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "00000100"
                     "00000000"
@@ -209,7 +209,7 @@ TEST(procon26_module, shiftUp)
                     "00000000"
                     ), 3
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "00011111"
                     "00011111"
@@ -231,7 +231,7 @@ TEST(procon26_module, shiftUp)
                     "00000000"
                     ), 1, 1
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "00000100"
                     "00000000"
@@ -257,7 +257,7 @@ TEST(procon26_module, shiftUp)
 
 TEST(procon26_module, shiftDown)
 {
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "00000000"
                     "01110101"
@@ -279,7 +279,7 @@ TEST(procon26_module, shiftDown)
                     "00000000"
                     ), 1
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "00000000"
                     "00000000"
@@ -301,7 +301,7 @@ TEST(procon26_module, shiftDown)
                     "00000000"
                     ), 3
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "11111111"
                     "01110101"
@@ -323,7 +323,7 @@ TEST(procon26_module, shiftDown)
                     "00000000"
                     ), 1, 1
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "11111111"
                     "11111111"
@@ -349,7 +349,7 @@ TEST(procon26_module, shiftDown)
 
 TEST(procon26_module, shiftLeft)
 {
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "11101010"
                     "00111110"
@@ -371,7 +371,7 @@ TEST(procon26_module, shiftLeft)
                     "00000000"
                     ), 1
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "10101000"
                     "11111000"
@@ -393,7 +393,7 @@ TEST(procon26_module, shiftLeft)
                     "00000000"
                     ), 3
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "11101011"
                     "00111111"
@@ -415,7 +415,7 @@ TEST(procon26_module, shiftLeft)
                     "00000000"
                     ), 1, 1
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "10101111"
                     "11111111"
@@ -441,7 +441,7 @@ TEST(procon26_module, shiftLeft)
 
 TEST(procon26_module, shiftRight)
 {
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "00111010"
                     "00001111"
@@ -463,7 +463,7 @@ TEST(procon26_module, shiftRight)
                     "00000000"
                     ), 1
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "00001110"
                     "00000011"
@@ -485,7 +485,7 @@ TEST(procon26_module, shiftRight)
                     "00000000"
                     ), 3
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "10111010"
                     "10001111"
@@ -507,7 +507,7 @@ TEST(procon26_module, shiftRight)
                     "00000000"
                     ), 1, 1
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "11101110"
                     "11100011"
@@ -533,7 +533,7 @@ TEST(procon26_module, shiftRight)
 
 TEST(procon26_module, cloneStone)
 {
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 getStoneByString(
                     "01110101"
                     "00011111"
@@ -592,7 +592,7 @@ TEST(procon26_module, quarryStone)
             "11111111111111111111111111111111"
             "11111111111111111111111111111111"
             );
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 quarryStone(
                     board, 7, 19
                     ),
@@ -606,7 +606,7 @@ TEST(procon26_module, quarryStone)
                     "00000010"
                     "00000000"
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 quarryStone(
                     board, 0, 0
                     ),
@@ -620,7 +620,7 @@ TEST(procon26_module, quarryStone)
                     "00000000"
                     "00000000"
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 quarryStone(
                     board, -1, -1
                     ),
@@ -634,7 +634,7 @@ TEST(procon26_module, quarryStone)
                     "10000000"
                     "10000000"
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 quarryStone(
                     board, -2, -2
                     ),
@@ -648,7 +648,7 @@ TEST(procon26_module, quarryStone)
                     "11000000"
                     "11000000"
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 quarryStone(
                     board, 24, 24
                     ),
@@ -662,7 +662,7 @@ TEST(procon26_module, quarryStone)
                     "11111111"
                     "11111111"
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 quarryStone(
                     board, 25, 25
                     ),
@@ -676,7 +676,7 @@ TEST(procon26_module, quarryStone)
                     "11111111"
                     "11111111"
                 )));
-    ASSERT_TRUE(checkEqual(
+    ASSERT_TRUE(isEqualStone(
                 quarryStone(
                     board, 26, 26
                     ),

@@ -374,7 +374,7 @@ int checkPlacingStone(const Board *board, const Stone *stone, int x, int y)
 	return countBitOfStone(getTouchingStone(board, stone, x, y));
 }
 
-bool checkEqual(const Stone *stone1, const Stone *stone2)
+bool isEqualStone(const Stone *stone1, const Stone *stone2)
 {
 	for(int i = 0; i < STONE_SIZE; i ++)
 	{
