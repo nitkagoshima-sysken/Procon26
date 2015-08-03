@@ -68,7 +68,7 @@ int main()
 		{
 			if (!isPut[i] && canPlace(obstacleBoard, &stones[0], x, y))
 			{
-				putBoard = placeStone(putBoard, &stone[i], bestX, bestY);	
+				putBoard = placeStone(putBoard, &stones[i], x, y);	
 				isPut[i] = true;
 			}
 		}
@@ -130,11 +130,11 @@ int main()
 			// 石を置く
 			if (!flipped)
 			{
-				putBoard = placeStone(putBoard, turn(&stone[i], Turn), bestX, bestY);	
+				putBoard = placeStone(putBoard, turn(&stones[i], Turn), bestX, bestY);	
 			}
 			else
 			{
-				putBoard = placeStone(putBoard, turn(flip(&stone[i]), Turn), bestX, bestY);	
+				putBoard = placeStone(putBoard, turn(flip(&stones[i]), Turn), bestX, bestY);	
 			}
 			
 			cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
