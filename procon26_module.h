@@ -42,6 +42,7 @@ inline Stone *operator|(Stone, Stone);	// Operation Overlord Logic-OR
 inline Stone *operator^(Stone, Stone);	// Operation Overlord Logic-XOR
 bool isEmptyStone(const Stone *);
 Stone *getTouchingStone(const Board *, const Stone *, int, int);
+Board *placeStone(const Board *, const Stone *, int, int);
 bool canPlace(const Board *, const Stone *, int, int);
 int checkPlacingStone(const Board *, const Stone *, int, int);
 bool isEqualStone(const Stone *, const Stone *);

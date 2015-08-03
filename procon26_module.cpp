@@ -358,6 +358,18 @@ Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y)
 			stone);
 }
 
+Board *placeStone(const Board *board, const Stone *stone, int x, int y)
+{
+    Board *new_board = new Board;
+    new_board = cloneBoard(board);
+    for(int i = 0; i < STONE_SIZE; i++)
+    {
+        new_board->block[x / STONE_SIZE + y * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2))] |= stone->zuku[i] >> (x % STONE_SIZE);
+        new_board->block[x / STONE_SIZE + y * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2)) + 1] |= stone->zuku[i] << (STONE_SIZE - (x % STONE_SIZE));
+    }
+    return new_board;
+}
+
 bool canPlace(const Board *board, const Stone *stone, int x, int y)
 {
 	if(isEmptyStone(*stone & *quarryStone(board, x, y))) return true;
