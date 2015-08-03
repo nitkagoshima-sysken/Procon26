@@ -914,7 +914,7 @@ TEST(procon26_module, placeStone)
                     "00000000"
                     "00000000"
                     "00000000"
-                    ""
+                    "00000000"
                     )));
     ASSERT_TRUE(isEqualStone(
                 quarryStone(placeStone(board, stone, BOARD_SIZE - STONE_SIZE, BOARD_SIZE - STONE_SIZE), BOARD_SIZE - STONE_SIZE, BOARD_SIZE - STONE_SIZE),

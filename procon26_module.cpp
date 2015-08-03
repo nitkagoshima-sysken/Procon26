@@ -360,17 +360,19 @@ Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y)
 
 Board *placeStone(const Board *board, const Stone *stone, int x, int y)
 {
-    if(x < 0){ x = 0; stone = shiftLeft(stone, -x);}
-    else if(x > BOARD_SIZE - STONE_SIZE){ x = BOARD_SIZE - STONE_SIZE; stone = shiftRight(stone, x - BOARD_SIZE + STONE_SIZE);}
-    if(y < 0){ y = 0; stone = shiftUp(stone, -y);}
-    else if(y > BOARD_SIZE - STONE_SIZE){ x = BOARD_SIZE - STONE_SIZE; stone = shiftDown(stone, y - BOARD_SIZE + STONE_SIZE);}
+    Stone *stone_copy = cloneStone(stone);
+    Stone *tmp;
+    if(x < 0){ tmp = shiftLeft(stone_copy, -x); delete stone_copy; stone_copy = tmp; x = 0;}
+    else if(x > BOARD_SIZE - STONE_SIZE){ tmp = shiftRight(stone_copy, x - BOARD_SIZE + STONE_SIZE); delete stone_copy; stone_copy = tmp; x = BOARD_SIZE - STONE_SIZE;}
+    if(y < 0){ tmp = shiftUp(stone_copy, -y); delete stone_copy; stone_copy = tmp; y = 0;}
+    else if(y > BOARD_SIZE - STONE_SIZE){ tmp = shiftDown(stone_copy, y - BOARD_SIZE + STONE_SIZE); delete stone_copy; stone_copy = tmp; y = BOARD_SIZE - STONE_SIZE;}
     Board *new_board = cloneBoard(board);
     for(int i = 0; i < STONE_SIZE; i++)
     {
-        new_board->block[x / STONE_SIZE + y * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2))] |= stone->zuku[i] >> (x % STONE_SIZE);
-        new_board->block[x / STONE_SIZE + y * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2)) + 1] |= stone->zuku[i] << (STONE_SIZE - (x % STONE_SIZE));
+        new_board->block[x / STONE_SIZE + y * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2))] |= stone_copy->zuku[i] >> (x % STONE_SIZE);
+        new_board->block[x / STONE_SIZE + y * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2)) + 1] |= stone_copy->zuku[i] << (STONE_SIZE - (x % STONE_SIZE));
     }
-    delete stone;
+    delete stone_copy;
     return new_board;
 }
 
