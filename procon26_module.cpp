@@ -383,6 +383,18 @@ bool isEqualStone(const Stone *stone1, const Stone *stone2)
 	return true;
 }
 
+bool isEqualBoard(const Board *board1, const Board *board2)
+{
+    for (int y = 0; y < BOARD_SIZE ; y++)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if(board1->block[i + y * 4] != board2->block[i + y * 4]) return false;
+        }
+    }
+    return true;
+}
+
 Stone *cloneStone(const Stone *stone)
 {
 	Stone *clone = new Stone;
@@ -391,4 +403,17 @@ Stone *cloneStone(const Stone *stone)
 		clone->zuku[i] = stone->zuku[i];
 	}
 	return clone;
+}
+
+Board *cloneBoard(const Board *board)
+{
+    Board *new_board = new Board;
+    for (int y = 0; y < BOARD_SIZE ; y++)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            new_board->block[i + y * 4] = board->block[i + y * 4];
+        }
+    }
+    return new_board;
 }

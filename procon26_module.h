@@ -46,3 +46,5 @@ bool canPlace(const Board *, const Stone *, int, int);
 int checkPlacingStone(const Board *, const Stone *, int, int);
 bool isEqualStone(const Stone *, const Stone *);
 Stone *cloneStone(const Stone *);
+bool isEqualBoard(const Board *, const Board *);
+Board *cloneBoard(const Board *);
