@@ -1,35 +1,8 @@
 #include <iostream>
-#include "procon26_module.h"
+#include "procon26_modlib.h"
+#include "procon26_modio.h"
 
 using namespace std;
-
-void inputBoard(Board *board)
-{
-	string data = "";
-	for (int i = 0; i < BOARD_SIZE; i++)
-	{
-		string str;
-		cin >> str;
-		data += str;
-	}
-	
-	*board = *getBoardByString(data);
-}
-
-void inputStone(Stone *stones, int n)
-{
-	for (int i = 0; i < n; i++)
-	{
-		string data = "";
-		for (int j = 0; j < STONE_SIZE; j++)
-		{
-			string str;
-			cin >> str;
-			data += str;
-		}
-		stones[i] = *getStoneByString(data);
-	}
-}
 
 int main()
 {
@@ -51,13 +24,6 @@ int main()
 	// 石読み込み
 	inputStone(stones, n);
 	cout << endl;
-	/*test*/
-	/*
-	cout << endl;
-	cout << "showBoard" << endl;
-	showBoard(obstacleBoard);
-	*/
-	/*test*/
 	
 	// 実際に解く
 	bool *isPut = new bool[n];
@@ -72,7 +38,7 @@ int main()
 			{
 				putBoard = placeStone(putBoard, &stones[0], x, y);	
 				isPut[0] = true;
-				showBoard(putBoard);
+				//showBoard(putBoard);
 			}
 		}
 	}
@@ -140,9 +106,9 @@ int main()
 				putBoard = placeStone(putBoard, turn(flip(&stones[i]), Turn), bestX, bestY);	
 			}
 			
-			//cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
+			cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
 			
-			showBoard(putBoard);
+			//showBoard(putBoard);
 			
 			isPut[i] = true;
 		}
