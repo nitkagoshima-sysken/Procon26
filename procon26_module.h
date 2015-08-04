@@ -48,3 +48,8 @@ string Answer::toString()
 	sout << X << " " << Y << " " << (flipped?"T":"H") << " " << turn;
 	return sout.str(); 
 }
+
+inline bool getCellOfStone(const Stone *, int, int);
+inline bool getCellOfBoard(const Board *, int, int);
+inline void setCellOfStone(Stone *, int, int, bool);
+inline void setCellOfBoard(Board *, int, int, bool);
