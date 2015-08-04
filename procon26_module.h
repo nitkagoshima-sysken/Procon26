@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -23,6 +24,11 @@ struct Problem
 	Board board;
 	int num;
 	Stone *stones;
+};
+
+struct Answers
+{
+	vector<Answer> answers;
 };
 
 class Answer
