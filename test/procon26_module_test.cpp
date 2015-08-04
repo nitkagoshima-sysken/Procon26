@@ -1132,3 +1132,24 @@ TEST(procon26_module, setCellOfBoard)
                     "11111111111111111111111111111111"
                     )));
 }
+
+TEST(procon26_module, getGroupsCountStone)
+{
+    int groups_count = 0, count = 0;
+    Stone *stone1 = getStoneByString(
+            "10100101"
+            "00011111"
+            "00011111"
+            "00011100"
+            "00010000"
+            "00011110"
+            "00011110"
+            "00000010"
+            );
+    getGroupsCountStone(stone1, 0, &groups_count, &count);
+    ASSERT_EQ(groups_count, 4);
+    ASSERT_EQ(count, 37);
+    getGroupsCountStone(stone1, 1, &groups_count, &count);
+    ASSERT_EQ(groups_count, 3);
+    ASSERT_EQ(count, 27);
+}

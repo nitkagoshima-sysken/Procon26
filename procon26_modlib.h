@@ -36,5 +36,7 @@ inline bool getCellOfStone(const Stone *, int, int);
 inline bool getCellOfBoard(const Board *, int, int);
 inline void setCellOfStone(Stone *, int, int, bool);
 inline void setCellOfBoard(Board *, int, int, bool);
+void getGroupsCountStone(Stone *, bool target, int *groups_count, int *count);
+int getGroupsCountStoneInternal(Stone *, Stone *, bool target, int x, int y);
 
 #endif

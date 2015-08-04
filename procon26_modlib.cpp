@@ -388,3 +388,34 @@ inline void setCellOfBoard(Board *board, int x, int y, bool value)
     else
         board->block[x / 8 + y * 4] &= ~(0x80 >> (x % 8));
 }
+
+void getGroupsCountStone(Stone *stone, bool target, int *groups_count, int *count)
+{
+    *groups_count = *count = 0;
+    Stone *done = cloneStone(EMPTY_STONE);
+    int tmp_count;
+    for(int x = 0; x < STONE_SIZE; x ++){
+        for(int y = 0; y < STONE_SIZE; y ++){
+            tmp_count = getGroupsCountStoneInternal(stone, done, target, x, y);
+            if(tmp_count != 0){
+                (*groups_count) ++;
+                (*count) += tmp_count;
+            }
+        }
+    }
+}
+
+int getGroupsCountStoneInternal(Stone *stone, Stone *done, bool target, int x, int y)
+{
+    if(getCellOfStone(done, x, y)) return 0;
+    setCellOfStone(done, x, y, true);
+    if(x < 0 || y < 0 || x >= STONE_SIZE || y >= STONE_SIZE) return 0;
+    if(getCellOfStone(stone, x, y) == target)
+        return 1 +
+            getGroupsCountStoneInternal(stone, done, target, x - 1, y) +
+            getGroupsCountStoneInternal(stone, done, target, x + 1, y) +
+            getGroupsCountStoneInternal(stone, done, target, x, y - 1) +
+            getGroupsCountStoneInternal(stone, done, target, x, y + 1);
+    else
+        return 0;
+}
