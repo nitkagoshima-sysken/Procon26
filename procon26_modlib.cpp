@@ -403,6 +403,7 @@ void getGroupsCountStone(Stone *stone, bool target, int *groups_count, int *coun
             }
         }
     }
+    delete done;
 }
 
 int getGroupsCountStoneInternal(Stone *stone, Stone *done, bool target, int x, int y)
