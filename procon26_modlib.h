@@ -1,5 +1,5 @@
 #ifndef __DEF_LIB
-#define __DEF_LIb
+#define __DEF_LIB
 
 #include "procon26_module.h"
 
