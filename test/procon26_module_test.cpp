@@ -2,7 +2,6 @@
 #include "../procon26_module.h"
 #include "../procon26_modlib.h"
 #include "../procon26_modio.h"
-#include "../procon26_module.cpp"
 #include "../procon26_modio.cpp"
 #include "../procon26_modlib.cpp"
 
