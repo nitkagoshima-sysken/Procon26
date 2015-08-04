@@ -31,3 +31,7 @@ bool isEqualStone(const Stone *, const Stone *);
 Stone *cloneStone(const Stone *);
 bool isEqualBoard(const Board *, const Board *);
 Board *cloneBoard(const Board *);
+inline bool getCellOfStone(const Stone *, int, int);
+inline bool getCellOfBoard(const Board *, int, int);
+inline void setCellOfStone(Stone *, int, int, bool);
+inline void setCellOfBoard(Board *, int, int, bool);

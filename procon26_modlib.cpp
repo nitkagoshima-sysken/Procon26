@@ -364,3 +364,29 @@ Board *cloneBoard(const Board *board)
     }
     return new_board;
 }
+
+inline bool getCellOfStone(const Stone *stone, int x, int y)
+{
+    return (bool)(stone->zuku[y] & 0x80 >> x);
+}
+
+inline bool getCellOfBoard(const Board *board, int x, int y)
+{
+    return (bool)(board->block[x / 8 + y * 4] & 0x80 >> (x % 8));
+}
+
+inline void setCellOfStone(Stone *stone, int x, int y, bool value)
+{
+    if(value)
+        stone->zuku[y] |= 0x80 >> x;
+    else
+        stone->zuku[y] &= ~(0x80 >> x);
+}
+
+inline void setCellOfBoard(Board *board, int x, int y, bool value)
+{
+    if(value)
+        board->block[x / 8 + y * 4] |= 0x80 >> (x % 8);
+    else
+        board->block[x / 8 + y * 4] &= ~(0x80 >> (x % 8));
+}

@@ -26,11 +26,6 @@ struct Problem
 	Stone *stones;
 };
 
-struct Answers
-{
-	vector<Answer> answers;
-};
-
 class Answer
 {
 	public:
@@ -42,14 +37,14 @@ class Answer
 		string toString();	
 };
 
+struct Answers
+{
+	vector<Answer> answers;
+};
+
 string Answer::toString()
 {
 	stringstream sout;
 	sout << X << " " << Y << " " << (flipped?"T":"H") << " " << turn;
 	return sout.str(); 
 }
-
-inline bool getCellOfStone(const Stone *, int, int);
-inline bool getCellOfBoard(const Board *, int, int);
-inline void setCellOfStone(Stone *, int, int, bool);
-inline void setCellOfBoard(Board *, int, int, bool);
