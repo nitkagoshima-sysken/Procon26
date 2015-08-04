@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __DEF_LIB
+#define __DEF_LIb
 
 #include "procon26_module.h"
 
@@ -35,3 +36,5 @@ inline bool getCellOfStone(const Stone *, int, int);
 inline bool getCellOfBoard(const Board *, int, int);
 inline void setCellOfStone(Stone *, int, int, bool);
 inline void setCellOfBoard(Board *, int, int, bool);
+
+#endif

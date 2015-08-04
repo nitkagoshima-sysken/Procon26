@@ -1,5 +1,6 @@
-#pragma once
-
+#ifndef __DEF_H
+#define __DEF_H
+ 
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -48,3 +49,5 @@ string Answer::toString()
 	sout << X << " " << Y << " " << (flipped?"T":"H") << " " << turn;
 	return sout.str(); 
 }
+
+#endif

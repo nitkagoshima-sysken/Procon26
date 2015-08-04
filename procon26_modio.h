@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __DEF_IO
+#define __DEF_IO
 
 #include "procon26_module.h"
 
@@ -11,3 +12,5 @@ void showStone(const Stone *);
 void showBoard(const Board *);
 void inputBoard(Board *board);
 void inputStone(Stone *stones, int n);
+
+#endif
