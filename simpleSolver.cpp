@@ -50,11 +50,13 @@ int main()
 	
 	// 石読み込み
 	inputStone(stones, n);
-	
+	cout << endl;
 	/*test*/
+	/*
 	cout << endl;
 	cout << "showBoard" << endl;
 	showBoard(obstacleBoard);
+	*/
 	/*test*/
 	
 	// 実際に解く
@@ -66,10 +68,11 @@ int main()
 	{
 		for (int x = -STONE_SIZE + 1; x < BOARD_SIZE; x++)
 		{
-			if (!isPut[i] && canPlace(obstacleBoard, &stones[0], x, y))
+			if (!isPut[0] && canPlace(obstacleBoard, &stones[0], x, y))
 			{
-				putBoard = placeStone(putBoard, &stones[i], x, y);	
-				isPut[i] = true;
+				putBoard = placeStone(putBoard, &stones[0], x, y);	
+				isPut[0] = true;
+				showBoard(putBoard);
 			}
 		}
 	}
@@ -90,7 +93,7 @@ int main()
 				{
 					int toutchNum_obstacle = checkPlacingStone(obstacleBoard, turn(&stones[i], j), x, y);
 					int toutchNum_put      = checkPlacingStone(putBoard, turn(&stones[i], j), x, y);
-					if ((toutchNum_obstacle != -1) && (toutchNum_put > 0))
+					if ((toutchNum_obstacle > 0) && (toutchNum_put > 0))
 					{
 						if (touching < (toutchNum_obstacle + toutchNum_put))
 						{
@@ -109,7 +112,7 @@ int main()
 				{
 					int toutchNum_obstacle = checkPlacingStone(obstacleBoard, turn(flip(&stones[i]), j), x, y);
 					int toutchNum_put      = checkPlacingStone(putBoard, turn(flip(&stones[i]), j), x, y);
-					if ((toutchNum_obstacle != -1) && (toutchNum_put > 0))
+					if ((toutchNum_obstacle > 0) && (toutchNum_put > 0))
 					{
 						if (touching < (toutchNum_obstacle + toutchNum_put))
 						{
@@ -137,7 +140,10 @@ int main()
 				putBoard = placeStone(putBoard, turn(flip(&stones[i]), Turn), bestX, bestY);	
 			}
 			
-			cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
+			//cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
+			
+			showBoard(putBoard);
+			
 			isPut[i] = true;
 		}
 		else
