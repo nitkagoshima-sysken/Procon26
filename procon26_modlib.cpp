@@ -273,18 +273,16 @@ bool isEmptyStone(const Stone *stone)
 
 Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y)
 {
-	Stone *center = quarryStone(board, x, y);
-	return AND(
-			XOR(
-				center,
-				OR(
-					OR(
-						x == 0 ? shiftLeft(center, 1) : quarryStone(board, x - 1, y),
-						x == BOARD_SIZE - STONE_SIZE - 1 ? shiftRight(center, 1) : quarryStone(board, x + 1, y)),
-					OR(
-						y == 0 ? shiftUp(center, 1) : quarryStone(board, x, y - 1),
-						y == BOARD_SIZE - STONE_SIZE - 1 ? shiftDown(center, 1) : quarryStone(board, x, y + 1)))),
-			stone);
+    Stone *center = quarryStone(board, x, y);
+    return AND(
+            OR(
+                OR(
+                    quarryStone(board, x - 1, y),
+                    quarryStone(board, x + 1, y)),
+                OR(
+                    quarryStone(board, x, y - 1),
+                    quarryStone(board, x, y + 1))),
+            stone);
 }
 
 Board *placeStone(const Board *board, const Stone *stone, int x, int y)
