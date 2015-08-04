@@ -2,8 +2,8 @@
 #include "../procon26_module.h"
 #include "../procon26_modlib.h"
 #include "../procon26_modio.h"
-#include "../procon26_modio.cpp"
-#include "../procon26_modlib.cpp"
+
+static const Stone *EMPTY_STONE = new Stone;
 
 TEST(procon26_module, isEqualStone)
 {

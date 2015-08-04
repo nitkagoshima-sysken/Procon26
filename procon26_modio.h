@@ -6,11 +6,11 @@
 #define block_0    "0"
 #define block_1    "1"
 
-Stone *getStoneByString(std::string);
-Board *getBoardByString(std::string);
-void showStone(const Stone *);
-void showBoard(const Board *);
-void inputBoard(Board *board);
-void inputStone(Stone *stones, int n);
+extern Stone *getStoneByString(std::string);
+extern Board *getBoardByString(std::string);
+extern void showStone(const Stone *);
+extern void showBoard(const Board *);
+extern void inputBoard(Board *board);
+extern void inputStone(Stone *stones, int n);
 
 #endif
