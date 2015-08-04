@@ -150,6 +150,7 @@ Stone *shiftRight(const Stone *stone, int times, int filler)
 	{
 		dist->zuku[i] = (stone->zuku[i] >> times) | filler_char;
 	}
+	
 	return dist;
 }
 
@@ -161,6 +162,7 @@ Stone *shiftLeft(const Stone *stone, int times, int filler)
 	{
 		dist->zuku[i] = (stone->zuku[i] << times) | filler_char;
 	}
+	
 	return dist;
 }
 
