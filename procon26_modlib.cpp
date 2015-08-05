@@ -262,6 +262,18 @@ bool isEmptyStone(const Stone *stone)
 	return true;
 }
 
+bool isEmptyBoard(const Board *board)
+{
+	for (int y = 0; y < BOARD_SIZE ; y++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if(board->block[i + y * 4] != 0) return false;
+		}
+	}
+	return true;
+}
+
 Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y)
 {
     Stone *center = quarryStone(board, x, y);
