@@ -1,4 +1,5 @@
 #include "procon26_modlib.h"
+#include "procon26_modio.h"
 
 /* Constants */
 const Stone *EMPTY_STONE = getStoneByString("0000000000000000000000000000000000000000000000000000000000000000");
