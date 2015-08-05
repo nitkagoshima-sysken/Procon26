@@ -1258,3 +1258,185 @@ TEST(procon26_module, getGroupsCountBoard)
     ASSERT_EQ(groups_count, 37);
     ASSERT_EQ(count, 257);
 }
+
+TEST(procon26_module, getGroupsStone)
+{
+    std::vector<Stone *> stones;
+    int groups_count = 0, count = 0;
+    Stone *stone1 = getStoneByString(
+            "10100101"
+            "00011111"
+            "00011111"
+            "00011100"
+            "00010000"
+            "00011110"
+            "00011110"
+            "00000010"
+            );
+    stones = getGroupsStone(stone1, 0, &groups_count, &count);
+    ASSERT_EQ(groups_count, 4);
+    ASSERT_EQ(count, 37);
+    ASSERT_TRUE(isEqualStone(
+                stones[0],
+                getStoneByString(
+                    "01000000"
+                    "11100000"
+                    "11100000"
+                    "11100000"
+                    "11100000"
+                    "11100000"
+                    "11100000"
+                    "11111100"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                stones[1],
+                getStoneByString(
+                    "00011000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                stones[2],
+                getStoneByString(
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000011"
+                    "00001111"
+                    "00000001"
+                    "00000001"
+                    "00000001"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                stones[3],
+                getStoneByString(
+                    "00000010"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+    stones = getGroupsStone(stone1, 1, &groups_count, &count);
+    ASSERT_EQ(groups_count, 3);
+    ASSERT_EQ(count, 27);
+    ASSERT_TRUE(isEqualStone(
+                stones[0],
+                getStoneByString(
+                    "10000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                stones[1],
+                getStoneByString(
+                    "00100000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                stones[2],
+                getStoneByString(
+                    "00000101"
+                    "00011111"
+                    "00011111"
+                    "00011100"
+                    "00010000"
+                    "00011110"
+                    "00011110"
+                    "00000010"
+                    )));
+    Stone *stone2 = getStoneByString(
+            "01111101"
+            "00011111"
+            "00011111"
+            "00010100"
+            "00011000"
+            "00011110"
+            "00011110"
+            "00000010"
+            );
+    stones = getGroupsStone(stone2, 0, &groups_count, &count);
+    ASSERT_EQ(groups_count, 4);
+    ASSERT_EQ(count, 35);
+    ASSERT_TRUE(isEqualStone(
+                stones[0],
+                getStoneByString(
+                    "10000000"
+                    "11100000"
+                    "11100000"
+                    "11100000"
+                    "11100000"
+                    "11100000"
+                    "11100000"
+                    "11111100"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                stones[1],
+                getStoneByString(
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00001000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                stones[2],
+                getStoneByString(
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000011"
+                    "00000111"
+                    "00000001"
+                    "00000001"
+                    "00000001"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                stones[3],
+                getStoneByString(
+                    "00000010"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+    stones = getGroupsStone(stone2, 1, &groups_count, &count);
+    ASSERT_EQ(groups_count, 1);
+    ASSERT_EQ(count, 29);
+    ASSERT_TRUE(isEqualStone(
+                stones[0],
+                getStoneByString(
+                    "01111101"
+                    "00011111"
+                    "00011111"
+                    "00010100"
+                    "00011000"
+                    "00011110"
+                    "00011110"
+                    "00000010"
+                    )));
+}

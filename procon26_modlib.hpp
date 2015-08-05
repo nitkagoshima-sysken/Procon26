@@ -1,6 +1,7 @@
 #ifndef __DEF_LIB
 #define __DEF_LIB
 
+#include <vector>
 #include "procon26_module.hpp"
 
 extern int countBit(unsigned char);	// Count-Bit
@@ -36,6 +37,8 @@ extern void getGroupsCountStone(Stone *, bool target, int *groups_count, int *co
 extern int getGroupsCountStoneInternal(Stone *, Stone *, bool target, int x, int y);
 extern void getGroupsCountBoard(Board *, bool target, int *groups_count, int *count);
 extern int getGroupsCountBoardInternal(Board *, Board *, bool target, int x, int y);
+extern std::vector<Stone *> getGroupsStone(Stone *, bool target, int *groups_count, int *count);
+extern int getGroupsStoneInternal(Stone *, Stone *, Stone *, bool target, int x, int y);
 
 
 inline Stone *operator~(Stone stone)                // Operation Overlord Logic-NOT

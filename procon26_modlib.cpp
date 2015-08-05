@@ -1,4 +1,5 @@
-#include "procon26_modlib.h"
+#include <vector>
+#include "procon26_modlib.hpp"
 #include "procon26_modio.h"
 
 /* Constants */
@@ -442,4 +443,43 @@ int getGroupsCountBoardInternal(Board *board, Board *done, bool target, int x, i
             getGroupsCountBoardInternal(board, done, target, x, y + 1);
     else
         return 0;
+}
+
+std::vector<Stone *> getGroupsStone(Stone *stone, bool target, int *groups_count, int *count)
+{
+    std::vector<Stone *> stones;
+    *groups_count = *count = 0;
+    Stone *done = cloneStone(EMPTY_STONE);
+    Stone *result = cloneStone(EMPTY_STONE);
+    int tmp_count;
+    for(int x = 0; x < STONE_SIZE; x ++){
+        for(int y = 0; y < STONE_SIZE; y ++){
+            tmp_count = getGroupsStoneInternal(stone, done, result, target, x, y);
+            if(tmp_count != 0){
+                stones.push_back(result);
+                result = cloneStone(EMPTY_STONE);
+                (*groups_count) ++;
+                (*count) += tmp_count;
+            }
+        }
+    }
+    if(isEmptyStone(result)) delete result;
+    return stones;
+}
+
+int getGroupsStoneInternal(Stone *stone, Stone *done, Stone *result, bool target, int x, int y)
+{
+    if(x < 0 || y < 0 || x >= STONE_SIZE || y >= STONE_SIZE) return 0;
+    if(getCellOfStone(done, x, y)) return 0;
+    setCellOfStone(done, x, y, true);
+    if(getCellOfStone(stone, x, y) == target){
+        setCellOfStone(result, x, y, true);
+        return 1 +
+            getGroupsStoneInternal(stone, done, result, target, x - 1, y) +
+            getGroupsStoneInternal(stone, done, result, target, x + 1, y) +
+            getGroupsStoneInternal(stone, done, result, target, x, y - 1) +
+            getGroupsStoneInternal(stone, done, result, target, x, y + 1);
+    }else{
+        return 0;
+    }
 }
