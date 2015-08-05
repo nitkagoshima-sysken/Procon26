@@ -1,6 +1,6 @@
 #include <vector>
 #include "procon26_modlib.hpp"
-#include "procon26_modio.h"
+#include "procon26_modio.hpp"
 
 /* Constants */
 const Stone *EMPTY_STONE = getStoneByString("0000000000000000000000000000000000000000000000000000000000000000");
