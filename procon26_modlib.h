@@ -38,5 +38,7 @@ extern void setCellOfStone(Stone *, int, int, bool);
 extern void setCellOfBoard(Board *, int, int, bool);
 extern void getGroupsCountStone(Stone *, bool target, int *groups_count, int *count);
 extern int getGroupsCountStoneInternal(Stone *, Stone *, bool target, int x, int y);
+extern void getGroupsCountBoard(Board *, bool target, int *groups_count, int *count);
+extern int getGroupsCountBoardInternal(Board *, Board *, bool target, int x, int y);
 
 #endif

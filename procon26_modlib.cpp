@@ -430,3 +430,35 @@ int getGroupsCountStoneInternal(Stone *stone, Stone *done, bool target, int x, i
     else
         return 0;
 }
+
+void getGroupsCountBoard(Board *board, bool target, int *groups_count, int *count)
+{
+    *groups_count = *count = 0;
+    Board *done = cloneBoard(EMPTY_BOARD);
+    int tmp_count;
+    for(int x = 0; x < BOARD_SIZE; x ++){
+        for(int y = 0; y < BOARD_SIZE; y ++){
+            tmp_count = getGroupsCountBoardInternal(board, done, target, x, y);
+            if(tmp_count != 0){
+                (*groups_count) ++;
+                (*count) += tmp_count;
+            }
+        }
+    }
+    delete done;
+}
+
+int getGroupsCountBoardInternal(Board *board, Board *done, bool target, int x, int y)
+{
+    if(x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE) return 0;
+    if(getCellOfBoard(done, x, y)) return 0;
+    setCellOfBoard(done, x, y, true);
+    if(getCellOfBoard(board, x, y) == target)
+        return 1 +
+            getGroupsCountBoardInternal(board, done, target, x - 1, y) +
+            getGroupsCountBoardInternal(board, done, target, x + 1, y) +
+            getGroupsCountBoardInternal(board, done, target, x, y - 1) +
+            getGroupsCountBoardInternal(board, done, target, x, y + 1);
+    else
+        return 0;
+}
