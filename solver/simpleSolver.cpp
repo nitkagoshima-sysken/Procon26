@@ -1,6 +1,6 @@
 #include <iostream>
-#include "procon26_modlib.h"
-#include "procon26_modio.h"
+#include "../procon26_modlib.h"
+#include "../procon26_modio.h"
 
 using namespace std;
 
