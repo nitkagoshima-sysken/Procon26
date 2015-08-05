@@ -223,32 +223,32 @@ Stone *NOT(const Stone *stone)
 	return resultStone;
 }
 
-Stone *AND(const Stone *stone1, const Stone *stone2)
+Stone *AND(const Stone *Stone1, const Stone *Stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
 	{
-		resultStone->zuku[i] = stone1->zuku[i] & stone2->zuku[i];
+		resultStone->zuku[i] = Stone1->zuku[i] & Stone2->zuku[i];
 	}
 	return resultStone;
 }
 
-Stone *OR(const Stone *stone1, const Stone *stone2)
+Stone *OR(const Stone *Stone1, const Stone *Stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
 	{
-		resultStone->zuku[i] = stone1->zuku[i] | stone2->zuku[i];
+		resultStone->zuku[i] = Stone1->zuku[i] | Stone2->zuku[i];
 	}
 	return resultStone;
 }
 
-Stone *XOR(const Stone *stone1, const Stone *stone2)
+Stone *XOR(const Stone *Stone1, const Stone *Stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
 	{
-		resultStone->zuku[i] = stone1->zuku[i] ^ stone2->zuku[i];
+		resultStone->zuku[i] = Stone1->zuku[i] ^ Stone2->zuku[i];
 	}
 	return resultStone;
 }
@@ -258,19 +258,19 @@ inline Stone *operator~(Stone stone)
 	return NOT(&stone); 
 }
 
-inline Stone *operator&(Stone stone1, Stone stone2)
+inline Stone *operator&(Stone Stone1, Stone Stone2)
 {
-	return AND(&stone1, &stone2);
+	return AND(&Stone1, &Stone2);
 }
 
-inline Stone *operator|(Stone stone1, Stone stone2)
+inline Stone *operator|(Stone Stone1, Stone Stone2)
 {
-	return OR(&stone1, &stone2);
+	return OR(&Stone1, &Stone2);
 }
 
-inline Stone *operator^(Stone stone1, Stone stone2)
+inline Stone *operator^(Stone Stone1, Stone Stone2)
 {
-	return XOR(&stone1, &stone2);
+	return XOR(&Stone1, &Stone2);
 }
 
 bool isEmptyStone(const Stone *stone)
