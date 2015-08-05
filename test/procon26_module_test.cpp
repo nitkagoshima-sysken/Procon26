@@ -1151,4 +1151,21 @@ TEST(procon26_module, getGroupsCountStone)
     getGroupsCountStone(stone1, 1, &groups_count, &count);
     ASSERT_EQ(groups_count, 3);
     ASSERT_EQ(count, 27);
+    Stone *stone2 = getStoneByString(
+            "01111101"
+            "00011111"
+            "00011111"
+            "00010100"
+            "00011000"
+            "00011110"
+            "00011110"
+            "00000010"
+            );
+    groups_count = 0, count = 0;
+    getGroupsCountStone(stone2, 0, &groups_count, &count);
+    ASSERT_EQ(groups_count, 4);
+    ASSERT_EQ(count, 35);
+    getGroupsCountStone(stone2, 1, &groups_count, &count);
+    ASSERT_EQ(groups_count, 1);
+    ASSERT_EQ(count, 29);
 }
