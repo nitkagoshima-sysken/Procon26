@@ -19,10 +19,6 @@ extern Stone *NOT(const Stone *);			// Logic-NOT
 extern Stone *AND(const Stone *, const Stone *);	// Logic-AND
 extern Stone *OR(const Stone *, const Stone *);	// Logic-OR
 extern Stone *XOR(const Stone *, const Stone *);	// Logic-XOR
-extern Stone *operator~(Stone);		// Operation Overlord Logic-NOT
-extern Stone *operator&(Stone, Stone);	// Operation Overlord Logic-AND
-extern Stone *operator|(Stone, Stone);	// Operation Overlord Logic-OR
-extern Stone *operator^(Stone, Stone);	// Operation Overlord Logic-XOR
 extern bool isEmptyStone(const Stone *);
 extern Stone *getTouchingStone(const Board *, const Stone *, int, int);
 extern Board *placeStone(const Board *, const Stone *, int, int);
@@ -40,5 +36,26 @@ extern void getGroupsCountStone(Stone *, bool target, int *groups_count, int *co
 extern int getGroupsCountStoneInternal(Stone *, Stone *, bool target, int x, int y);
 extern void getGroupsCountBoard(Board *, bool target, int *groups_count, int *count);
 extern int getGroupsCountBoardInternal(Board *, Board *, bool target, int x, int y);
+
+
+inline Stone *operator~(Stone stone)                // Operation Overlord Logic-NOT
+{
+	return NOT(&stone);
+}
+
+inline Stone *operator&(Stone Stone1, Stone Stone2) // Operation Overlord Logic-AND
+{
+	return AND(&Stone1, &Stone2);
+}
+
+inline Stone *operator|(Stone Stone1, Stone Stone2) // Operation Overlord Logic-OR
+{
+	return OR(&Stone1, &Stone2);
+}
+
+inline Stone *operator^(Stone Stone1, Stone Stone2) // Operation Overlord Logic-XOR
+{
+	return XOR(&Stone1, &Stone2);
+}
 
 #endif

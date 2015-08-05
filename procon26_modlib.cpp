@@ -253,26 +253,6 @@ Stone *XOR(const Stone *Stone1, const Stone *Stone2)
 	return resultStone;
 }
 
-inline Stone *operator~(Stone stone)
-{
-	return NOT(&stone); 
-}
-
-inline Stone *operator&(Stone Stone1, Stone Stone2)
-{
-	return AND(&Stone1, &Stone2);
-}
-
-inline Stone *operator|(Stone Stone1, Stone Stone2)
-{
-	return OR(&Stone1, &Stone2);
-}
-
-inline Stone *operator^(Stone Stone1, Stone Stone2)
-{
-	return XOR(&Stone1, &Stone2);
-}
-
 bool isEmptyStone(const Stone *stone)
 {
 	for(int i = 0; i < STONE_SIZE; i ++)
