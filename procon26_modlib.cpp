@@ -494,3 +494,42 @@ int getGroupsStoneInternal(Stone *stone, Stone *done, Stone *result, bool target
         return 0;
     }
 }
+
+std::vector<Board *> getGroupsBoard(Board *board, bool target, int *groups_count, int *count)
+{
+    std::vector<Board *> boards;
+    *groups_count = *count = 0;
+    Board *done = cloneBoard(EMPTY_BOARD);
+    Board *result = cloneBoard(EMPTY_BOARD);
+    int tmp_count;
+    for(int x = 0; x < BOARD_SIZE; x ++){
+        for(int y = 0; y < BOARD_SIZE; y ++){
+            tmp_count = getGroupsBoardInternal(board, done, result, target, x, y);
+            if(tmp_count != 0){
+                boards.push_back(result);
+                result = cloneBoard(EMPTY_BOARD);
+                (*groups_count) ++;
+                (*count) += tmp_count;
+            }
+        }
+    }
+    if(isEmptyBoard(result)) delete result;
+    return boards;
+}
+
+int getGroupsBoardInternal(Board *board, Board *done, Board *result, bool target, int x, int y)
+{
+    if(x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE) return 0;
+    if(getCellOfBoard(done, x, y)) return 0;
+    setCellOfBoard(done, x, y, true);
+    if(getCellOfBoard(board, x, y) == target){
+        setCellOfBoard(result, x, y, true);
+        return 1 +
+            getGroupsBoardInternal(board, done, result, target, x - 1, y) +
+            getGroupsBoardInternal(board, done, result, target, x + 1, y) +
+            getGroupsBoardInternal(board, done, result, target, x, y - 1) +
+            getGroupsBoardInternal(board, done, result, target, x, y + 1);
+    }else{
+        return 0;
+    }
+}
