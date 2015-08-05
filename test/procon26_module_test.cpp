@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "../procon26_module.h"
-#include "../procon26_modlib.h"
-#include "../procon26_modio.h"
+#include "../procon26_module.hpp"
+#include "../procon26_modlib.hpp"
+#include "../procon26_modio.hpp"
 
 static const Stone *EMPTY_STONE = new Stone;
 

@@ -1,6 +1,6 @@
 #ifndef __DEF_H
 #define __DEF_H
- 
+
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -34,8 +34,8 @@ class Answer
 		int Y;
 		bool flipped;
 		int turn;	// 90 * turn;
-		
-		string toString();	
+
+		string toString();
 };
 
 struct Answers

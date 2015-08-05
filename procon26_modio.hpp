@@ -1,7 +1,7 @@
 #ifndef __DEF_IO
 #define __DEF_IO
 
-#include "procon26_module.h"
+#include "procon26_module.hpp"
 
 #define block_0    "0"
 #define block_1    "1"

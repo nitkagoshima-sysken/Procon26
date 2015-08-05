@@ -1,4 +1,4 @@
-#include "Procon26_modio.h"
+#include "Procon26_modio.hpp"
 #include <iostream>
 
 using namespace std;

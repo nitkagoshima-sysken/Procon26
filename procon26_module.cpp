@@ -1,4 +1,4 @@
-#include "procon26_module.h"
+#include "procon26_module.hpp"
 
 string Answer::toString()
 {

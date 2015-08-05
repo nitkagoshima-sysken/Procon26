@@ -1,7 +1,7 @@
 #ifndef __DEF_LIB
 #define __DEF_LIB
 
-#include "procon26_module.h"
+#include "procon26_module.hpp"
 
 extern int countBit(unsigned char);	// Count-Bit
 extern int countBitOfStone(const Stone *);// Count-Bit-Of-Stone
