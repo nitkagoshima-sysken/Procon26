@@ -418,9 +418,9 @@ void getGroupsCountStone(Stone *stone, bool target, int *groups_count, int *coun
 
 int getGroupsCountStoneInternal(Stone *stone, Stone *done, bool target, int x, int y)
 {
+    if(x < 0 || y < 0 || x >= STONE_SIZE || y >= STONE_SIZE) return 0;
     if(getCellOfStone(done, x, y)) return 0;
     setCellOfStone(done, x, y, true);
-    if(x < 0 || y < 0 || x >= STONE_SIZE || y >= STONE_SIZE) return 0;
     if(getCellOfStone(stone, x, y) == target)
         return 1 +
             getGroupsCountStoneInternal(stone, done, target, x - 1, y) +
