@@ -4,6 +4,9 @@
 #include <vector>
 #include "procon26_module.hpp"
 
+extern const Stone *EMPTY_STONE;
+extern const Board *EMPTY_BOARD;
+
 extern int countBit(unsigned char);	// Count-Bit
 extern int countBitOfStone(const Stone *);// Count-Bit-Of-Stone
 extern Stone *quarryStone(const Board *, int, int); // Cut-Stone
