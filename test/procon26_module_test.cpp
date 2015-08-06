@@ -1902,7 +1902,7 @@ TEST(procon26_module, getTouchingStone)
 
     x = 0; y = 0;
     ASSERT_TRUE(isEqualStone(
-                getTouchingStone(board, stone1, x, y), 
+                getTouchingStone(board, stone1, x, y, 0),
                 getStoneByString(
                     "01000000"
                     "00100000"
@@ -1912,10 +1912,32 @@ TEST(procon26_module, getTouchingStone)
                     "00000000"
                     "00000000"
                     "00000000")));
+    ASSERT_TRUE(isEqualStone(
+                getTouchingStone(board, stone1, x, y, 1),
+                getStoneByString(
+                    "11000000"
+                    "10100000"
+                    "10000000"
+                    "10000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000")));
 
     x = 4; y = 9;
     ASSERT_TRUE(isEqualStone(
-                getTouchingStone(board, stone2, x, y),
+                getTouchingStone(board, stone2, x, y, 0),
+                getStoneByString(
+                    "00000000"
+                    "00100000"
+                    "00010000"
+                    "00100000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000")));
+    ASSERT_TRUE(isEqualStone(
+                getTouchingStone(board, stone2, x, y, 1),
                 getStoneByString(
                     "00000000"
                     "00100000"
@@ -1927,30 +1949,48 @@ TEST(procon26_module, getTouchingStone)
                     "00000000")));
 
     x = -2; y = 15;
-    showStone(quarryStone(board, x, y));
-    showStone(getTouchingStone(board, stone2, x, y));
     ASSERT_TRUE(isEqualStone(
-                getTouchingStone(board, stone2, x, y),
+                getTouchingStone(board, stone2, x, y, 0),
                 getStoneByString(
                     "00000000"
-                    "01000000"
                     "00100000"
+                    "00010000"
                     "00000000"
                     "00000000"
                     "00000000"
                     "00000000"
                     "00000000")));
+    ASSERT_TRUE(isEqualStone(
+                getTouchingStone(board, stone2, x, y, 1),
+                getStoneByString(
+                    "00000000"
+                    "00100000"
+                    "00110000"
+                    "00100000"
+                    "00100000"
+                    "00000000"
+                    "00000000"
+                    "00000000")));
 
     x = 28; y = 28;
-    showStone(quarryStone(board, x, y));
-    showStone(getTouchingStone(board, stone3, x, y));
     ASSERT_TRUE(isEqualStone(
-                getTouchingStone(board, stone3, x, y),
+                getTouchingStone(board, stone3, x, y, 0),
                 getStoneByString(
                     "00000000"
                     "00100000"
                     "00010000"
                     "00100000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000")));
+    ASSERT_TRUE(isEqualStone(
+                getTouchingStone(board, stone3, x, y, 1),
+                getStoneByString(
+                    "00000000"
+                    "00110000"
+                    "00010000"
+                    "00110000"
                     "00000000"
                     "00000000"
                     "00000000"

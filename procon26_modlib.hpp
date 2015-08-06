@@ -25,7 +25,7 @@ extern Stone *OR(const Stone *, const Stone *);	// Logic-OR
 extern Stone *XOR(const Stone *, const Stone *);	// Logic-XOR
 extern bool isEmptyStone(const Stone *);
 extern bool isEmptyBoard(const Board *);
-extern Stone *getTouchingStone(const Board *, const Stone *, int, int);
+extern Stone *getTouchingStone(const Board *, const Stone *, int, int, bool filler = true);
 extern Board *placeStone(const Board *, const Stone *, int, int);
 extern bool canPlace(const Board *, const Stone *, int, int);
 extern int checkPlacingStone(const Board *, const Stone *, int, int);

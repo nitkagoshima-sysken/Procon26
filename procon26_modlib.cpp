@@ -274,17 +274,17 @@ bool isEmptyBoard(const Board *board)
 	return true;
 }
 
-Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y)
+Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y, bool filler)
 {
-    Stone *center = quarryStone(board, x, y);
+    Stone *center = quarryStone(board, x, y, filler);
     return AND(
             OR(
                 OR(
-                    quarryStone(board, x - 1, y),
-                    quarryStone(board, x + 1, y)),
+                    quarryStone(board, x - 1, y, filler),
+                    quarryStone(board, x + 1, y, filler)),
                 OR(
-                    quarryStone(board, x, y - 1),
-                    quarryStone(board, x, y + 1))),
+                    quarryStone(board, x, y - 1, filler),
+                    quarryStone(board, x, y + 1, filler))),
             stone);
 }
 
