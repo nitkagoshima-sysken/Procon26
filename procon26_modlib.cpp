@@ -306,19 +306,20 @@ Board *placeStone(const Board *board, const Stone *stone, int x, int y)
     return new_board;
 }
 
-bool canPlace(const Board *board, const Stone *stone, int x, int y)
+bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, int x, int y)
 {
-	if(isEmptyStone(*stone & *quarryStone(board, x, y))) return true;
+	if(isEmptyStone(*stone & *quarryStone(board, x, y)) && !(isEmptyStone(getTouchingStone(board_diff, stone, x, y, 1)))) return true;
 	return false;
 }
 
 /*
  * その場所にブロックが置ける時はいくつのブロックが触れているかを返す
  * おけない時には-1を返す
+ * board_diffにはこれまで置いたブロックのみのボードを渡す
 */
-int checkPlacingStone(const Board *board, const Stone *stone, int x, int y)
+int checkPlacingStone(const Board *board, const Board *board_diff, const Stone *stone, int x, int y)
 {
-	if(! canPlace(board, stone, x, y)) return -1;
+	if(! canPlace(board, board_diff, stone, x, y)) return -1;
 	return countBitOfStone(getTouchingStone(board, stone, x, y));
 }
 
