@@ -32,6 +32,19 @@ int countBitOfStone(const Stone *stone)
 	return sum;
 }
 
+int countBitOfBoard(const Board *board)
+{
+	int sum = 0;
+	for (int y = 0; y < BOARD_SIZE ; y++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			sum += countBit(board->block[i + y * 4]);
+		}
+	}
+	return sum;
+}
+
 Stone *quarryStone(const Board *board, int x, int y)
 {
 	int qX = x, qY = y;
