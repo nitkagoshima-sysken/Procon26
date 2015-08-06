@@ -713,6 +713,104 @@ TEST(procon26_module, quarryStone)
                     "11111111"
                     "11111111"
                 )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(
+                    board, 7, 19, 0
+                    ),
+                getStoneByString(
+                    "00100000"
+                    "00000000"
+                    "11000011"
+                    "00010110"
+                    "00000000"
+                    "00000000"
+                    "00000010"
+                    "00000000"
+                )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(
+                    board, 0, 0, 0
+                    ),
+                getStoneByString(
+                    "00100000"
+                    "00000000"
+                    "00000000"
+                    "00001000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(
+                    board, -1, -1, 0
+                    ),
+                getStoneByString(
+                    "00000000"
+                    "00010000"
+                    "00000000"
+                    "00000000"
+                    "00000100"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(
+                    board, -2, -2, 0
+                    ),
+                getStoneByString(
+                    "00000000"
+                    "00000000"
+                    "00001000"
+                    "00000000"
+                    "00000000"
+                    "00000010"
+                    "00000000"
+                    "00000000"
+                )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(
+                    board, 24, 24, 0
+                    ),
+                getStoneByString(
+                    "00000111"
+                    "00000111"
+                    "00100111"
+                    "00000111"
+                    "11111111"
+                    "11111111"
+                    "11111111"
+                    "11111111"
+                )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(
+                    board, 25, 25, 0
+                    ),
+                getStoneByString(
+                    "00001110"
+                    "01001110"
+                    "00001110"
+                    "11111110"
+                    "11111110"
+                    "11111110"
+                    "11111110"
+                    "00000000"
+                )));
+    ASSERT_TRUE(isEqualStone(
+                quarryStone(
+                    board, 26, 26, 0
+                    ),
+                getStoneByString(
+                    "10011100"
+                    "00011100"
+                    "11111100"
+                    "11111100"
+                    "11111100"
+                    "11111100"
+                    "00000000"
+                    "00000000"
+                )));
 }
 
 TEST(procon26_module, cloneBoard)

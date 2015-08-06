@@ -32,7 +32,7 @@ int countBitOfStone(const Stone *stone)
 	return sum;
 }
 
-Stone *quarryStone(const Board *board, int x, int y)
+Stone *quarryStone(const Board *board, int x, int y, bool filler)
 {
 	int qX = x, qY = y;
 	Stone *tmp;
@@ -45,10 +45,10 @@ Stone *quarryStone(const Board *board, int x, int y)
 	{
 		quarried->zuku[i] = board->block[qX / STONE_SIZE + qY * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2))] << (qX % STONE_SIZE) | board->block[qX / STONE_SIZE + qY * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2)) + 1] >> (STONE_SIZE - (qX % STONE_SIZE));
 	}
-	if(x < 0){ tmp = shiftRight(quarried, -x, 1); delete quarried; quarried = tmp;}
-	else if(x > BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE, 1); delete quarried; quarried = tmp;}
-	if(y < 0){ tmp = shiftDown(quarried, -y, 1); delete quarried; quarried = tmp;}
-	else if(y > BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE, 1); delete quarried; quarried = tmp;}
+	if(x < 0){ tmp = shiftRight(quarried, -x, filler); delete quarried; quarried = tmp;}
+	else if(x > BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE, filler); delete quarried; quarried = tmp;}
+	if(y < 0){ tmp = shiftDown(quarried, -y, filler); delete quarried; quarried = tmp;}
+	else if(y > BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE, filler); delete quarried; quarried = tmp;}
 	return quarried;
 }
 
