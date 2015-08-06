@@ -9,7 +9,7 @@ extern const Board *EMPTY_BOARD;
 
 extern int countBit(unsigned char);	// Count-Bit
 extern int countBitOfStone(const Stone *);// Count-Bit-Of-Stone
-extern Stone *quarryStone(const Board *, int, int); // Cut-Stone
+extern Stone *quarryStone(const Board *, int, int, bool filler = true); // Cut-Stone
 extern Stone *shiftUp(const Stone *, int, int filler = 0);		// Shift-Up
 extern Stone *shiftDown(const Stone *, int, int filler = 0);		// Shift-Down
 extern Stone *shiftRight(const Stone *, int, int filler = 0);		// Shift-Right
@@ -25,10 +25,10 @@ extern Stone *OR(const Stone *, const Stone *);	// Logic-OR
 extern Stone *XOR(const Stone *, const Stone *);	// Logic-XOR
 extern bool isEmptyStone(const Stone *);
 extern bool isEmptyBoard(const Board *);
-extern Stone *getTouchingStone(const Board *, const Stone *, int, int);
+extern Stone *getTouchingStone(const Board *, const Stone *, int, int, bool filler = true);
 extern Board *placeStone(const Board *, const Stone *, int, int);
-extern bool canPlace(const Board *, const Stone *, int, int);
-extern int checkPlacingStone(const Board *, const Stone *, int, int);
+extern bool canPlace(const Board *, const Board *, const Stone *, int, int);
+extern int checkPlacingStone(const Board *, const Board *, const Stone *, int, int);
 extern bool isEqualStone(const Stone *, const Stone *);
 extern Stone *cloneStone(const Stone *);
 extern bool isEqualBoard(const Board *, const Board *);
