@@ -15,10 +15,10 @@ extern Stone *shiftUp(const Stone *, int, int filler = 0);		// Shift-Up
 extern Stone *shiftDown(const Stone *, int, int filler = 0);		// Shift-Down
 extern Stone *shiftRight(const Stone *, int, int filler = 0);		// Shift-Right
 extern Stone *shiftLeft(const Stone *, int, int filler = 0);		// Shift-Left
-extern Stone *turn(const Stone *, int);	// Turn-90 * n(deg)
-extern Stone *turn90(const Stone *);		// Turn-90  (deg)
-extern Stone *turn180(const Stone *);		// Turn-180 (deg)
-extern Stone *turn270(const Stone *);		// Turn-270 (deg)
+extern Stone *rotate(const Stone *, int);	// Turn-90 * n(deg)
+extern Stone *rotate90(const Stone *);		// Turn-90  (deg)
+extern Stone *rotate180(const Stone *);		// Turn-180 (deg)
+extern Stone *rotate270(const Stone *);		// Turn-270 (deg)
 extern Stone *flip(const Stone *);		// flip
 extern Stone *NOT(const Stone *);			// Logic-NOT
 extern Stone *AND(const Stone *, const Stone *);	// Logic-AND
@@ -46,6 +46,8 @@ extern std::vector<Stone *> getGroupsStone(Stone *, bool target, int *groups_cou
 extern int getGroupsStoneInternal(Stone *, Stone *, Stone *, bool target, int x, int y);
 extern std::vector<Board *> getGroupsBoard(Board *, bool target, int *groups_count, int *count);
 extern int getGroupsBoardInternal(Board *, Board *, Board *, bool target, int x, int y);
+extern Stone *normalizeStone(const Stone *stone);
+extern std::vector<Stone *> &getStatesOfStone(const Stone *, std::vector<Stone *> &);
 
 
 inline Stone *operator~(Stone stone)                // Operation Overlord Logic-NOT
