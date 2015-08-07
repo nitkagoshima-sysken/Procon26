@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
-#include "../procon26_module.hpp"
+#include "../procon26_modlib.hpp"
 #include "../procon26_modlib.hpp"
 #include "../procon26_modio.hpp"
 
-TEST(procon26_module, isEmptyStone)
+TEST(procon26_modlib, isEmptyStone)
 {
     ASSERT_TRUE(isEmptyStone(EMPTY_STONE));
     ASSERT_FALSE(isEmptyStone(getStoneByString(
@@ -18,7 +18,7 @@ TEST(procon26_module, isEmptyStone)
                     )));
 }
 
-TEST(procon26_module, isEmptyBoard)
+TEST(procon26_modlib, isEmptyBoard)
 {
     ASSERT_TRUE(isEmptyBoard(EMPTY_BOARD));
     ASSERT_FALSE(isEmptyBoard(getBoardByString(
@@ -33,7 +33,7 @@ TEST(procon26_module, isEmptyBoard)
                     )));
 }
 
-TEST(procon26_module, isEqualStone)
+TEST(procon26_modlib, isEqualStone)
 {
     ASSERT_TRUE(isEqualStone(EMPTY_STONE, EMPTY_STONE));
     ASSERT_TRUE(isEqualStone(
@@ -60,7 +60,7 @@ TEST(procon26_module, isEqualStone)
                     ));
 }
 
-TEST(procon26_module, NOT)
+TEST(procon26_modlib, NOT)
 {
     ASSERT_TRUE(isEqualStone(
                 ~*getStoneByString(
@@ -86,7 +86,7 @@ TEST(procon26_module, NOT)
                     ));
 }
 
-TEST(procon26_module, AND)
+TEST(procon26_modlib, AND)
 {
     ASSERT_TRUE(isEqualStone(
                 *getStoneByString(
@@ -122,7 +122,7 @@ TEST(procon26_module, AND)
             ));
 }
 
-TEST(procon26_module, OR)
+TEST(procon26_modlib, OR)
 {
     ASSERT_TRUE(isEqualStone(
                 *getStoneByString(
@@ -158,7 +158,7 @@ TEST(procon26_module, OR)
             ));
 }
 
-TEST(procon26_module, XOR)
+TEST(procon26_modlib, XOR)
 {
     ASSERT_TRUE(isEqualStone(
                 *getStoneByString(
@@ -194,7 +194,7 @@ TEST(procon26_module, XOR)
             ));
 }
 
-TEST(procon26_module, shiftUp)
+TEST(procon26_modlib, shiftUp)
 {
     ASSERT_TRUE(isEqualStone(
                 getStoneByString(
@@ -286,7 +286,7 @@ TEST(procon26_module, shiftUp)
                     )));
 }
 
-TEST(procon26_module, shiftDown)
+TEST(procon26_modlib, shiftDown)
 {
     ASSERT_TRUE(isEqualStone(
                 getStoneByString(
@@ -378,7 +378,7 @@ TEST(procon26_module, shiftDown)
                     )));
 }
 
-TEST(procon26_module, shiftLeft)
+TEST(procon26_modlib, shiftLeft)
 {
     ASSERT_TRUE(isEqualStone(
                 getStoneByString(
@@ -470,7 +470,7 @@ TEST(procon26_module, shiftLeft)
                     )));
 }
 
-TEST(procon26_module, shiftRight)
+TEST(procon26_modlib, shiftRight)
 {
     ASSERT_TRUE(isEqualStone(
                 getStoneByString(
@@ -562,7 +562,7 @@ TEST(procon26_module, shiftRight)
                     )));
 }
 
-TEST(procon26_module, cloneStone)
+TEST(procon26_modlib, cloneStone)
 {
     Stone *stone = getStoneByString(
             "01110101"
@@ -579,7 +579,7 @@ TEST(procon26_module, cloneStone)
                 ));
 }
 
-TEST(procon26_module, quarryStone)
+TEST(procon26_modlib, quarryStone)
 {
     Board *board = getBoardByString(
             "00100000000100000000000000000111"
@@ -813,7 +813,7 @@ TEST(procon26_module, quarryStone)
                     )));
 }
 
-TEST(procon26_module, cloneBoard)
+TEST(procon26_modlib, cloneBoard)
 {
     Board *board = getBoardByString(
             "00100000000100000000000000000111"
@@ -854,7 +854,7 @@ TEST(procon26_module, cloneBoard)
                 ));
 }
 
-TEST(procon26_module, isEqualBoard)
+TEST(procon26_modlib, isEqualBoard)
 {
     ASSERT_TRUE(isEqualBoard(
                 getBoardByString(
@@ -927,7 +927,7 @@ TEST(procon26_module, isEqualBoard)
                 )));
 }
 
-TEST(procon26_module, placeStone)
+TEST(procon26_modlib, placeStone)
 {
     Board *board = getBoardByString(
             "00100000000100000000000000000111"
@@ -1083,7 +1083,7 @@ TEST(procon26_module, placeStone)
                     )));
 }
 
-TEST(procon26_module, getCellOfStone)
+TEST(procon26_modlib, getCellOfStone)
 {
     Stone *stone = getStoneByString(
             "01110101"
@@ -1102,7 +1102,7 @@ TEST(procon26_module, getCellOfStone)
     ASSERT_TRUE(getCellOfStone(stone, 3, 3));
 }
 
-TEST(procon26_module, getCellOfBoard)
+TEST(procon26_modlib, getCellOfBoard)
 {
     Board *board = getBoardByString(
             "00100000000100000000000000000111"
@@ -1147,7 +1147,7 @@ TEST(procon26_module, getCellOfBoard)
     ASSERT_TRUE(getCellOfBoard(board, 13, 11));
 }
 
-TEST(procon26_module, setCellOfStone)
+TEST(procon26_modlib, setCellOfStone)
 {
     Stone *stone = getStoneByString(
             "01110101"
@@ -1178,7 +1178,7 @@ TEST(procon26_module, setCellOfStone)
                     )));
 }
 
-TEST(procon26_module, setCellOfBoard)
+TEST(procon26_modlib, setCellOfBoard)
 {
     Board *board = getBoardByString(
             "00100000000100000000000000000111"
@@ -1258,7 +1258,7 @@ TEST(procon26_module, setCellOfBoard)
                     )));
 }
 
-TEST(procon26_module, getGroupsCountStone)
+TEST(procon26_modlib, getGroupsCountStone)
 {
     int groups_count = 0, count = 0;
     Stone *stone1 = getStoneByString(
@@ -1296,7 +1296,7 @@ TEST(procon26_module, getGroupsCountStone)
     ASSERT_EQ(count, 29);
 }
 
-TEST(procon26_module, getGroupsCountBoard)
+TEST(procon26_modlib, getGroupsCountBoard)
 {
     int groups_count = 0, count = 0;
     Board *board1 = getBoardByString(
@@ -1385,7 +1385,7 @@ TEST(procon26_module, getGroupsCountBoard)
     ASSERT_EQ(count, 257);
 }
 
-TEST(procon26_module, getGroupsStone)
+TEST(procon26_modlib, getGroupsStone)
 {
     std::vector<Stone *> stones;
     int groups_count = 0, count = 0;
@@ -1567,7 +1567,7 @@ TEST(procon26_module, getGroupsStone)
                     )));
 }
 
-TEST(procon26_module, getGroupsBoard)
+TEST(procon26_modlib, getGroupsBoard)
 {
     std::vector<Board *> boards;
     int groups_count = 0, count = 0;
@@ -1831,7 +1831,7 @@ TEST(procon26_module, getGroupsBoard)
                     )));
 }
 
-TEST(procon26_module, getTouchingStone)
+TEST(procon26_modlib, getTouchingStone)
 {
     Board *board = getBoardByString(
             "00100000000100000000000000000000"
