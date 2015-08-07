@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../procon26_modlib.h"
-#include "../procon26_modio.h"
+#include "../procon26_modlib.hpp"
+#include "../procon26_modio.hpp"
 
 using namespace std;
 
@@ -23,7 +23,7 @@ int main()
 	
 	// 石読み込み
 	inputStone(stones, n);
-	cout << endl;
+	//cout << endl;
 	
 	// 実際に解く
 	bool *isPut = new bool[n];
@@ -34,11 +34,12 @@ int main()
 	{
 		for (int x = -STONE_SIZE + 1; x < BOARD_SIZE; x++)
 		{
-			if (!isPut[0] && canPlace(obstacleBoard, &stones[0], x, y))
+			if (!isPut[0] && canPlace(obstacleBoard, putBoard, &stones[0], x, y))
 			{
 				putBoard = placeStone(putBoard, &stones[0], x, y);	
 				isPut[0] = true;
-				//showBoard(putBoard);
+				cout << x << " " << y << " " << "T" << " " << 0 << endl;
+				showBoard(putBoard);
 			}
 		}
 	}
@@ -47,7 +48,7 @@ int main()
 	for (int i = 1; i < n; i++)
 	{
 		// たくさん接した座標、反転、回転を記憶
-		int touching = 0, bestX, bestY, Turn;
+		int touching = -1, bestX, bestY, Turn;
 		bool canPut = false, flipped = false;
 		
 		for (int y = -STONE_SIZE + 1; y < BOARD_SIZE; y++)
@@ -57,13 +58,12 @@ int main()
 				// 回転(反転なし)
 				for (int j = 0; j < 4; j++)
 				{
-					int toutchNum_obstacle = checkPlacingStone(obstacleBoard, turn(&stones[i], j), x, y);
-					int toutchNum_put      = checkPlacingStone(putBoard, turn(&stones[i], j), x, y);
-					if ((toutchNum_obstacle > 0) && (toutchNum_put > 0))
+					int toutchNum = checkPlacingStone(obstacleBoard, putBoard, turn(&stones[i], j), x, y);
+					if (!isPut[i] && (toutchNum != -1))
 					{
-						if (touching < (toutchNum_obstacle + toutchNum_put))
+						if (touching < toutchNum)
 						{
-							touching = (toutchNum_obstacle + toutchNum_put);
+							touching = toutchNum;
 							bestX = x;
 							bestY = y;
 							Turn = j;
@@ -76,13 +76,12 @@ int main()
 				// 回転(反転あり)
 				for (int j = 0; j < 4; j++)
 				{
-					int toutchNum_obstacle = checkPlacingStone(obstacleBoard, turn(flip(&stones[i]), j), x, y);
-					int toutchNum_put      = checkPlacingStone(putBoard, turn(flip(&stones[i]), j), x, y);
-					if ((toutchNum_obstacle > 0) && (toutchNum_put > 0))
+					int toutchNum = checkPlacingStone(obstacleBoard, putBoard, turn(flip(&stones[i]), j), x, y);
+					if (!isPut[i] && (toutchNum != -1))
 					{
-						if (touching < (toutchNum_obstacle + toutchNum_put))
+						if (touching < toutchNum)
 						{
-							touching = (toutchNum_obstacle + toutchNum_put);
+							touching = toutchNum;
 							bestX = x;
 							bestY = y;
 							Turn = j;
