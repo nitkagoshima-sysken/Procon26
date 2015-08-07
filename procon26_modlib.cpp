@@ -117,28 +117,28 @@ Stone *shiftLeft(const Stone *stone, int times, int filler)
 	return dist;
 }
 
-Stone *turn(const Stone *stone, int n)
+Stone *rotate(const Stone *stone, int n)
 {
 	switch(n % 4)
 	{
 		case 1:
-			// turn90
-			return turn90(stone);
+			// rotate90
+			return rotate90(stone);
 			
 		case 2:
-			// turn180
-			return turn180(stone);
+			// rotate180
+			return rotate180(stone);
 		
 		case 3:
-			// turn270
-			return turn270(stone);
+			// rotate270
+			return rotate270(stone);
 		
 		default:
 			return cloneStone(stone);
 	}
 }
 
-Stone *turn90(const Stone *stone)
+Stone *rotate90(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;
@@ -160,7 +160,7 @@ Stone *turn90(const Stone *stone)
 	return dist;
 }
 
-Stone *turn180(const Stone *stone)
+Stone *rotate180(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;
@@ -182,7 +182,7 @@ Stone *turn180(const Stone *stone)
 	return dist;
 }
 
-Stone *turn270(const Stone *stone)
+Stone *rotate270(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;

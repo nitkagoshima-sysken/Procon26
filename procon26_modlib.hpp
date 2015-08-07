@@ -15,10 +15,10 @@ extern Stone *shiftUp(const Stone *, int, int filler = 0);		// Shift-Up
 extern Stone *shiftDown(const Stone *, int, int filler = 0);		// Shift-Down
 extern Stone *shiftRight(const Stone *, int, int filler = 0);		// Shift-Right
 extern Stone *shiftLeft(const Stone *, int, int filler = 0);		// Shift-Left
-extern Stone *turn(const Stone *, int);	// Turn-90 * n(deg)
-extern Stone *turn90(const Stone *);		// Turn-90  (deg)
-extern Stone *turn180(const Stone *);		// Turn-180 (deg)
-extern Stone *turn270(const Stone *);		// Turn-270 (deg)
+extern Stone *rotate(const Stone *, int);	// Turn-90 * n(deg)
+extern Stone *rotate90(const Stone *);		// Turn-90  (deg)
+extern Stone *rotate180(const Stone *);		// Turn-180 (deg)
+extern Stone *rotate270(const Stone *);		// Turn-270 (deg)
 extern Stone *flip(const Stone *);		// flip
 extern Stone *NOT(const Stone *);			// Logic-NOT
 extern Stone *AND(const Stone *, const Stone *);	// Logic-AND
