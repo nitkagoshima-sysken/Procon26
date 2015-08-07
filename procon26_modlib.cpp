@@ -32,6 +32,19 @@ int countBitOfStone(const Stone *stone)
 	return sum;
 }
 
+int countBitOfBoard(const Board *board)
+{
+	int sum = 0;
+	for (int y = 0; y < BOARD_SIZE ; y++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			sum += countBit(board->block[i + y * 4]);
+		}
+	}
+	return sum;
+}
+
 Stone *quarryStone(const Board *board, int x, int y, bool filler)
 {
 	int qX = x, qY = y;
@@ -277,15 +290,18 @@ bool isEmptyBoard(const Board *board)
 Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y, bool filler)
 {
     Stone *center = quarryStone(board, x, y, filler);
-    return AND(
-            OR(
-                OR(
-                    quarryStone(board, x - 1, y, filler),
-                    quarryStone(board, x + 1, y, filler)),
-                OR(
-                    quarryStone(board, x, y - 1, filler),
-                    quarryStone(board, x, y + 1, filler))),
+    Stone *a, *b, *c, *d, *e, *f, *g;
+    Stone *result = AND(
+            g = OR(
+                e = OR(
+                    a = quarryStone(board, x - 1, y, filler),
+                    b = quarryStone(board, x + 1, y, filler)),
+                f = OR(
+                    c = quarryStone(board, x, y - 1, filler),
+                    d = quarryStone(board, x, y + 1, filler))),
             stone);
+    delete a; delete b; delete c; delete d; delete e; delete f; delete g;
+    return result;
 }
 
 Board *placeStone(const Board *board, const Stone *stone, int x, int y)
@@ -308,8 +324,13 @@ Board *placeStone(const Board *board, const Stone *stone, int x, int y)
 
 bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, int x, int y)
 {
-	if(isEmptyStone(*stone & *quarryStone(board, x, y)) && !(isEmptyStone(getTouchingStone(board_diff, stone, x, y, 1)))) return true;
-	return false;
+    Stone *a, *b, *c;
+    if(isEmptyStone(a = AND(stone, b = quarryStone(board, x, y))) && !(isEmptyStone(c = getTouchingStone(board_diff, stone, x, y, 1)))){
+        delete a; delete b; delete c;
+        return true;
+    }
+    delete a; delete b;
+    return false;
 }
 
 /*

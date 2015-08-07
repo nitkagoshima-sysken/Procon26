@@ -9,6 +9,7 @@ extern const Board *EMPTY_BOARD;
 
 extern int countBit(unsigned char);	// Count-Bit
 extern int countBitOfStone(const Stone *);// Count-Bit-Of-Stone
+extern int countBitOfBoard(const Board *);// Count-Bit-Of-Board
 extern Stone *quarryStone(const Board *, int, int, bool filler = true); // Cut-Stone
 extern Stone *shiftUp(const Stone *, int, int filler = 0);		// Shift-Up
 extern Stone *shiftDown(const Stone *, int, int filler = 0);		// Shift-Down
