@@ -206,12 +206,24 @@ Stone *turn270(const Stone *stone)
 
 Stone *flip(const Stone *stone)
 {
-    Stone *dist = new Stone;
-    for (int i = 0; i < STONE_SIZE; i++)
-    {
-        dist->zuku[i] = stone->zuku[STONE_SIZE - i - 1];
-    }
-    return dist;
+	Stone *dist = new Stone;
+	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;
+
+	for (int i = 0; i < 64; i++)
+	{
+		int x = i % STONE_SIZE;
+		int y = i / STONE_SIZE;
+
+		int nx = STONE_SIZE - 1 - x;
+		int ny = y;
+
+		if ((stone->zuku[y] << x) & 128)
+		{
+			dist->zuku[ny] += 128 >> nx;
+		}
+	}
+
+	return dist;
 }
 
 Stone *NOT(const Stone *stone)

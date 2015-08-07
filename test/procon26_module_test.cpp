@@ -645,52 +645,6 @@ TEST(procon26_module, shiftRight)
                     )));
 }
 
-TEST(procon26_modlib, flip)
-{
-    ASSERT_TRUE(isEqualStone(
-                flip(getStoneByString(
-                        "11000000"
-                        "11100000"
-                        "11000000"
-                        "10000000"
-                        "00000000"
-                        "00000000"
-                        "00000000"
-                        "00000000"
-                        )),
-                getStoneByString(
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "10000000"
-                    "11000000"
-                    "11100000"
-                    "11000000"
-                    )));
-    ASSERT_TRUE(isEqualStone(
-                flip(getStoneByString(
-                        "01111101"
-                        "00011111"
-                        "00011111"
-                        "00010100"
-                        "00011000"
-                        "00011110"
-                        "00011110"
-                        "00000010"
-                        )),
-                getStoneByString(
-                    "00000010"
-                    "00011110"
-                    "00011110"
-                    "00011000"
-                    "00010100"
-                    "00011111"
-                    "00011111"
-                    "01111101"
-                    )));
-}
-
 TEST(procon26_module, cloneStone)
 {
     Stone *stone = getStoneByString(
