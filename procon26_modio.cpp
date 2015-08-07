@@ -13,7 +13,7 @@ Stone *getStoneByString(string stone)
 		for (int x = 0; x < STONE_SIZE; x++)
 		{
 			char c = stone[x + y * STONE_SIZE];
-			if (c != '0')
+			if (c == '1')
 			{
 				returnStone->zuku[y] += (0x80 >> x);
 			}
@@ -33,7 +33,7 @@ Board *getBoardByString(string board)
 			for (int x = 0; x < 8; x++)
 			{
 				char c = board[x + 8 * i  + y * BOARD_SIZE];
-				if (c != '0')
+				if (c == '1')
 				{
 					returnBoard->block[i + y * 4] += (0x80 >> x);
 				}
