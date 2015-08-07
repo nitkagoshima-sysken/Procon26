@@ -547,3 +547,31 @@ int getGroupsBoardInternal(Board *board, Board *done, Board *result, bool target
         return 0;
     }
 }
+
+Stone *normalizeStone(const Stone *stone)
+{
+    Stone *source = cloneStone(stone), *shifted1, *shifted2;
+    while(true){
+        shifted1 = shiftLeft(source, 1);
+        shifted2 = shiftRight(shifted1, 1);
+        if(! isEqualStone(source, shifted2)){
+            delete shifted1; delete shifted2;
+            break;
+        }
+        delete source;
+        delete shifted2;
+        source = shifted1;
+    }
+    while(true){
+        shifted1 = shiftUp(source, 1);
+        shifted2 = shiftDown(shifted1, 1);
+        if(! isEqualStone(source, shifted2)){
+            delete shifted1; delete shifted2;
+            break;
+        }
+        delete source;
+        delete shifted2;
+        source = shifted1;
+    }
+    return source;
+}
