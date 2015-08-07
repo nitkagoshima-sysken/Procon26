@@ -45,7 +45,7 @@ int countBitOfBoard(const Board *board)
 	return sum;
 }
 
-Stone *quarryStone(const Board *board, int x, int y)
+Stone *quarryStone(const Board *board, int x, int y, bool filler)
 {
 	int qX = x, qY = y;
 	Stone *tmp;
@@ -58,10 +58,10 @@ Stone *quarryStone(const Board *board, int x, int y)
 	{
 		quarried->zuku[i] = board->block[qX / STONE_SIZE + qY * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2))] << (qX % STONE_SIZE) | board->block[qX / STONE_SIZE + qY * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2)) + 1] >> (STONE_SIZE - (qX % STONE_SIZE));
 	}
-	if(x < 0){ tmp = shiftRight(quarried, -x, 1); delete quarried; quarried = tmp;}
-	else if(x > BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE, 1); delete quarried; quarried = tmp;}
-	if(y < 0){ tmp = shiftDown(quarried, -y, 1); delete quarried; quarried = tmp;}
-	else if(y > BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE, 1); delete quarried; quarried = tmp;}
+	if(x < 0){ tmp = shiftRight(quarried, -x, filler); delete quarried; quarried = tmp;}
+	else if(x > BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE, filler); delete quarried; quarried = tmp;}
+	if(y < 0){ tmp = shiftDown(quarried, -y, filler); delete quarried; quarried = tmp;}
+	else if(y > BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE, filler); delete quarried; quarried = tmp;}
 	return quarried;
 }
 
@@ -287,17 +287,17 @@ bool isEmptyBoard(const Board *board)
 	return true;
 }
 
-Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y)
+Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y, bool filler)
 {
-    Stone *center = quarryStone(board, x, y);
+    Stone *center = quarryStone(board, x, y, filler);
     return AND(
             OR(
                 OR(
-                    quarryStone(board, x - 1, y),
-                    quarryStone(board, x + 1, y)),
+                    quarryStone(board, x - 1, y, filler),
+                    quarryStone(board, x + 1, y, filler)),
                 OR(
-                    quarryStone(board, x, y - 1),
-                    quarryStone(board, x, y + 1))),
+                    quarryStone(board, x, y - 1, filler),
+                    quarryStone(board, x, y + 1, filler))),
             stone);
 }
 
@@ -319,19 +319,20 @@ Board *placeStone(const Board *board, const Stone *stone, int x, int y)
     return new_board;
 }
 
-bool canPlace(const Board *board, const Stone *stone, int x, int y)
+bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, int x, int y)
 {
-	if(isEmptyStone(*stone & *quarryStone(board, x, y))) return true;
+	if(isEmptyStone(*stone & *quarryStone(board, x, y)) && !(isEmptyStone(getTouchingStone(board_diff, stone, x, y, 1)))) return true;
 	return false;
 }
 
 /*
  * その場所にブロックが置ける時はいくつのブロックが触れているかを返す
  * おけない時には-1を返す
+ * board_diffにはこれまで置いたブロックのみのボードを渡す
 */
-int checkPlacingStone(const Board *board, const Stone *stone, int x, int y)
+int checkPlacingStone(const Board *board, const Board *board_diff, const Stone *stone, int x, int y)
 {
-	if(! canPlace(board, stone, x, y)) return -1;
+	if(! canPlace(board, board_diff, stone, x, y)) return -1;
 	return countBitOfStone(getTouchingStone(board, stone, x, y));
 }
 
