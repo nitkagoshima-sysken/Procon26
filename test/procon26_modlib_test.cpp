@@ -645,7 +645,7 @@ TEST(procon26_modlib, shiftRight)
                     )));
 }
 
-TEST(procon26_modlib, turn90)
+TEST(procon26_modlib, rotate90)
 {
     Stone *stone = getStoneByString(
             "01110101"
@@ -657,8 +657,8 @@ TEST(procon26_modlib, turn90)
             "00000000"
             "00000000"
             );
-    stone = turn90(stone);
-    ASSERT_TRUE(isEqualStone(stone,
+    ASSERT_TRUE(isEqualStone(
+                stone = rotate90(stone),
                 getStoneByString(
                     "00000000"
                     "00000001"
@@ -668,9 +668,10 @@ TEST(procon26_modlib, turn90)
                     "00001111"
                     "00000110"
                     "00000111"
-                    )));
-    stone = turn90(stone);
-    ASSERT_TRUE(isEqualStone(stone,
+                    )
+                ));
+    ASSERT_TRUE(isEqualStone(
+                stone = rotate90(stone),
                 getStoneByString(
                     "00000000"
                     "00000000"
@@ -680,9 +681,10 @@ TEST(procon26_modlib, turn90)
                     "11111000"
                     "11111000"
                     "10101110"
-                    )));
-    stone = turn90(stone);
-    ASSERT_TRUE(isEqualStone(stone,
+                    )
+                ));
+    ASSERT_TRUE(isEqualStone(
+                stone = rotate90(stone),
                 getStoneByString(
                     "11100000"
                     "01100000"
@@ -692,9 +694,10 @@ TEST(procon26_modlib, turn90)
                     "10000000"
                     "10000000"
                     "00000000"
-                    )));
-    stone = turn90(stone);
-    ASSERT_TRUE(isEqualStone(stone,
+                    )
+                ));
+    ASSERT_TRUE(isEqualStone(
+                stone = rotate90(stone),
                 getStoneByString(
                     "01110101"
                     "00011111"
@@ -704,10 +707,11 @@ TEST(procon26_modlib, turn90)
                     "00000000"
                     "00000000"
                     "00000000"
-                    )));
+                    )
+                ));
 }
 
-TEST(procon26_modlib, turn180)
+TEST(procon26_modlib, rotate180)
 {
     Stone *stone = getStoneByString(
             "01110101"
@@ -719,8 +723,8 @@ TEST(procon26_modlib, turn180)
             "00000000"
             "00000000"
             );
-    stone = turn180(stone);
-    ASSERT_TRUE(isEqualStone(stone,
+    ASSERT_TRUE(isEqualStone(
+                stone = rotate180(stone),
                 getStoneByString(
                     "00000000"
                     "00000000"
@@ -730,9 +734,10 @@ TEST(procon26_modlib, turn180)
                     "11111000"
                     "11111000"
                     "10101110"
-                    )));
-    stone = turn180(stone);
-    ASSERT_TRUE(isEqualStone(stone,
+                    )
+                ));
+    ASSERT_TRUE(isEqualStone(
+                stone = rotate180(stone),
                 getStoneByString(
                     "01110101"
                     "00011111"
@@ -742,10 +747,11 @@ TEST(procon26_modlib, turn180)
                     "00000000"
                     "00000000"
                     "00000000"
-                    )));
+                    )
+                ));
 }
 
-TEST(procon26_modlib, turn270)
+TEST(procon26_modlib, rotate270)
 {
     Stone *stone = getStoneByString(
             "01110101"
@@ -757,8 +763,8 @@ TEST(procon26_modlib, turn270)
             "00000000"
             "00000000"
             );
-    stone = turn270(stone);
-    ASSERT_TRUE(isEqualStone(stone,
+    ASSERT_TRUE(isEqualStone(
+                stone = rotate270(stone),
                 getStoneByString(
                     "11100000"
                     "01100000"
@@ -768,9 +774,10 @@ TEST(procon26_modlib, turn270)
                     "10000000"
                     "10000000"
                     "00000000"
-                    )));
-    stone = turn270(stone);
-    ASSERT_TRUE(isEqualStone(stone,
+                    )
+                ));
+    ASSERT_TRUE(isEqualStone(
+                stone = rotate270(stone),
                 getStoneByString(
                     "00000000"
                     "00000000"
@@ -780,9 +787,10 @@ TEST(procon26_modlib, turn270)
                     "11111000"
                     "11111000"
                     "10101110"
-                    )));
-    stone = turn270(stone);
-    ASSERT_TRUE(isEqualStone(stone,
+                    )
+                ));
+    ASSERT_TRUE(isEqualStone(
+                stone = rotate270(stone),
                 getStoneByString(
                     "00000000"
                     "00000001"
@@ -792,9 +800,10 @@ TEST(procon26_modlib, turn270)
                     "00001111"
                     "00000110"
                     "00000111"
-                    )));
-    stone = turn270(stone);
-    ASSERT_TRUE(isEqualStone(stone,
+                    )
+                ));
+    ASSERT_TRUE(isEqualStone(
+                stone = rotate270(stone),
                 getStoneByString(
                     "01110101"
                     "00011111"
@@ -804,11 +813,22 @@ TEST(procon26_modlib, turn270)
                     "00000000"
                     "00000000"
                     "00000000"
-                    )));
+                    )
+                ));
 }
 
-TEST(procon26_modlib, turn)
+TEST(procon26_modlib, rotate)
 {
+    Stone *stone = getStoneByString(
+            "01110101"
+            "00011111"
+            "00011111"
+            "00000100"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
     Stone *stone1 = getStoneByString(
             "01110101"
             "00011111"
@@ -849,26 +869,18 @@ TEST(procon26_modlib, turn)
             "10000000"
             "00000000"
             );
-    Stone *stone;
-    stone = turn(stone1, 1);
-    ASSERT_TRUE(isEqualStone(stone, stone2));
-    stone = turn(stone1, 2);
-    ASSERT_TRUE(isEqualStone(stone, stone3));
-    stone = turn(stone1, 3);
-    ASSERT_TRUE(isEqualStone(stone, stone4));
-    stone = turn(stone1, 4);
-    ASSERT_TRUE(isEqualStone(stone, stone1));
-    stone = turn(stone1, 5);
-    ASSERT_TRUE(isEqualStone(stone, stone2));
-    stone = turn(stone1, 6);
-    ASSERT_TRUE(isEqualStone(stone, stone3));
-    stone = turn(stone1, 7);
-    ASSERT_TRUE(isEqualStone(stone, stone4));
-    stone = turn(stone1, 8);
-    ASSERT_TRUE(isEqualStone(stone, stone1));
+    ASSERT_TRUE(isEqualStone(rotate(stone, 0), stone1));
+    ASSERT_TRUE(isEqualStone(rotate(stone, 1), stone2));
+    ASSERT_TRUE(isEqualStone(rotate(stone, 2), stone3));
+    ASSERT_TRUE(isEqualStone(rotate(stone, 3), stone4));
+    ASSERT_TRUE(isEqualStone(rotate(stone, 4), stone1));
+    ASSERT_TRUE(isEqualStone(rotate(stone, 5), stone2));
+    ASSERT_TRUE(isEqualStone(rotate(stone, 6), stone3));
+    ASSERT_TRUE(isEqualStone(rotate(stone, 7), stone4));
+    ASSERT_TRUE(isEqualStone(rotate(stone, 8), stone1));
 }
 
-TEST(procon26_modlib, cloneStone)
+TEST(procon26_module, cloneStone)
 {
     Stone *stone = getStoneByString(
             "01110101"
@@ -2419,4 +2431,201 @@ TEST(procon26_modlib, canPlace)
     ASSERT_FALSE(canPlace(board1, board2, stone1, 26, 6));
     ASSERT_TRUE(canPlace(board1, board2, stone1, 26, 7));
     ASSERT_TRUE(canPlace(board1, board2, stone1, 26, 8));
+}
+
+TEST(procon26_modlib, normalizeStone)
+{
+    ASSERT_TRUE(isEqualStone(
+                normalizeStone(getStoneByString(
+                        "00000000"
+                        "00110000"
+                        "00010000"
+                        "00110000"
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        )),
+                getStoneByString(
+                    "11000000"
+                    "01000000"
+                    "11000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                normalizeStone(getStoneByString(
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        "11000000"
+                        "01000000"
+                        "11000000"
+                        )),
+                getStoneByString(
+                    "11000000"
+                    "01000000"
+                    "11000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                normalizeStone(getStoneByString(
+                        "00000011"
+                        "00000001"
+                        "00000011"
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        )),
+                getStoneByString(
+                    "11000000"
+                    "01000000"
+                    "11000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+    ASSERT_TRUE(isEqualStone(
+                normalizeStone(getStoneByString(
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        "00000000"
+                        "00000011"
+                        "00000001"
+                        "00000011"
+                        )),
+                getStoneByString(
+                    "11000000"
+                    "01000000"
+                    "11000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+}
+
+TEST(procon26_modlib, getStatesOfStone)
+{
+    std::vector<Stone *> states;
+    Stone *stone1 = getStoneByString(
+            "00000000"
+            "00111000"
+            "00010000"
+            "00110000"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    getStatesOfStone(stone1, states);
+    ASSERT_EQ(states.size(), 8);
+    ASSERT_TRUE(isEqualStone(states[0], stone1));
+    ASSERT_TRUE(isEqualStone(states[1], rotate90(stone1)));
+    ASSERT_TRUE(isEqualStone(states[2], rotate180(stone1)));
+    ASSERT_TRUE(isEqualStone(states[3], rotate270(stone1)));
+    ASSERT_TRUE(isEqualStone(states[4], flip(stone1)));
+    ASSERT_TRUE(isEqualStone(states[5], rotate90(flip(stone1))));
+    ASSERT_TRUE(isEqualStone(states[6], rotate180(flip(stone1))));
+    ASSERT_TRUE(isEqualStone(states[7], rotate270(flip(stone1))));
+    states.clear();
+
+    Stone *stone2 = getStoneByString(
+            "00000000"
+            "00110000"
+            "00010000"
+            "00011000"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    getStatesOfStone(stone2, states);
+    ASSERT_EQ(states.size(), 4);
+    ASSERT_TRUE(isEqualStone(states[0], stone2));
+    ASSERT_TRUE(isEqualStone(states[1], rotate90(stone2)));
+    ASSERT_TRUE(isEqualStone(states[2], flip(stone2)));
+    ASSERT_TRUE(isEqualStone(states[3], rotate90(flip(stone2))));
+    states.clear();
+
+    Stone *stone3 = getStoneByString(
+            "00100000"
+            "00111100"
+            "00111000"
+            "01111000"
+            "00001000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    getStatesOfStone(stone3, states);
+    ASSERT_EQ(states.size(), 2);
+    ASSERT_TRUE(isEqualStone(states[0], stone3));
+    ASSERT_TRUE(isEqualStone(states[1], flip(stone3)));
+    states.clear();
+
+    Stone *stone4 = getStoneByString(
+            "00000000"
+            "00111000"
+            "00010000"
+            "01111100"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    getStatesOfStone(stone4, states);
+    ASSERT_EQ(states.size(), 4);
+    ASSERT_TRUE(isEqualStone(states[0], stone4));
+    ASSERT_TRUE(isEqualStone(states[1], rotate90(stone4)));
+    ASSERT_TRUE(isEqualStone(states[2], rotate180(stone4)));
+    ASSERT_TRUE(isEqualStone(states[3], rotate270(stone4)));
+    states.clear();
+
+    Stone *stone5 = getStoneByString(
+            "00000000"
+            "00111000"
+            "00010000"
+            "00111000"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    getStatesOfStone(stone5, states);
+    ASSERT_EQ(states.size(), 2);
+    ASSERT_TRUE(isEqualStone(states[0], stone5));
+    ASSERT_TRUE(isEqualStone(states[1], rotate90(stone5)));
+    states.clear();
+
+    Stone *stone6 = getStoneByString(
+            "00000000"
+            "00010000"
+            "00111000"
+            "00010000"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    getStatesOfStone(stone6, states);
+    ASSERT_EQ(states.size(), 1);
+    ASSERT_TRUE(isEqualStone(states[0], stone6));
+    states.clear();
 }
