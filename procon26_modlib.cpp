@@ -322,12 +322,17 @@ Board *placeStone(const Board *board, const Stone *stone, int x, int y)
     return new_board;
 }
 
-bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, int x, int y)
+bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, int x, int y, bool first)
 {
     Stone *a, *b, *c;
-    if(isEmptyStone(a = AND(stone, b = quarryStone(board, x, y))) && !(isEmptyStone(c = getTouchingStone(board_diff, stone, x, y, 1)))){
-        delete a; delete b; delete c;
-        return true;
+    if(isEmptyStone(a = AND(stone, b = quarryStone(board, x, y)))){
+        delete a; delete b;
+        if(first){
+            return true;
+        }else if(! isEmptyStone(c = getTouchingStone(board_diff, stone, x, y, 1))){
+            delete c;
+            return true;
+        }
     }
     delete a; delete b;
     return false;

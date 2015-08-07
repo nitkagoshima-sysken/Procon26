@@ -2395,29 +2395,12 @@ TEST(procon26_modlib, canPlace)
             "00000000"
             "00000000"
             );
-    Stone *stone2 = getStoneByString(
-            "00000000"
-            "00100000"
-            "00110000"
-            "00100000"
-            "00100000"
-            "00000000"
-            "00000000"
-            "00000000"
-            );
-    Stone *stone3 = getStoneByString(
-            "00000000"
-            "00110000"
-            "00010000"
-            "00110000"
-            "00000000"
-            "00000000"
-            "00000000"
-            "00000000"
-            );
     ASSERT_FALSE(canPlace(board1, board2, stone1, 1, 1));
+    ASSERT_TRUE(canPlace(board1, board2, stone1, 1, 1, true));
     ASSERT_TRUE(canPlace(board1, board2, stone1, 7, 1));
     ASSERT_FALSE(canPlace(board1, board2, stone1, 8, 1));
+    ASSERT_TRUE(canPlace(board1, board2, stone1, 7, 1, 1));
+    ASSERT_FALSE(canPlace(board1, board2, stone1, 8, 1, 1));
     ASSERT_TRUE(canPlace(board1, board2, stone1, 19, 8));
     ASSERT_FALSE(canPlace(board1, board2, stone1, 19, 9));
     ASSERT_FALSE(canPlace(board1, board2, stone1, 11, 16));
@@ -2428,7 +2411,9 @@ TEST(procon26_modlib, canPlace)
     ASSERT_FALSE(canPlace(board1, board2, stone1, 25, 6));
     ASSERT_TRUE(canPlace(board1, board2, stone1, 25, 7));
     ASSERT_FALSE(canPlace(board1, board2, stone1, 25, 8));
+    ASSERT_TRUE(canPlace(board1, board2, stone1, 25, 8, 1));
     ASSERT_FALSE(canPlace(board1, board2, stone1, 26, 6));
+    ASSERT_FALSE(canPlace(board1, board2, stone1, 26, 6, 1));
     ASSERT_TRUE(canPlace(board1, board2, stone1, 26, 7));
     ASSERT_TRUE(canPlace(board1, board2, stone1, 26, 8));
 }

@@ -28,7 +28,7 @@ extern bool isEmptyStone(const Stone *);
 extern bool isEmptyBoard(const Board *);
 extern Stone *getTouchingStone(const Board *, const Stone *, int, int, bool filler = true);
 extern Board *placeStone(const Board *, const Stone *, int, int);
-extern bool canPlace(const Board *, const Board *, const Stone *, int, int);
+extern bool canPlace(const Board *, const Board *, const Stone *, int, int, bool first = false);
 extern int checkPlacingStone(const Board *, const Board *, const Stone *, int, int);
 extern bool isEqualStone(const Stone *, const Stone *);
 extern Stone *cloneStone(const Stone *);
