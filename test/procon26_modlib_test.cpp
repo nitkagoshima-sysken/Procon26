@@ -562,6 +562,229 @@ TEST(procon26_modlib, shiftRight)
                     )));
 }
 
+TEST(procon26_modlib, turn90)
+{
+    Stone *stone = getStoneByString(
+            "01110101"
+            "00011111"
+            "00011111"
+            "00000100"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    stone = turn90(stone);
+    ASSERT_TRUE(isEqualStone(stone,
+                getStoneByString(
+                    "00000000"
+                    "00000001"
+                    "00000001"
+                    "00000111"
+                    "00000110"
+                    "00001111"
+                    "00000110"
+                    "00000111"
+                    )));
+    stone = turn90(stone);
+    ASSERT_TRUE(isEqualStone(stone,
+                getStoneByString(
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00100000"
+                    "11111000"
+                    "11111000"
+                    "10101110"
+                    )));
+    stone = turn90(stone);
+    ASSERT_TRUE(isEqualStone(stone,
+                getStoneByString(
+                    "11100000"
+                    "01100000"
+                    "11110000"
+                    "01100000"
+                    "11100000"
+                    "10000000"
+                    "10000000"
+                    "00000000"
+                    )));
+    stone = turn90(stone);
+    ASSERT_TRUE(isEqualStone(stone,
+                getStoneByString(
+                    "01110101"
+                    "00011111"
+                    "00011111"
+                    "00000100"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+}
+
+TEST(procon26_modlib, turn180)
+{
+    Stone *stone = getStoneByString(
+            "01110101"
+            "00011111"
+            "00011111"
+            "00000100"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    stone = turn180(stone);
+    ASSERT_TRUE(isEqualStone(stone,
+                getStoneByString(
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00100000"
+                    "11111000"
+                    "11111000"
+                    "10101110"
+                    )));
+    stone = turn180(stone);
+    ASSERT_TRUE(isEqualStone(stone,
+                getStoneByString(
+                    "01110101"
+                    "00011111"
+                    "00011111"
+                    "00000100"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+}
+
+TEST(procon26_modlib, turn270)
+{
+    Stone *stone = getStoneByString(
+            "01110101"
+            "00011111"
+            "00011111"
+            "00000100"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    stone = turn270(stone);
+    ASSERT_TRUE(isEqualStone(stone,
+                getStoneByString(
+                    "11100000"
+                    "01100000"
+                    "11110000"
+                    "01100000"
+                    "11100000"
+                    "10000000"
+                    "10000000"
+                    "00000000"
+                    )));
+    stone = turn270(stone);
+    ASSERT_TRUE(isEqualStone(stone,
+                getStoneByString(
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00100000"
+                    "11111000"
+                    "11111000"
+                    "10101110"
+                    )));
+    stone = turn270(stone);
+    ASSERT_TRUE(isEqualStone(stone,
+                getStoneByString(
+                    "00000000"
+                    "00000001"
+                    "00000001"
+                    "00000111"
+                    "00000110"
+                    "00001111"
+                    "00000110"
+                    "00000111"
+                    )));
+    stone = turn270(stone);
+    ASSERT_TRUE(isEqualStone(stone,
+                getStoneByString(
+                    "01110101"
+                    "00011111"
+                    "00011111"
+                    "00000100"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    "00000000"
+                    )));
+}
+
+TEST(procon26_modlib, turn)
+{
+    Stone *stone1 = getStoneByString(
+            "01110101"
+            "00011111"
+            "00011111"
+            "00000100"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    Stone *stone2 = getStoneByString(
+            "00000000"
+            "00000001"
+            "00000001"
+            "00000111"
+            "00000110"
+            "00001111"
+            "00000110"
+            "00000111"
+            );
+    Stone *stone3 = getStoneByString(
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00100000"
+            "11111000"
+            "11111000"
+            "10101110"
+            );
+    Stone *stone4 = getStoneByString(
+            "11100000"
+            "01100000"
+            "11110000"
+            "01100000"
+            "11100000"
+            "10000000"
+            "10000000"
+            "00000000"
+            );
+    Stone *stone;
+    stone = turn(stone1, 1);
+    ASSERT_TRUE(isEqualStone(stone, stone2));
+    stone = turn(stone1, 2);
+    ASSERT_TRUE(isEqualStone(stone, stone3));
+    stone = turn(stone1, 3);
+    ASSERT_TRUE(isEqualStone(stone, stone4));
+    stone = turn(stone1, 4);
+    ASSERT_TRUE(isEqualStone(stone, stone1));
+    stone = turn(stone1, 5);
+    ASSERT_TRUE(isEqualStone(stone, stone2));
+    stone = turn(stone1, 6);
+    ASSERT_TRUE(isEqualStone(stone, stone3));
+    stone = turn(stone1, 7);
+    ASSERT_TRUE(isEqualStone(stone, stone4));
+    stone = turn(stone1, 8);
+    ASSERT_TRUE(isEqualStone(stone, stone1));
+}
+
 TEST(procon26_modlib, cloneStone)
 {
     Stone *stone = getStoneByString(
