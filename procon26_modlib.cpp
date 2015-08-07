@@ -334,7 +334,6 @@ bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, i
             return true;
         }
     }
-    delete a; delete b;
     return false;
 }
 
