@@ -47,7 +47,7 @@ extern int getGroupsStoneInternal(Stone *, Stone *, Stone *, bool target, int x,
 extern void getGroupsBoard(Board *, bool target, std::vector<Board *> &, int *groups_count, int *count);
 extern int getGroupsBoardInternal(Board *, Board *, Board *, bool target, int x, int y);
 extern Stone *normalizeStone(const Stone *stone);
-extern std::vector<Stone *> &getStatesOfStone(const Stone *, std::vector<Stone *> &);
+extern void getStatesOfStone(const Stone *, std::vector<Stone *> &);
 
 
 inline Stone *operator~(Stone stone)                // Operation Overlord Logic-NOT

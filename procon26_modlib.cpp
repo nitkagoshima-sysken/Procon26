@@ -580,7 +580,7 @@ Stone *normalizeStone(const Stone *stone)
     return source;
 }
 
-std::vector<Stone *> &getStatesOfStone(const Stone *source, std::vector<Stone *> &states)
+void getStatesOfStone(const Stone *source, std::vector<Stone *> &states)
 {
     Stone *stone, *stone90, *stone180, *stone270, *flipped_stone, *flipped_stone90, *flipped_stone180, *flipped_stone270;
     Stone *stone_n, *stone90_n, *stone180_n, *stone270_n, *flipped_stone_n, *flipped_stone90_n, *flipped_stone180_n, *flipped_stone270_n;
@@ -594,34 +594,28 @@ std::vector<Stone *> &getStatesOfStone(const Stone *source, std::vector<Stone *>
             states.push_back(stone);
             delete stone90; delete stone180; delete stone270; delete flipped_stone;
             delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
-            return states;
         }else if(isEqualStone(stone_n, stone180_n)){
             states.push_back(stone); states.push_back(stone90);
             delete stone180; delete stone270; delete flipped_stone;
             delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
-            return states;
         }else{
             states.push_back(stone); states.push_back(stone90); states.push_back(stone180); states.push_back(stone270);
             delete flipped_stone;
             delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
-            return states;
         }
     }else{
         if(isEqualStone(stone_n, stone90_n)){
             states.push_back(stone); states.push_back(flipped_stone);
             delete stone90; delete stone180; delete stone270;
             delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
-            return states;
         }else if(isEqualStone(stone_n, stone180_n)){
             states.push_back(stone); states.push_back(stone90); states.push_back(flipped_stone); states.push_back(rotate90(flipped_stone));
             delete stone180; delete stone270;
             delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
-            return states;
         }else{
             states.push_back(stone); states.push_back(stone90); states.push_back(stone180); states.push_back(stone270);
             states.push_back(flipped_stone); states.push_back(rotate90(flipped_stone)); states.push_back(rotate180(flipped_stone)); states.push_back(rotate270(flipped_stone));
             delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
-            return states;
         }
     }
 }
