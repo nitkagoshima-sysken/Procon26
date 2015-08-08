@@ -478,9 +478,8 @@ int getGroupsCountBoardInternal(Board *board, Board *done, bool target, int x, i
         return 0;
 }
 
-std::vector<Stone *> getGroupsStone(Stone *stone, bool target, int *groups_count, int *count)
+void getGroupsStone(Stone *stone, bool target, std::vector<Stone *> &stones, int *groups_count, int *count)
 {
-    std::vector<Stone *> stones;
     *groups_count = *count = 0;
     Stone *done = cloneStone(EMPTY_STONE);
     Stone *result = cloneStone(EMPTY_STONE);
@@ -497,7 +496,6 @@ std::vector<Stone *> getGroupsStone(Stone *stone, bool target, int *groups_count
         }
     }
     if(isEmptyStone(result)) delete result;
-    return stones;
 }
 
 int getGroupsStoneInternal(Stone *stone, Stone *done, Stone *result, bool target, int x, int y)
@@ -517,9 +515,8 @@ int getGroupsStoneInternal(Stone *stone, Stone *done, Stone *result, bool target
     }
 }
 
-std::vector<Board *> getGroupsBoard(Board *board, bool target, int *groups_count, int *count)
+void getGroupsBoard(Board *board, bool target, std::vector<Board *> &boards, int *groups_count, int *count)
 {
-    std::vector<Board *> boards;
     *groups_count = *count = 0;
     Board *done = cloneBoard(EMPTY_BOARD);
     Board *result = cloneBoard(EMPTY_BOARD);
@@ -536,7 +533,6 @@ std::vector<Board *> getGroupsBoard(Board *board, bool target, int *groups_count
         }
     }
     if(isEmptyBoard(result)) delete result;
-    return boards;
 }
 
 int getGroupsBoardInternal(Board *board, Board *done, Board *result, bool target, int x, int y)

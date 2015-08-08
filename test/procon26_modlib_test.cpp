@@ -1717,7 +1717,7 @@ TEST(procon26_modlib, getGroupsStone)
             "   1111 "
             "      1 "
             );
-    stones = getGroupsStone(stone1, 0, &groups_count, &count);
+    getGroupsStone(stone1, 0, stones, &groups_count, &count);
     ASSERT_EQ(groups_count, 4);
     ASSERT_EQ(count, 37);
     ASSERT_TRUE(isEqualStone(
@@ -1768,7 +1768,8 @@ TEST(procon26_modlib, getGroupsStone)
                     "        "
                     "        "
                     )));
-    stones = getGroupsStone(stone1, 1, &groups_count, &count);
+    stones.clear();
+    getGroupsStone(stone1, 1, stones, &groups_count, &count);
     ASSERT_EQ(groups_count, 3);
     ASSERT_EQ(count, 27);
     ASSERT_TRUE(isEqualStone(
@@ -1817,7 +1818,8 @@ TEST(procon26_modlib, getGroupsStone)
             "   1111 "
             "      1 "
             );
-    stones = getGroupsStone(stone2, 0, &groups_count, &count);
+    stones.clear();
+    getGroupsStone(stone2, 0, stones, &groups_count, &count);
     ASSERT_EQ(groups_count, 4);
     ASSERT_EQ(count, 35);
     ASSERT_TRUE(isEqualStone(
@@ -1868,7 +1870,8 @@ TEST(procon26_modlib, getGroupsStone)
                     "        "
                     "        "
                     )));
-    stones = getGroupsStone(stone2, 1, &groups_count, &count);
+    stones.clear();
+    getGroupsStone(stone2, 1, stones, &groups_count, &count);
     ASSERT_EQ(groups_count, 1);
     ASSERT_EQ(count, 29);
     ASSERT_TRUE(isEqualStone(
@@ -1924,7 +1927,7 @@ TEST(procon26_modlib, getGroupsBoard)
             "11111111111111111111111111111111"
             );
     groups_count = 0; count = 0;
-    boards = getGroupsBoard(board1, 0, &groups_count, &count);
+    getGroupsBoard(board1, 0, boards, &groups_count, &count);
     ASSERT_EQ(groups_count, 3);
     ASSERT_EQ(count, 684);
     ASSERT_TRUE(isEqualBoard(
@@ -2036,7 +2039,8 @@ TEST(procon26_modlib, getGroupsBoard)
                     "                                "
                     )));
     groups_count = 0; count = 0;
-    boards = getGroupsBoard(board1, 1, &groups_count, &count);
+    boards.clear();
+    getGroupsBoard(board1, 1, boards, &groups_count, &count);
     ASSERT_EQ(groups_count, 3);
     ASSERT_EQ(count, 340);
     ASSERT_TRUE(isEqualBoard(
