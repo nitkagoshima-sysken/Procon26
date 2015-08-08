@@ -236,32 +236,32 @@ Stone *NOT(const Stone *stone)
 	return resultStone;
 }
 
-Stone *AND(const Stone *Stone1, const Stone *Stone2)
+Stone *AND(const Stone *stone1, const Stone *stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
 	{
-		resultStone->zuku[i] = Stone1->zuku[i] & Stone2->zuku[i];
+		resultStone->zuku[i] = stone1->zuku[i] & stone2->zuku[i];
 	}
 	return resultStone;
 }
 
-Stone *OR(const Stone *Stone1, const Stone *Stone2)
+Stone *OR(const Stone *stone1, const Stone *stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
 	{
-		resultStone->zuku[i] = Stone1->zuku[i] | Stone2->zuku[i];
+		resultStone->zuku[i] = stone1->zuku[i] | stone2->zuku[i];
 	}
 	return resultStone;
 }
 
-Stone *XOR(const Stone *Stone1, const Stone *Stone2)
+Stone *XOR(const Stone *stone1, const Stone *stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
 	{
-		resultStone->zuku[i] = Stone1->zuku[i] ^ Stone2->zuku[i];
+		resultStone->zuku[i] = stone1->zuku[i] ^ stone2->zuku[i];
 	}
 	return resultStone;
 }
