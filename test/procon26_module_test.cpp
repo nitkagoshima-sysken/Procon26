@@ -2196,4 +2196,6 @@ TEST(procon26_modlib, canPlace)
     ASSERT_FALSE(canPlace(board1, board2, stone1, 26, 6));
     ASSERT_TRUE(canPlace(board1, board2, stone1, 26, 7));
     ASSERT_TRUE(canPlace(board1, board2, stone1, 26, 8));
+    ASSERT_TRUE(canPlace(board1, board2, stone1, 0, 1));
+    ASSERT_TRUE(canPlace(board1, board2, stone1, 0, 23));
 }
