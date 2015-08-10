@@ -329,7 +329,7 @@ bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, i
         delete a; delete b;
         if(first){
             return true;
-        }else if(! isEmptyStone(c = getTouchingStone(board_diff, stone, x, y, 1))){
+        }else if(! isEmptyStone(c = getTouchingStone(board_diff, stone, x, y, 0))){
             delete c;
             return true;
         }
