@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -49,6 +50,26 @@ class Answer
 struct Answers
 {
 	vector<Answer> answers;
+};
+
+class StonePicker
+{
+    private:
+        static const int MAX = 32;
+        unsigned int dropStones;
+        unsigned int dropStonesMax;
+        int num;
+        int sum;
+        int blanks;
+        std::vector<std::vector<State *> > stones;
+        std::vector<int> indexes;
+        std::vector<int> zukus;
+        void sortStones();
+        int getSum();
+        void getStones(std::vector<std::vector<State *> > &stones);
+    public:
+        StonePicker(std::vector<std::vector<State *> > stones, std::vector<int> zukus, int blanks);
+        void getNext(std::vector<std::vector<State *> > &stones);
 };
 
 #endif
