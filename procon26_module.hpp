@@ -49,4 +49,20 @@ struct Answers
 	vector<Answer> answers;
 };
 
+class StonePicker{
+    private:
+        static const int MAX = 32;
+        unsigned int dropStones;
+        int sum;
+        int blanks;
+        std::vector<Stone *> stones;
+        std::vector<int> zukus;
+        void sortStones();
+        int getSum();
+        void getStones(std::vector<Stone *> &stones);
+    public:
+        StonePicker(std::vector<Stone *> stones, std::vector<int> zukus, int blanks);
+        void getNext(std::vector<Stone *> &stones);
+};
+
 #endif
