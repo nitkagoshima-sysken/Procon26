@@ -52,7 +52,10 @@ extern void getStatesOfStone(const Stone *, std::vector<State *> &);
 extern void convertStonesToVectorOfStates(Stone *, int, std::vector<std::vector<State *> > &);
 double evalBoard(Board *board);
 extern int countScore(Answers &ans, Problem &prob);
-
+extern Board *BoardNOT(const Board *board);
+extern Board *BoardAND(const Board *Board1, const Board *Board2);
+extern Board *BoardOR(const Board *Board1, const Board *Board2);
+extern Board *BoardXOR(const Board *Board1, const Board *Board2);
 
 inline Stone *operator~(Stone stone)                // Operation Overlord Logic-NOT
 {

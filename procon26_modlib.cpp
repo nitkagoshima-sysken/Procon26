@@ -755,3 +755,43 @@ int countScore(Answers &ans, Problem &prob)
 	delete obstacleBoard;
 	delete putBoard;
 }
+
+Board *BoardNOT(const Board *board)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = ~board->block[i];
+	}
+	return resultBoard;
+}
+
+Board *BoardAND(const Board *Board1, const Board *Board2)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = Board1->block[i] & Board2->block[i];
+	}
+	return resultBoard;
+}
+
+Board *BoardOR(const Board *Board1, const Board *Board2)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = Board1->block[i] | Board2->block[i];
+	}
+	return resultBoard;
+}
+
+Board *BoardXOR(const Board *Board1, const Board *Board2)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = Board1->block[i] ^ Board2->block[i];
+	}
+	return resultBoard;
+}
