@@ -42,5 +42,15 @@ struct Answers
 {
 	vector<Answer> answers;
 };
+class BoardBoolean
+{
+	private:
+		bool boolean[BOARD_SIZE + 18][BOARD_SIZE + 18];	//とりあえず50で
+	public:
+		BoardBoolean();
+		BoardBoolean(int x, int y);
+		void readCoordinate(int x, int y);	//石を置いた座標を入力し、bool型の2次元配列に反映する
+		int checkBoolean(int x, int y);	//ボードの座標を入力し、その座標に石が置けるかどうかを確認する
+};
 
 #endif
