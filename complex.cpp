@@ -1,23 +1,14 @@
 #include<iostream>
 #include<cmath>
-#define BOARD_SIZE 128
-#define STONE_SIZE 8
+#include "procon26_modio.cpp"
+#include "procon26_modlib.cpp"
+
 #define PER_COMP_1 1
 #define PER_COMP_2 1
 #define PER_COMP_3 2
 #define PER_COMP_4 0.2
 
 using namespace std;
-
-struct Stone
-{
-	unsigned char zuku[STONE_SIZE];
-};
-
-struct Board
-{
-	unsigned char block[BOARD_SIZE];
-};
 
 struct Rect
 {
@@ -27,7 +18,6 @@ struct Rect
 
 Rect rect(Stone *);
 double complex(Stone *);
-int bitCount(unsigned char);
 
 int main()
 {
@@ -115,7 +105,7 @@ double complex(Stone *stone)
 			}
 		}
 		
-		if(i != rectstate.starty) rectstate.round -= bitCount(stone->zuku[i] & stone->zuku[i-1]) * 2;
+		if(i != rectstate.starty) rectstate.round -= countBit(stone->zuku[i] & stone->zuku[i-1]) * 2;
 	}
 	comp_1 = (double)(rectstate.round) / ((double)(rectstate.endx-rectstate.startx + rectstate.endy-rectstate.starty + 2) * 2.00 ) ;
 	//-----------------------------------//
@@ -238,10 +228,4 @@ double complex(Stone *stone)
 	comp = comp_1 * PER_COMP_1 + comp_2 * PER_COMP_2 + comp_3 * PER_COMP_3 + comp_4 * PER_COMP_4;
 	return comp;
 }
-int bitCount(unsigned char bit)
-{
-	bit = ((bit & 0xAA) >> 1) + (bit & 0x55);
-	bit = ((bit & 0xCC) >> 2) + (bit & 0x33);
-	bit = ((bit & 0xF0) >> 4) + (bit & 0x0F);
-	return bit;
-}
+
