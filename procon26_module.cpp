@@ -33,27 +33,27 @@ BoardBoolean::BoardBoolean(int x, int y)
 void BoardBoolean::readCoordinate(int x, int y)
 {
 	int start_x, start_y, end_x, end_y;
-	start_x = x - 8; end_x = x + 8;
-	start_y = y - 8; end_y = y + 8;
-	if(start_x < -7)
+	start_x = x - STONE_SIZE; end_x = x + STONE_SIZE;
+	start_y = y - STONE_SIZE; end_y = y + STONE_SIZE;
+	if(start_x < -(STONE_SIZE - 1))
 	{
-		start_x = -7;
+		start_x = -(STONE_SIZE - 1);
 	}
-	if(end_x > 39)
+	if(end_x > BOARD_SIZE + STONE_SIZE - 1)
 	{
-		end_x = 39;
+		end_x = BOARD_SIZE + STONE_SIZE - 1;
 	}
-	if(start_y < -7)
+	if(start_y < -(STONE_SIZE - 1))
 	{
-		start_y = -7;
+		start_y = -(STONE_SIZE - 1);
 	}
-	if(end_y > 39)
+	if(end_y > BOARD_SIZE + STONE_SIZE - 1)
 	{
-		end_y = 39;
+		end_y = BOARD_SIZE + STONE_SIZE - 1;
 	}
-	for(int i = start_y + 7; i <= end_y + 7; i++)
+	for(int i = start_y + STONE_SIZE - 1; i <= end_y + STONE_SIZE - 1; i++)
 	{
-		for(int j = start_x + 7; j <= end_x + 7; j++)
+		for(int j = start_x + STONE_SIZE - 1; j <= end_x + STONE_SIZE - 1; j++)
 		{
 			boolean[i][j] = false;
 		}
@@ -62,12 +62,12 @@ void BoardBoolean::readCoordinate(int x, int y)
 
 int BoardBoolean::checkBoolean(int x, int y)
 {
-	if(x < -7||x > 39||y < -7||y > 39)
+	if(x < - (STONE_SIZE - 1)||x > BOARD_SIZE + STONE_SIZE - 1||y < - (STONE_SIZE - 1)||y > BOARD_SIZE + STONE_SIZE - 1)
 	{
 		return -1;	//Error
 	}
 	else
 	{
-		return (int)boolean[y + 7][x + 7];
+		return (int)boolean[y + STONE_SIZE - 1][x + STONE_SIZE - 1];
 	}
 }
