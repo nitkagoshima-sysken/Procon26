@@ -45,7 +45,7 @@ struct Answers
 class BoardBoolean
 {
 	private:
-		bool boolean[BOARD_SIZE + 18][BOARD_SIZE + 18];	//とりあえず50で
+		bool boolean[BOARD_SIZE + (STONE_SIZE - 1) * 2][BOARD_SIZE + (STONE_SIZE - 1) * 2];
 	public:
 		BoardBoolean();
 		BoardBoolean(int x, int y);

@@ -9,9 +9,9 @@ string Answer::toString()
 
 BoardBoolean::BoardBoolean()
 {
-	for(int i = 0; i < BOARD_SIZE + 18; i++)
+	for(int i = 0; i < BOARD_SIZE + (STONE_SIZE - 1) * 2; i++)
 	{
-		for(int j = 0; j < BOARD_SIZE+18; j++)
+		for(int j = 0; j < BOARD_SIZE + (STONE_SIZE - 1) * 2; j++)
 		{
 			boolean[i][j] = true;
 		}
@@ -20,9 +20,9 @@ BoardBoolean::BoardBoolean()
 
 BoardBoolean::BoardBoolean(int x, int y)
 {
-	for(int i = 0; i < BOARD_SIZE + 18; i++)
+	for(int i = 0; i < BOARD_SIZE + (STONE_SIZE - 1) * 2; i++)
 	{
-		for(int j = 0; j < BOARD_SIZE + 18; j++)
+		for(int j = 0; j < BOARD_SIZE + (STONE_SIZE - 1) * 2; j++)
 		{
 			boolean[i][j] = true;
 		}
