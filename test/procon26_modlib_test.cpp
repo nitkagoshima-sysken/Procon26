@@ -2512,9 +2512,32 @@ TEST(procon26_modlib, normalizeStone)
                     )));
 }
 
+TEST(procon26_modlib, getState)
+{
+    Stone *stone = getStoneByString(
+            "00000000"
+            "00111000"
+            "00010000"
+            "00110000"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    State *state;
+    state = getState(stone, true, 1);
+    ASSERT_TRUE(isEqualStone(stone, state));
+    ASSERT_EQ(state->flipped, true);
+    ASSERT_EQ(state->turn, 1);
+    state = getState(stone, false, 2);
+    ASSERT_TRUE(isEqualStone(stone, state));
+    ASSERT_EQ(state->flipped, false);
+    ASSERT_EQ(state->turn, 2);
+}
+
 TEST(procon26_modlib, getStatesOfStone)
 {
-    std::vector<Stone *> states;
+    std::vector<State *> states;
     Stone *stone1 = getStoneByString(
             "00000000"
             "00111000"
@@ -2528,13 +2551,21 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone1, states);
     ASSERT_EQ(states.size(), 8);
     ASSERT_TRUE(isEqualStone(states[0], stone1));
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
     ASSERT_TRUE(isEqualStone(states[1], rotate90(stone1)));
+    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->turn, 1);
     ASSERT_TRUE(isEqualStone(states[2], rotate180(stone1)));
+    ASSERT_EQ(states[2]->flipped, false); ASSERT_EQ(states[2]->turn, 2);
     ASSERT_TRUE(isEqualStone(states[3], rotate270(stone1)));
+    ASSERT_EQ(states[3]->flipped, false); ASSERT_EQ(states[3]->turn, 3);
     ASSERT_TRUE(isEqualStone(states[4], flip(stone1)));
+    ASSERT_EQ(states[4]->flipped, true); ASSERT_EQ(states[4]->turn, 0);
     ASSERT_TRUE(isEqualStone(states[5], rotate90(flip(stone1))));
+    ASSERT_EQ(states[5]->flipped, true); ASSERT_EQ(states[5]->turn, 1);
     ASSERT_TRUE(isEqualStone(states[6], rotate180(flip(stone1))));
+    ASSERT_EQ(states[6]->flipped, true); ASSERT_EQ(states[6]->turn, 2);
     ASSERT_TRUE(isEqualStone(states[7], rotate270(flip(stone1))));
+    ASSERT_EQ(states[7]->flipped, true); ASSERT_EQ(states[7]->turn, 3);
     states.clear();
 
     Stone *stone2 = getStoneByString(
@@ -2550,9 +2581,13 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone2, states);
     ASSERT_EQ(states.size(), 4);
     ASSERT_TRUE(isEqualStone(states[0], stone2));
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
     ASSERT_TRUE(isEqualStone(states[1], rotate90(stone2)));
+    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->turn, 1);
     ASSERT_TRUE(isEqualStone(states[2], flip(stone2)));
+    ASSERT_EQ(states[4]->flipped, true); ASSERT_EQ(states[2]->turn, 0);
     ASSERT_TRUE(isEqualStone(states[3], rotate90(flip(stone2))));
+    ASSERT_EQ(states[5]->flipped, true); ASSERT_EQ(states[3]->turn, 1);
     states.clear();
 
     Stone *stone3 = getStoneByString(
@@ -2568,7 +2603,9 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone3, states);
     ASSERT_EQ(states.size(), 2);
     ASSERT_TRUE(isEqualStone(states[0], stone3));
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
     ASSERT_TRUE(isEqualStone(states[1], flip(stone3)));
+    ASSERT_EQ(states[4]->flipped, true); ASSERT_EQ(states[4]->turn, 0);
     states.clear();
 
     Stone *stone4 = getStoneByString(
@@ -2584,9 +2621,13 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone4, states);
     ASSERT_EQ(states.size(), 4);
     ASSERT_TRUE(isEqualStone(states[0], stone4));
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
     ASSERT_TRUE(isEqualStone(states[1], rotate90(stone4)));
+    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->turn, 1);
     ASSERT_TRUE(isEqualStone(states[2], rotate180(stone4)));
+    ASSERT_EQ(states[2]->flipped, false); ASSERT_EQ(states[2]->turn, 2);
     ASSERT_TRUE(isEqualStone(states[3], rotate270(stone4)));
+    ASSERT_EQ(states[3]->flipped, false); ASSERT_EQ(states[3]->turn, 3);
     states.clear();
 
     Stone *stone5 = getStoneByString(
@@ -2602,7 +2643,9 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone5, states);
     ASSERT_EQ(states.size(), 2);
     ASSERT_TRUE(isEqualStone(states[0], stone5));
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
     ASSERT_TRUE(isEqualStone(states[1], rotate90(stone5)));
+    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->turn, 1);
     states.clear();
 
     Stone *stone6 = getStoneByString(
@@ -2618,6 +2661,7 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone6, states);
     ASSERT_EQ(states.size(), 1);
     ASSERT_TRUE(isEqualStone(states[0], stone6));
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
     states.clear();
 }
 
