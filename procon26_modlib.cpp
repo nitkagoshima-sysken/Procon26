@@ -636,6 +636,15 @@ void getStatesOfStone(const Stone *source, std::vector<State *> &states)
     delete flipped_stone_n; delete flipped_stone90_n; delete flipped_stone180_n; delete flipped_stone270_n;
 }
 
+extern void convertStonesToVectorOfStates(Stone *stones, int num, std::vector<std::vector<State *> > &states){
+    Stone *tmp = stones;
+    states.resize(num);
+    for(int i = 0; i < num; i ++){
+        getStatesOfStone(&*(stones ++), states[i]);
+    }
+    stones = tmp;
+}
+
 double evalBoard(Board *board)
 {
 	int space;

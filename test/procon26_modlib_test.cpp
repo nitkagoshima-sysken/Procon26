@@ -2585,9 +2585,9 @@ TEST(procon26_modlib, getStatesOfStone)
     ASSERT_TRUE(isEqualStone(states[1], rotate90(stone2)));
     ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->turn, 1);
     ASSERT_TRUE(isEqualStone(states[2], flip(stone2)));
-    ASSERT_EQ(states[4]->flipped, true); ASSERT_EQ(states[2]->turn, 0);
+    ASSERT_EQ(states[2]->flipped, true); ASSERT_EQ(states[2]->turn, 0);
     ASSERT_TRUE(isEqualStone(states[3], rotate90(flip(stone2))));
-    ASSERT_EQ(states[5]->flipped, true); ASSERT_EQ(states[3]->turn, 1);
+    ASSERT_EQ(states[3]->flipped, true); ASSERT_EQ(states[3]->turn, 1);
     states.clear();
 
     Stone *stone3 = getStoneByString(
@@ -2605,7 +2605,7 @@ TEST(procon26_modlib, getStatesOfStone)
     ASSERT_TRUE(isEqualStone(states[0], stone3));
     ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
     ASSERT_TRUE(isEqualStone(states[1], flip(stone3)));
-    ASSERT_EQ(states[4]->flipped, true); ASSERT_EQ(states[4]->turn, 0);
+    ASSERT_EQ(states[1]->flipped, true); ASSERT_EQ(states[4]->turn, 0);
     states.clear();
 
     Stone *stone4 = getStoneByString(
@@ -2665,6 +2665,74 @@ TEST(procon26_modlib, getStatesOfStone)
     states.clear();
 }
 
+TEST(procon26_modlib, convertStonesToVectorOfStates)
+{
+    std::vector<std::vector<State *> > statesVector;
+    Stone *stone1, *stone2, *stone3, *stone4, *stone5, *stone6;
+    Stone stones[] = {
+        *(stone1 = getStoneByString( "0000000000111000000100000011000000000000000000000000000000000000")),
+        *(stone2 = getStoneByString( "0000000000110000000100000001100000000000000000000000000000000000")),
+        *(stone3 = getStoneByString( "0010000000111100001110000111100000001000000000000000000000000000")),
+        *(stone4 = getStoneByString( "0000000000111000000100000111110000000000000000000000000000000000")),
+        *(stone5 = getStoneByString( "0000000000111000000100000011100000000000000000000000000000000000")),
+        *(stone6 = getStoneByString( "0000000000010000001110000001000000000000000000000000000000000000"))
+    };
+    convertStonesToVectorOfStates(stones, 6, statesVector);
+
+    ASSERT_EQ(statesVector[0].size(), 8);
+    ASSERT_TRUE(isEqualStone(statesVector[0][0], stone1));
+    ASSERT_EQ(statesVector[0][0]->flipped, false); ASSERT_EQ(statesVector[0][0]->turn, 0);
+    ASSERT_TRUE(isEqualStone(statesVector[0][1], rotate90(stone1)));
+    ASSERT_EQ(statesVector[0][1]->flipped, false); ASSERT_EQ(statesVector[0][1]->turn, 1);
+    ASSERT_TRUE(isEqualStone(statesVector[0][2], rotate180(stone1)));
+    ASSERT_EQ(statesVector[0][2]->flipped, false); ASSERT_EQ(statesVector[0][2]->turn, 2);
+    ASSERT_TRUE(isEqualStone(statesVector[0][3], rotate270(stone1)));
+    ASSERT_EQ(statesVector[0][3]->flipped, false); ASSERT_EQ(statesVector[0][3]->turn, 3);
+    ASSERT_TRUE(isEqualStone(statesVector[0][4], flip(stone1)));
+    ASSERT_EQ(statesVector[0][4]->flipped, true); ASSERT_EQ(statesVector[0][4]->turn, 0);
+    ASSERT_TRUE(isEqualStone(statesVector[0][5], rotate90(flip(stone1))));
+    ASSERT_EQ(statesVector[0][5]->flipped, true); ASSERT_EQ(statesVector[0][5]->turn, 1);
+    ASSERT_TRUE(isEqualStone(statesVector[0][6], rotate180(flip(stone1))));
+    ASSERT_EQ(statesVector[0][6]->flipped, true); ASSERT_EQ(statesVector[0][6]->turn, 2);
+    ASSERT_TRUE(isEqualStone(statesVector[0][7], rotate270(flip(stone1))));
+    ASSERT_EQ(statesVector[0][7]->flipped, true); ASSERT_EQ(statesVector[0][7]->turn, 3);
+
+    ASSERT_EQ(statesVector[1].size(), 4);
+    ASSERT_TRUE(isEqualStone(statesVector[1][0], stone2));
+    ASSERT_EQ(statesVector[1][0]->flipped, false); ASSERT_EQ(statesVector[1][0]->turn, 0);
+    ASSERT_TRUE(isEqualStone(statesVector[1][1], rotate90(stone2)));
+    ASSERT_EQ(statesVector[1][1]->flipped, false); ASSERT_EQ(statesVector[1][1]->turn, 1);
+    ASSERT_TRUE(isEqualStone(statesVector[1][2], flip(stone2)));
+    ASSERT_EQ(statesVector[1][2]->flipped, true); ASSERT_EQ(statesVector[1][2]->turn, 0);
+    ASSERT_TRUE(isEqualStone(statesVector[1][3], rotate90(flip(stone2))));
+    ASSERT_EQ(statesVector[1][3]->flipped, true); ASSERT_EQ(statesVector[1][3]->turn, 1);
+
+    ASSERT_EQ(statesVector[2].size(), 2);
+    ASSERT_TRUE(isEqualStone(statesVector[2][0], stone3));
+    ASSERT_EQ(statesVector[2][0]->flipped, false); ASSERT_EQ(statesVector[2][0]->turn, 0);
+    ASSERT_TRUE(isEqualStone(statesVector[2][1], flip(stone3)));
+    ASSERT_EQ(statesVector[2][1]->flipped, true); ASSERT_EQ(statesVector[2][1]->turn, 0);
+
+    ASSERT_EQ(statesVector[3].size(), 4);
+    ASSERT_TRUE(isEqualStone(statesVector[3][0], stone4));
+    ASSERT_EQ(statesVector[3][0]->flipped, false); ASSERT_EQ(statesVector[3][0]->turn, 0);
+    ASSERT_TRUE(isEqualStone(statesVector[3][1], rotate90(stone4)));
+    ASSERT_EQ(statesVector[3][1]->flipped, false); ASSERT_EQ(statesVector[3][1]->turn, 1);
+    ASSERT_TRUE(isEqualStone(statesVector[3][2], rotate180(stone4)));
+    ASSERT_EQ(statesVector[3][2]->flipped, false); ASSERT_EQ(statesVector[3][2]->turn, 2);
+    ASSERT_TRUE(isEqualStone(statesVector[3][3], rotate270(stone4)));
+    ASSERT_EQ(statesVector[3][3]->flipped, false); ASSERT_EQ(statesVector[3][3]->turn, 3);
+
+    ASSERT_EQ(statesVector[4].size(), 2);
+    ASSERT_TRUE(isEqualStone(statesVector[4][0], stone5));
+    ASSERT_EQ(statesVector[4][0]->flipped, false); ASSERT_EQ(statesVector[4][0]->turn, 0);
+    ASSERT_TRUE(isEqualStone(statesVector[4][1], rotate90(stone5)));
+    ASSERT_EQ(statesVector[4][1]->flipped, false); ASSERT_EQ(statesVector[4][1]->turn, 1);
+
+    ASSERT_EQ(statesVector[5].size(), 1);
+    ASSERT_TRUE(isEqualStone(statesVector[5][0], stone6));
+    ASSERT_EQ(statesVector[5][0]->flipped, false); ASSERT_EQ(statesVector[5][0]->turn, 0);
+}
 
 TEST(procon26_modlib, canPlace2)
 {

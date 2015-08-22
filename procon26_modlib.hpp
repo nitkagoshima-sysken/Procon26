@@ -49,6 +49,7 @@ extern int getGroupsBoardInternal(Board *, Board *, Board *, bool target, int x,
 extern Stone *normalizeStone(const Stone *stone);
 extern State *getState(Stone *stone, bool flipped, int turn);
 extern void getStatesOfStone(const Stone *, std::vector<State *> &);
+extern void convertStonesToVectorOfStates(Stone *, int, std::vector<std::vector<State *> > &);
 double evalBoard(Board *board);
 
 
