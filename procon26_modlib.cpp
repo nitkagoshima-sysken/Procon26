@@ -593,35 +593,42 @@ void getStatesOfStone(const Stone *source, std::vector<Stone *> &states)
     stone180 = rotate180(stone); stone180_n = normalizeStone(stone180);
     stone270 = rotate270(stone); stone270_n = normalizeStone(stone270);
     flipped_stone = flip(stone); flipped_stone_n = normalizeStone(flipped_stone);
-    if(isEqualStone(stone_n, flipped_stone_n)){
-        if(isEqualStone(stone_n, stone90_n)){
-            states.push_back(stone);
-            delete stone90; delete stone180; delete stone270; delete flipped_stone;
-            delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
-        }else if(isEqualStone(stone_n, stone180_n)){
-            states.push_back(stone); states.push_back(stone90);
-            delete stone180; delete stone270; delete flipped_stone;
-            delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
+    flipped_stone90 = rotate90(flipped_stone); flipped_stone90_n = normalizeStone(flipped_stone90);
+    flipped_stone180 = rotate180(flipped_stone); flipped_stone180_n = normalizeStone(flipped_stone180);
+    flipped_stone270 = rotate270(flipped_stone); flipped_stone270_n = normalizeStone(flipped_stone270);
+    bool flip =
+        isEqualStone(stone_n, flipped_stone180_n) ||
+        isEqualStone(stone_n, flipped_stone_n) ||
+        isEqualStone(stone_n, flipped_stone90) ||
+        isEqualStone(stone_n, flipped_stone270); // do not add flipped stones to states
+    if(isEqualStone(stone_n, stone90_n)){
+        states.push_back(stone);
+        if(!flip){
+            states.push_back(flipped_stone);
         }else{
-            states.push_back(stone); states.push_back(stone90); states.push_back(stone180); states.push_back(stone270);
             delete flipped_stone;
-            delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
         }
-    }else{
-        if(isEqualStone(stone_n, stone90_n)){
-            states.push_back(stone); states.push_back(flipped_stone);
-            delete stone90; delete stone180; delete stone270;
-            delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
-        }else if(isEqualStone(stone_n, stone180_n)){
-            states.push_back(stone); states.push_back(stone90); states.push_back(flipped_stone); states.push_back(rotate90(flipped_stone));
-            delete stone180; delete stone270;
-            delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
+        delete stone90; delete stone180; delete stone270;
+        delete flipped_stone90; delete flipped_stone180; delete flipped_stone270;
+    }else if(isEqualStone(stone_n, stone180_n)){
+        states.push_back(stone); states.push_back(stone90);
+        if(!flip){
+            states.push_back(flipped_stone); states.push_back(flipped_stone90);
         }else{
-            states.push_back(stone); states.push_back(stone90); states.push_back(stone180); states.push_back(stone270);
-            states.push_back(flipped_stone); states.push_back(rotate90(flipped_stone)); states.push_back(rotate180(flipped_stone)); states.push_back(rotate270(flipped_stone));
-            delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
+            delete flipped_stone; delete flipped_stone90;
+        }
+        delete stone180; delete stone270;
+        delete flipped_stone180; delete flipped_stone270;
+    }else{
+        states.push_back(stone); states.push_back(stone90); states.push_back(stone180); states.push_back(stone270);
+        if(!flip){
+            states.push_back(flipped_stone); states.push_back(flipped_stone90); states.push_back(flipped_stone180); states.push_back(flipped_stone270);
+        }else{
+            delete flipped_stone; delete flipped_stone90; delete flipped_stone180; delete flipped_stone270;
         }
     }
+    delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
+    delete flipped_stone_n; delete flipped_stone90_n; delete flipped_stone180_n; delete flipped_stone270_n;
 }
 
 double evalBoard(Board *board)
