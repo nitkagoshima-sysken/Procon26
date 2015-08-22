@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -49,7 +50,8 @@ struct Answers
 	vector<Answer> answers;
 };
 
-class StonePicker{
+class StonePicker
+{
     private:
         static const int MAX = 32;
         unsigned int dropStones;
