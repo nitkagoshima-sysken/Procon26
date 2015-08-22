@@ -2512,6 +2512,29 @@ TEST(procon26_modlib, normalizeStone)
                     )));
 }
 
+TEST(procon26_modlib, getState)
+{
+    Stone *stone = getStoneByString(
+            "00000000"
+            "00111000"
+            "00010000"
+            "00110000"
+            "00000000"
+            "00000000"
+            "00000000"
+            "00000000"
+            );
+    State *state;
+    state = getState(stone, true, 1);
+    ASSERT_TRUE(isEqualStone(stone, state));
+    ASSERT_EQ(state->flipped, true);
+    ASSERT_EQ(state->turn, 1);
+    state = getState(stone, false, 2);
+    ASSERT_TRUE(isEqualStone(stone, state));
+    ASSERT_EQ(state->flipped, false);
+    ASSERT_EQ(state->turn, 2);
+}
+
 TEST(procon26_modlib, getStatesOfStone)
 {
     std::vector<Stone *> states;

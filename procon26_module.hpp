@@ -15,6 +15,12 @@ struct Stone
 	unsigned char zuku[STONE_SIZE];
 };
 
+struct State : public Stone
+{
+	bool flipped;
+	int turn;	// 90 * turn;
+};
+
 struct Board
 {
 	unsigned char block[128];

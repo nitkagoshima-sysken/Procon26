@@ -584,6 +584,17 @@ Stone *normalizeStone(const Stone *stone)
     return source;
 }
 
+State *getState(Stone *stone, bool flipped, int turn){
+    State *state = new State();
+    for(int i = 0; i < STONE_SIZE; i ++)
+    {
+        state->zuku[i] = stone->zuku[i];
+    }
+    state->flipped = flipped;
+    state->turn = turn;
+    return state;
+}
+
 void getStatesOfStone(const Stone *source, std::vector<Stone *> &states)
 {
     Stone *stone, *stone90, *stone180, *stone270, *flipped_stone, *flipped_stone90, *flipped_stone180, *flipped_stone270;
