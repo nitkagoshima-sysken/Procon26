@@ -2605,7 +2605,7 @@ TEST(procon26_modlib, getStatesOfStone)
     ASSERT_TRUE(isEqualStone(states[0], stone3));
     ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
     ASSERT_TRUE(isEqualStone(states[1], flip(stone3)));
-    ASSERT_EQ(states[1]->flipped, true); ASSERT_EQ(states[4]->turn, 0);
+    ASSERT_EQ(states[1]->flipped, true); ASSERT_EQ(states[1]->turn, 0);
     states.clear();
 
     Stone *stone4 = getStoneByString(
