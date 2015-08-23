@@ -55,6 +55,8 @@ class StonePicker
     private:
         static const int MAX = 32;
         unsigned int dropStones;
+        unsigned int dropStonesMax;
+        int num;
         int sum;
         int blanks;
         std::vector<Stone *> stones;
