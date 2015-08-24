@@ -9,9 +9,9 @@ string Answer::toString()
 
 BoardBoolean::BoardBoolean()
 {
-	for(int i = 0; i < BOARD_SIZE + STONE_SIZE - 2; i++)
+	for(int i = 0; i < BOARD_SIZE + STONE_SIZE - 1; i++)
 	{
-		for(int j = 0; j < BOARD_SIZE + STONE_SIZE - 2; j++)
+		for(int j = 0; j < BOARD_SIZE + STONE_SIZE - 1; j++)
 		{
 			boolean[i][j] = true;
 		}
