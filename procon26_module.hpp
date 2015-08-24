@@ -54,8 +54,7 @@ class BoardBoolean
 	public:
 		bool boolean[BOARD_SIZE + STONE_SIZE - 1][BOARD_SIZE + STONE_SIZE - 1];
 		BoardBoolean();
-		BoardBoolean(int x, int y);
-		void place(int x, int y);	//石を置いた座標を入力し、bool型の2次元配列に反映する
+		BoardBoolean *place(int x, int y);	//石を置いた座標を入力し、bool型の2次元配列に反映する
 		int check(int x, int y);	//ボードの座標を入力し、その座標に石が置けるかどうかを確認する
 };
 

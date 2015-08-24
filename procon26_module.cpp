@@ -18,20 +18,10 @@ BoardBoolean::BoardBoolean()
 	}
 }
 
-BoardBoolean::BoardBoolean(int x, int y)
-{
-	for(int i = 0; i < BOARD_SIZE + STONE_SIZE - 2; i++)
-	{
-		for(int j = 0; j < BOARD_SIZE + STONE_SIZE - 2; j++)
-		{
-			boolean[i][j] = true;
-		}
-	}
-	place(x, y);
-}
-
 void BoardBoolean::place(int x, int y)
 {
+	BoardBoolean *temp;
+	temp = new BoardBoolean;
 	int start_x, start_y, end_x, end_y;
 	start_x = x - STONE_SIZE; end_x = x + STONE_SIZE;
 	start_y = y - STONE_SIZE; end_y = y + STONE_SIZE;
@@ -55,9 +45,10 @@ void BoardBoolean::place(int x, int y)
 	{
 		for(int j = start_x + STONE_SIZE - 1; j <= end_x + STONE_SIZE - 1; j++)
 		{
-			boolean[i][j] = false;
+			temp -> boolean[i][j] = false;
 		}
 	}
+	return temp;
 }
 
 int BoardBoolean::check(int x, int y)
