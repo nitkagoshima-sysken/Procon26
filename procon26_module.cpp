@@ -9,9 +9,9 @@ string Answer::toString()
 
 BoardBoolean::BoardBoolean()
 {
-	for(int i = 0; i < BOARD_SIZE + (STONE_SIZE - 1) * 2; i++)
+	for(int i = 0; i < BOARD_SIZE + STONE_SIZE - 2; i++)
 	{
-		for(int j = 0; j < BOARD_SIZE + (STONE_SIZE - 1) * 2; j++)
+		for(int j = 0; j < BOARD_SIZE + STONE_SIZE - 2; j++)
 		{
 			boolean[i][j] = true;
 		}
@@ -20,9 +20,9 @@ BoardBoolean::BoardBoolean()
 
 BoardBoolean::BoardBoolean(int x, int y)
 {
-	for(int i = 0; i < BOARD_SIZE + (STONE_SIZE - 1) * 2; i++)
+	for(int i = 0; i < BOARD_SIZE + STONE_SIZE - 2; i++)
 	{
-		for(int j = 0; j < BOARD_SIZE + (STONE_SIZE - 1) * 2; j++)
+		for(int j = 0; j < BOARD_SIZE + STONE_SIZE - 2; j++)
 		{
 			boolean[i][j] = true;
 		}
@@ -39,17 +39,17 @@ void BoardBoolean::place(int x, int y)
 	{
 		start_x = -(STONE_SIZE - 1);
 	}
-	if(end_x > BOARD_SIZE + STONE_SIZE - 1)
+	if(end_x > BOARD_SIZE - 1)
 	{
-		end_x = BOARD_SIZE + STONE_SIZE - 1;
+		end_x = BOARD_SIZE - 1;
 	}
 	if(start_y < -(STONE_SIZE - 1))
 	{
 		start_y = -(STONE_SIZE - 1);
 	}
-	if(end_y > BOARD_SIZE + STONE_SIZE - 1)
+	if(end_y > BOARD_SIZE - 1)
 	{
-		end_y = BOARD_SIZE + STONE_SIZE - 1;
+		end_y = BOARD_SIZE - 1;
 	}
 	for(int i = start_y + STONE_SIZE - 1; i <= end_y + STONE_SIZE - 1; i++)
 	{
@@ -62,7 +62,7 @@ void BoardBoolean::place(int x, int y)
 
 int BoardBoolean::check(int x, int y)
 {
-	if(x < - (STONE_SIZE - 1)||x > BOARD_SIZE + STONE_SIZE - 1||y < - (STONE_SIZE - 1)||y > BOARD_SIZE + STONE_SIZE - 1)
+	if(x < - (STONE_SIZE - 1)||x > BOARD_SIZE - 1||y < - (STONE_SIZE - 1)||y > BOARD_SIZE- 1)
 	{
 		return -1;	//Error
 	}

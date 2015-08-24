@@ -48,10 +48,11 @@ struct Answers
 {
 	vector<Answer> answers;
 };
+
 class BoardBoolean
 {
 	private:
-		bool boolean[BOARD_SIZE + (STONE_SIZE - 1) * 2][BOARD_SIZE + (STONE_SIZE - 1) * 2];
+		bool boolean[BOARD_SIZE + STONE_SIZE - 1][BOARD_SIZE + STONE_SIZE - 1];
 	public:
 		BoardBoolean();
 		BoardBoolean(int x, int y);
