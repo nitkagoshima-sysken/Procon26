@@ -18,7 +18,7 @@ BoardBoolean::BoardBoolean()
 	}
 }
 
-void BoardBoolean::place(int x, int y)
+BoardBoolean* BoardBoolean::place(int x, int y)
 {
 	BoardBoolean *temp;
 	temp = new BoardBoolean;
