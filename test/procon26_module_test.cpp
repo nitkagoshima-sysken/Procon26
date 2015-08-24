@@ -1,16 +1,16 @@
 #include <gtest/gtest.h>
 #include "../procon26_module.hpp"
+#include "../procon26_module.cpp"
 
 TEST(procon26_module, BoardBoolean)
 {
 	BoardBoolean board1;
-	BoardBoolean board2(-6, 7);
-	BoardBoolean board3(5, 25);
-	board1.place(36, 38);
-	ASSERT_EQ(board1.check(28, 39), 0);
-	ASSERT_EQ(board2.check(-7, 10), 0);
-	ASSERT_EQ(board3.check(-5, 22), 1);
-	ASSERT_EQ(board3.check(3, 34), 1);
-	ASSERT_EQ(board3.check(-8, 23), -1);
-	ASSERT_EQ(board3.check(4, 40), -1);
+	BoardBoolean *p;
+	p = board1.place(-2, 7);
+	ASSERT_EQ(p -> check(-2, 8), 0);
+	ASSERT_EQ(p -> check(-7, 7), 0);
+	ASSERT_EQ(p -> check(-1, 15), 0);
+	ASSERT_EQ(p -> check(10, 5), 1);
+	ASSERT_EQ(p -> check(-3, -2), 1);
+	ASSERT_EQ(p -> check(-8, 4), -1);
 }

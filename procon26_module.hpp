@@ -15,12 +15,6 @@ struct Stone
 	unsigned char zuku[STONE_SIZE];
 };
 
-struct State : public Stone
-{
-	bool flipped;
-	int turn;	// 90 * turn;
-};
-
 struct Board
 {
 	unsigned char block[128];
@@ -48,14 +42,13 @@ struct Answers
 {
 	vector<Answer> answers;
 };
+
 class BoardBoolean
 {
-	private:
-		bool boolean[BOARD_SIZE + (STONE_SIZE - 1) * 2][BOARD_SIZE + (STONE_SIZE - 1) * 2];
 	public:
+		bool boolean[BOARD_SIZE + (STONE_SIZE - 1) * 2 + 1][BOARD_SIZE + (STONE_SIZE - 1) * 2 + 1];
 		BoardBoolean();
-		BoardBoolean(int x, int y);
-		void place(int x, int y);	//石を置いた座標を入力し、bool型の2次元配列に反映する
+		BoardBoolean *place(int x, int y);	//石を置いた座標を入力し、bool型の2次元配列に反映する
 		int check(int x, int y);	//ボードの座標を入力し、その座標に石が置けるかどうかを確認する
 };
 
