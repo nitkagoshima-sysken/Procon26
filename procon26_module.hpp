@@ -51,9 +51,8 @@ struct Answers
 
 class BoardBoolean
 {
-	private:
-		bool boolean[BOARD_SIZE + STONE_SIZE - 1][BOARD_SIZE + STONE_SIZE - 1];
 	public:
+		bool boolean[BOARD_SIZE + STONE_SIZE - 1][BOARD_SIZE + STONE_SIZE - 1];
 		BoardBoolean();
 		BoardBoolean(int x, int y);
 		void place(int x, int y);	//石を置いた座標を入力し、bool型の2次元配列に反映する
