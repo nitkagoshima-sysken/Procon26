@@ -2,39 +2,39 @@
 
 using namespace std;
  
-bool releaseVector(vector<Stone> &stones)
+bool releaseVector(vector<Stone> *stones)
 {
-	//for(int i = 0; i < 8; i++) delete stones[i];
-	vector<Stone>().swap(stones);
-	if(stones.empty() == 0) return false;
-	else					   return true;
-}
-
-bool releaseVector(vector<Board> &boards)
-{
-	vector<Board>().swap(boards);
-	if(boards.empty() == 0) return false;
+	for(int i = 0; i < 8; i++) delete stones[i]; 
+	vector<Stone>().swap(*stones);
+	if(stones->empty() == 0) return false;
 	else					return true;
 }
 
-bool releaseVector(vector<State> &states)
+bool releaseVector(vector<Board> *boards)
 {
-	vector<State>().swap(states);
-	if(states.empty() == 0) return false;
+	vector<Board>().swap(*boards);
+	if(boards->empty() == 0) return false;
 	else					return true;
 }
 
-bool releaseVector(vector< vector<State> > &stones)
+bool releaseVector(vector<State> *states)
 {
-	vector< vector<State> >().swap(stones);
-	if(stones.empty() == 0) return false;
+	vector<State>().swap(*states);
+	if(states->empty() == 0) return false;
 	else					return true;
 }
 
-bool releaseVector(vector< vector<Stone> > &stones)
+bool releaseVector(vector< vector<State> > *stones)
 {
-	vector< vector<Stone> >().swap(stones);
-	if(stones.empty() == 0) return false;
+	vector< vector<State> >().swap(*stones);
+	if(stones->empty() == 0) return false;
+	else					return true;
+}
+
+bool releaseVector(vector< vector<Stone> > *stones)
+{
+	vector< vector<Stone> >().swap(*stones);
+	if(stones->empty() == 0) return false;
 	else					return true;
 }
 int main()
@@ -67,11 +67,11 @@ int main()
 	cout << "vecstate:" << data_vecstate.capacity() << endl;
 	
 	cout << endl << "state of releasing :";
-	cout << releaseVector(data_stone);
-	cout << releaseVector(data_board);
-	cout << releaseVector(data_state);
-	cout << releaseVector(data_vecstone);
-	cout << releaseVector(data_vecstate);
+	cout << releaseVector(&data_stone);
+	cout << releaseVector(&data_board);
+	cout << releaseVector(&data_state);
+	cout << releaseVector(&data_vecstone);
+	cout << releaseVector(&data_vecstate);
 	cout << endl;
 	
 	cout << endl        << "-release-"               << endl;
