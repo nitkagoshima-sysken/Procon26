@@ -9,6 +9,7 @@ using namespace std;
 
 #define STONE_SIZE 8
 #define BOARD_SIZE 32
+#define NULL_POINT -64
 
 struct Stone
 {
@@ -36,7 +37,8 @@ struct Problem
 class Answer
 {
 	public:
-		int X;
+        // 石が置けない場合は、X = Y = NULL_POINT
+		int X;  
 		int Y;
 		bool flipped;
 		int turn;	// 90 * turn;
