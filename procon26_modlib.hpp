@@ -51,6 +51,7 @@ extern State *getState(Stone *stone, bool flipped, int turn);
 extern void getStatesOfStone(const Stone *, std::vector<State *> &);
 extern void convertStonesToVectorOfStates(Stone *, int, std::vector<std::vector<State *> > &);
 double evalBoard(Board *board);
+extern int countScore(Answers &ans, Problem &prob);
 
 
 inline Stone *operator~(Stone stone)                // Operation Overlord Logic-NOT
