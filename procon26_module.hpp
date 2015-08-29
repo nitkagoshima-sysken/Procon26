@@ -60,6 +60,7 @@ class StonePicker
         int sum;
         int blanks;
         std::vector<Stone *> stones;
+        std::vector<int> indexes;
         std::vector<int> zukus;
         void sortStones();
         int getSum();

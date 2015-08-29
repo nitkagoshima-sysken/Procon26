@@ -10,6 +10,7 @@ string Answer::toString()
 StonePicker::StonePicker(std::vector<Stone *> stones_, std::vector<int> zukus_, int blanks_)
 {
     stones = stones_; zukus = zukus_; blanks = blanks_;
+    num = stones.size();
     dropStonesMax = (1 << num) - 1;
     dropStones = 0;
     sum = 0;
@@ -53,16 +54,24 @@ int StonePicker::getSum()
 
 void StonePicker::getStones(std::vector<Stone *> &dest) 
 {
+    std::vector<int> drops;
     for (int i = 0, b = 1; i < MAX && i < num; i ++, b = b << 1) {
-        if ((dropStones & b) == 0) {
+        if ((dropStones & b) != 0) {
+            drops.push_back(indexes[i]);
+        }
+    }
+    sort(drops.begin(), drops.end());
+    for (int i = 0, j = 0, dlen = drops.size(); i < num; j++) {
+        for (; i < num && (j >= dlen || i < drops[j]); i++) {
             dest.push_back(stones[i]);
         }
+        i++;
     }
 }
 
 struct stoneData
 {
-    Stone *myStone;
+    int index;
     int myZuku;
     
     bool operator<(const stoneData& right) const
@@ -78,19 +87,19 @@ void StonePicker::sortStones()
     for (int i = 0; i < num; i ++)
     {
         stoneData tmp;
-        tmp.myStone = stones[i];
+        tmp.index   = i;
         tmp.myZuku  = zukus[i];
         stoneDatas.push_back(tmp);
     }
 
     sort(stoneDatas.begin(), stoneDatas.end());
 
-    stones.clear();
+    indexes.clear();
     zukus.clear();
 
     for (int i = 0; i < num; i++)
     {
-        stones.push_back(stoneDatas[i].myStone);
+        indexes.push_back(stoneDatas[i].index);
         zukus.push_back(stoneDatas[i].myZuku);
     }
 }
