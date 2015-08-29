@@ -7,7 +7,7 @@ string Answer::toString()
 	return sout.str();
 }
 
-StonePicker::StonePicker(std::vector<Stone *> stones_, std::vector<int> zukus_, int blanks_)
+StonePicker::StonePicker(std::vector<std::vector<State *> > stones_, std::vector<int> zukus_, int blanks_)
 {
     stones = stones_; zukus = zukus_; blanks = blanks_;
     num = stones.size();
@@ -26,7 +26,7 @@ StonePicker::StonePicker(std::vector<Stone *> stones_, std::vector<int> zukus_, 
     }
 }
 
-void StonePicker::getNext(std::vector<Stone *> &dest) 
+void StonePicker::getNext(std::vector<std::vector<State *> > &dest)
 {
     while(true){
         if(dropStones > dropStonesMax){
@@ -52,7 +52,7 @@ int StonePicker::getSum()
     return result;
 }
 
-void StonePicker::getStones(std::vector<Stone *> &dest) 
+void StonePicker::getStones(std::vector<std::vector<State *> > &dest)
 {
     std::vector<int> drops;
     for (int i = 0, b = 1; i < MAX && i < num; i ++, b = b << 1) {

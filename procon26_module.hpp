@@ -59,15 +59,15 @@ class StonePicker
         int num;
         int sum;
         int blanks;
-        std::vector<Stone *> stones;
+        std::vector<std::vector<State *> > stones;
         std::vector<int> indexes;
         std::vector<int> zukus;
         void sortStones();
         int getSum();
-        void getStones(std::vector<Stone *> &stones);
+        void getStones(std::vector<std::vector<State *> > &stones);
     public:
-        StonePicker(std::vector<Stone *> stones, std::vector<int> zukus, int blanks);
-        void getNext(std::vector<Stone *> &stones);
+        StonePicker(std::vector<std::vector<State *> > stones, std::vector<int> zukus, int blanks);
+        void getNext(std::vector<std::vector<State *> > &stones);
 };
 
 #endif
