@@ -689,3 +689,63 @@ double evalBoard(Board *board)
 	evalation = space - (maxline + maxcolumn) * 4 + allvariance * 20 - pergroup;
 	return evalation;
 }
+
+extern void countScore(Answers ans, Problem prob)
+{
+	Board *obstacleBoard = new Board;
+	Board *putBoard = new Board;
+	*obstacleBoard = prob.board;
+	for(int i = 0; i < 128; i++) putBoard -> block[i] = 0;
+		
+	int i;
+	bool canPut = false;
+	bool first = true;
+	for(i = 0; i < prob.num; i++)
+	{
+		if(ans.answers[i].X == NULL_POINT && ans.answers[i].Y == NULL_POINT) continue;
+		else if(first)
+		{
+			canPut =  canPlace(obstacleBoard, putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y, first);
+			first = false;
+		}
+		else if(!ans.answers[i].flipped)
+		{
+			canPut = canPlace(obstacleBoard, putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+		else
+		{
+			canPut = canPlace(obstacleBoard, putBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+		if(!canPut) break;
+		
+		if(!ans.answers[i].flipped)
+		{
+			obstacleBoard = placeStone(obstacleBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			putBoard = placeStone(putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+		else
+		{
+			obstacleBoard = placeStone(obstacleBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			putBoard = placeStone(putBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+	}
+	if(!canPut)
+	{
+		cout << i+1 << "行目:" << ans.answers[i].toString() << endl;
+	}
+	else
+	{
+		int stoneNum = 0, score = 0;
+		for(int y = 0; y < BOARD_SIZE; y++)
+		{
+			for(int x = 0; x < BOARD_SIZE; x++)
+			{
+				stoneNum += (int)getCellOfBoard(putBoard, x, y);
+				score += (int)!getCellOfBoard(obstacleBoard, x, y);
+			}
+		}
+		cout << "置いた石の数:" << stoneNum << ", 空きマス数:" << score << endl;
+	}
+	delete obstacleBoard;
+	delete putBoard;
+}
