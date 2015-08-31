@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 #include "../procon26_module.hpp"
-#include "../procon26_module.cpp"
 
 TEST(procon26_module, BoardBoolean)
 {
