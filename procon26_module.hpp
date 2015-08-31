@@ -9,6 +9,7 @@ using namespace std;
 
 #define STONE_SIZE 8
 #define BOARD_SIZE 32
+#define NULL_POINT -64
 
 struct Stone
 {
