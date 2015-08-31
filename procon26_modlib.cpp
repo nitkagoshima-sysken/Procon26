@@ -729,22 +729,28 @@ void countScore(Answers &ans, Problem &prob)
 			putBoard = placeStone(putBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
 		}
 	}
+	int score = 0;
 	if(!canPut)
 	{
-		cout << i+1 << "行目:" << ans.answers[i].toString() << endl;
-	}
-	else
-	{
-		int stoneNum = 0, score = 0;
 		for(int y = 0; y < BOARD_SIZE; y++)
 		{
 			for(int x = 0; x < BOARD_SIZE; x++)
 			{
-				stoneNum += (int)getCellOfBoard(putBoard, x, y);
 				score += (int)!getCellOfBoard(obstacleBoard, x, y);
 			}
 		}
-		cout << "置いた石の数:" << stoneNum << ", 空きマス数:" << score << endl;
+		return score;
+	}
+	else
+	{
+		for(int y = 0; y < BOARD_SIZE; y++)
+		{
+			for(int x = 0; x < BOARD_SIZE; x++)
+			{
+				score += (int)!getCellOfBoard(obstacleBoard, x, y);
+			}
+		}
+		return score;
 	}
 	delete obstacleBoard;
 	delete putBoard;
