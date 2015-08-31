@@ -690,7 +690,7 @@ double evalBoard(Board *board)
 	return evalation;
 }
 
-extern void countScore(Answers ans, Problem prob)
+void countScore(Answers &ans, Problem &prob)
 {
 	Board *obstacleBoard = new Board;
 	Board *putBoard = new Board;
