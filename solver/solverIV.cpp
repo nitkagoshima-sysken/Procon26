@@ -52,15 +52,18 @@ class SolverIV{
                 bool first=false){
             SOLVER_FOR if(boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
                 if(canPlace(masterBoard, stonesBoard, states[depth][i], x, y, first)){
-                    Answers *placedAnswer = answer->place(states[depth][i], x, y); // TODO
+                    Answers *placedAnswer = answer->place(states[depth][i], x, y);
                     if(depth == states.size() - 1){
                         return placedAnswer;
                     }
-                    BoardBoolean *placedBoardChecker = boardChecker->place(x, y); // TODO
+                    BoardBoolean *placedBoardChecker = boardChecker->place(x, y);
                     Board *placedMasterBoard = placeStone(masterBoard, states[depth][i], x, y);
                     Board *placedStonesBoard = placeStone(stonesBoard, states[depth][i], x, y);
                     Answers *result = solveInternal(placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard, states, depth + 1);
-                    // TODO free used memories
+                    delete placedAnswer;
+                    delete placedBoardChecker;
+                    delete placedMasterBoard;
+                    delete placedStonesBoard;
                     if(result != NULL){
                         return result;
                     }
