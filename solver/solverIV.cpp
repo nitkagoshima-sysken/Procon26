@@ -11,7 +11,10 @@ class SolverIV{
             std::vector<std::vector<Stone *> > states, picked;
             convertStonesToStates(problem.stones, problem.num, states); // TODO
             std::vector<int> zukus;
-            countZukusOfStones(problem.stones, problem.num, zukus); // TODO
+            // count zuku of stones
+            for (int i = 0; i < problem.num; i ++) {
+                zukus.push_back(countBitOfStone(&problem.stones[i]))
+            }
             Answers *answer = new Answers();
             StonePicker *stonePicker = new StonePicker(states, zukus, BOARD_SIZE * BOARD_SIZE - countBitOfBoard(problem.board));
             while(true){
