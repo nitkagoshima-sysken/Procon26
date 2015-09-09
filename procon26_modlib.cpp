@@ -485,7 +485,7 @@ int getGroupsCountBoardInternal(Board *board, Board *done, bool target, int x, i
 Board *BoardNOT(const Board *board)
 {
 	Board *resultBoard = new Board;
-	for(int i = 0; i < 128; i++)
+	for(int i = 0; i < BOARD_LOOP; i++)
 	{
 		resultBoard->block[i] = ~board->block[i];
 	}
@@ -495,7 +495,7 @@ Board *BoardNOT(const Board *board)
 Board *BoardAND(const Board *Board1, const Board *Board2)
 {
 	Board *resultBoard = new Board;
-	for(int i = 0; i < 128; i++)
+	for(int i = 0; i < BOARD_LOOP; i++)
 	{
 		resultBoard->block[i] = Board1->block[i] & Board2->block[i];
 	}
@@ -505,7 +505,7 @@ Board *BoardAND(const Board *Board1, const Board *Board2)
 Board *BoardOR(const Board *Board1, const Board *Board2)
 {
 	Board *resultBoard = new Board;
-	for(int i = 0; i < 128; i++)
+	for(int i = 0; i < BOARD_LOOP; i++)
 	{
 		resultBoard->block[i] = Board1->block[i] | Board2->block[i];
 	}
@@ -515,7 +515,7 @@ Board *BoardOR(const Board *Board1, const Board *Board2)
 Board *BoardXOR(const Board *Board1, const Board *Board2)
 {
 	Board *resultBoard = new Board;
-	for(int i = 0; i < 128; i++)
+	for(int i = 0; i < BOARD_LOOP; i++)
 	{
 		resultBoard->block[i] = Board1->block[i] ^ Board2->block[i];
 	}
