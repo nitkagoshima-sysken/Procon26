@@ -1,1260 +1,147 @@
 #include <gtest/gtest.h>
-#include "../procon26_module.h"
-#include "../procon26_modlib.h"
-#include "../procon26_modio.h"
+#include "../procon26_modlib.hpp"
+#include "../procon26_modlib.hpp"
+#include "../procon26_modio.hpp"
 
-static const Stone *EMPTY_STONE = new Stone;
+TEST(procon26_module, StonePicker){
+    std::vector<std::vector<State *> > states, picked;
+    std::vector<int> zukus;
+    Stone *stone1 = getStoneByString("1                                                               ");
+    Stone *stone2 = getStoneByString("11                                                              ");
+    Stone *stone3 = getStoneByString("111                                                             ");
+    Stone *stone4 = getStoneByString("1111                                                            ");
+    std::vector<State *> states1, states2, states3, states4;
+    getStatesOfStone(stone3, states3);
+    getStatesOfStone(stone1, states1);
+    getStatesOfStone(stone4, states4);
+    getStatesOfStone(stone2, states2);
+    zukus.push_back(3); states.push_back(states3);
+    zukus.push_back(1); states.push_back(states1);
+    zukus.push_back(4); states.push_back(states4);
+    zukus.push_back(2); states.push_back(states2);
+    StonePicker stonePicker(states, zukus, 10);
+    //0000
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 4);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone1));
+    ASSERT_TRUE(isEqualStone(picked[2][0], stone4));
+    ASSERT_TRUE(isEqualStone(picked[3][0], stone2));
+    //1000
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 3);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone4));
+    ASSERT_TRUE(isEqualStone(picked[2][0], stone2));
+    //0100
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 3);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone1));
+    ASSERT_TRUE(isEqualStone(picked[2][0], stone4));
+    //1100
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 2);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone4));
+    //0010
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 3);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone4));
+    ASSERT_TRUE(isEqualStone(picked[2][0], stone2));
+    //1010
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 2);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone4));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone2));
+    //0110
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 2);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone4));
+    //1110
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 1);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone4));
+    //0001
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 3);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone1));
+    ASSERT_TRUE(isEqualStone(picked[2][0], stone2));
+    //1001
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 2);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone2));
+    //0101
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 2);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone1));
+    //1101
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 1);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
+    //0011
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 2);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone2));
+    //1011
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 1);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone2));
+    //0111
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 1);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
+    //1111
+    picked.clear(); stonePicker.getNext(picked);
+    ASSERT_EQ(picked.size(), 0);
 
-TEST(procon26_module, isEqualStone)
-{
-    ASSERT_TRUE(isEqualStone(EMPTY_STONE, EMPTY_STONE));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ),
-                getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    )
-                ));
+    StonePicker stonePicker2(states, zukus, 4);
+    //1110
+    picked.clear(); stonePicker2.getNext(picked);
+    ASSERT_EQ(picked.size(), 1);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone4));
+    //0101
+    picked.clear(); stonePicker2.getNext(picked);
+    ASSERT_EQ(picked.size(), 2);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone1));
+    //1101
+    picked.clear(); stonePicker2.getNext(picked);
+    ASSERT_EQ(picked.size(), 1);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
+    //0011
+    picked.clear(); stonePicker2.getNext(picked);
+    ASSERT_EQ(picked.size(), 2);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone2));
+    //1011
+    picked.clear(); stonePicker2.getNext(picked);
+    ASSERT_EQ(picked.size(), 1);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone2));
+    //0111
+    picked.clear(); stonePicker2.getNext(picked);
+    ASSERT_EQ(picked.size(), 1);
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
+    //1111
+    picked.clear(); stonePicker2.getNext(picked);
+    ASSERT_EQ(picked.size(), 0);
 }
 
-TEST(procon26_module, NOT)
+TEST(procon26_module, BoardBoolean)
 {
-    ASSERT_TRUE(isEqualStone(
-                ~*getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ),
-                getStoneByString(
-                    "10001010"
-                    "11100000"
-                    "11100000"
-                    "11111011"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    )
-                ));
-}
-
-TEST(procon26_module, AND)
-{
-    ASSERT_TRUE(isEqualStone(
-                *getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ) &
-                *getStoneByString(
-                    "00001100"
-                    "00001100"
-                    "00000110"
-                    "00000100"
-                    "00000110"
-                    "00000110"
-                    "00000010"
-                    "00000000"
-                    ),
-                getStoneByString(
-                    "00000100"
-                    "00001100"
-                    "00000110"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    )
-                ));
-}
-
-TEST(procon26_module, OR)
-{
-    ASSERT_TRUE(isEqualStone(
-                *getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ) |
-                *getStoneByString(
-                    "00001100"
-                    "00001100"
-                    "00000110"
-                    "00000100"
-                    "00000110"
-                    "00000110"
-                    "00000010"
-                    "00000000"
-                    ),
-                getStoneByString(
-                    "01111101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000110"
-                    "00000110"
-                    "00000010"
-                    "00000000"
-                    )
-                ));
-}
-
-TEST(procon26_module, XOR)
-{
-    ASSERT_TRUE(isEqualStone(
-                *getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ) ^
-                *getStoneByString(
-                    "00001100"
-                    "00001100"
-                    "00000110"
-                    "00000100"
-                    "00000110"
-                    "00000110"
-                    "00000010"
-                    "00000000"
-                    ),
-                getStoneByString(
-                    "01111001"
-                    "00010011"
-                    "00011001"
-                    "00000000"
-                    "00000110"
-                    "00000110"
-                    "00000010"
-                    "00000000"
-                    )
-                ));
-}
-
-TEST(procon26_module, shiftUp)
-{
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ),
-                shiftUp(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 1
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ),
-                shiftUp(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 3
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "11111111"
-                    ),
-                shiftUp(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 1, 1
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    ),
-                shiftUp(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 3, 1
-                )));
-}
-
-TEST(procon26_module, shiftDown)
-{
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "00000000"
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ),
-                shiftDown(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 1
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    ),
-                shiftDown(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 3
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "11111111"
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ),
-                shiftDown(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 1, 1
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    ),
-                shiftDown(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 3, 1
-                )));
-}
-
-TEST(procon26_module, shiftLeft)
-{
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "11101010"
-                    "00111110"
-                    "00111110"
-                    "00001000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ),
-                shiftLeft(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 1
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "10101000"
-                    "11111000"
-                    "11111000"
-                    "00100000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ),
-                shiftLeft(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 3
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "11101011"
-                    "00111111"
-                    "00111111"
-                    "00001001"
-                    "00000001"
-                    "00000001"
-                    "00000001"
-                    "00000001"
-                    ),
-                shiftLeft(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 1, 1
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "10101111"
-                    "11111111"
-                    "11111111"
-                    "00100111"
-                    "00000111"
-                    "00000111"
-                    "00000111"
-                    "00000111"
-                    ),
-                shiftLeft(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 3, 1
-                )));
-}
-
-TEST(procon26_module, shiftRight)
-{
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "00111010"
-                    "00001111"
-                    "00001111"
-                    "00000010"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ),
-                shiftRight(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 1
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "00001110"
-                    "00000011"
-                    "00000011"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ),
-                shiftRight(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 3
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "10111010"
-                    "10001111"
-                    "10001111"
-                    "10000010"
-                    "10000000"
-                    "10000000"
-                    "10000000"
-                    "10000000"
-                    ),
-                shiftRight(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 1, 1
-                )));
-    ASSERT_TRUE(isEqualStone(
-                getStoneByString(
-                    "11101110"
-                    "11100011"
-                    "11100011"
-                    "11100000"
-                    "11100000"
-                    "11100000"
-                    "11100000"
-                    "11100000"
-                    ),
-                shiftRight(getStoneByString(
-                    "01110101"
-                    "00011111"
-                    "00011111"
-                    "00000100"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    ), 3, 1
-                )));
-}
-
-TEST(procon26_module, cloneStone)
-{
-    Stone *stone = getStoneByString(
-            "01110101"
-            "00011111"
-            "00011111"
-            "00010100"
-            "00010000"
-            "00011110"
-            "00011110"
-            "00000010"
-            );
-    ASSERT_TRUE(isEqualStone(
-                stone, cloneStone(stone)
-                ));
-}
-
-TEST(procon26_module, quarryStone)
-{
-    Board *board = getBoardByString(
-            "00100000000100000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000001000000010000000000111"
-            "00001000000000000100000000000111"
-            "00000000000000000001000000000111"
-            "00000000000000000001000000000111"
-            "00000000000000100000000100000111"
-            "00000000100010000000000000000111"
-            "01000000000100000000000000000111"
-            "11000000000000000000000000000111"
-            "10000001000000000000000010000111"
-            "00000000000001000000000000000111"
-            "00000001000000000000001000001111"
-            "00000000000000000000000000000111"
-            "00000000000000000000000000100111"
-            "00000000001000000000000000000111"
-            "01000000000010000000000000000111"
-            "00000000100000000100000000000111"
-            "00001000000000000000000100000111"
-            "00000000010000000000000001000111"
-            "01000000000000000000000000000111"
-            "00000001100001100100000000000111"
-            "00000000001011000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000000001000000000000000111"
-            "00000000000000000000000000100111"
-            "00000000000000000000000000000111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            );
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(
-                    board, 7, 19
-                    ),
-                getStoneByString(
-                    "00100000"
-                    "00000000"
-                    "11000011"
-                    "00010110"
-                    "00000000"
-                    "00000000"
-                    "00000010"
-                    "00000000"
-                )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(
-                    board, 0, 0
-                    ),
-                getStoneByString(
-                    "00100000"
-                    "00000000"
-                    "00000000"
-                    "00001000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(
-                    board, -1, -1
-                    ),
-                getStoneByString(
-                    "11111111"
-                    "10010000"
-                    "10000000"
-                    "10000000"
-                    "10000100"
-                    "10000000"
-                    "10000000"
-                    "10000000"
-                )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(
-                    board, -2, -2
-                    ),
-                getStoneByString(
-                    "11111111"
-                    "11111111"
-                    "11001000"
-                    "11000000"
-                    "11000000"
-                    "11000010"
-                    "11000000"
-                    "11000000"
-                )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(
-                    board, 24, 24
-                    ),
-                getStoneByString(
-                    "00000111"
-                    "00000111"
-                    "00100111"
-                    "00000111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(
-                    board, 25, 25
-                    ),
-                getStoneByString(
-                    "00001111"
-                    "01001111"
-                    "00001111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(
-                    board, 26, 26
-                    ),
-                getStoneByString(
-                    "10011111"
-                    "00011111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                )));
-}
-
-TEST(procon26_module, cloneBoard)
-{
-    Board *board = getBoardByString(
-                    "00100000000100000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000001000000010000000000111"
-                    "00001000000000000100000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000100000000100000111"
-                    "00000000100010000000000000000111"
-                    "01000000000100000000000000000111"
-                    "11000000000000000000000000000111"
-                    "10000001000000000000000010000111"
-                    "00000000000001000000000000000111"
-                    "00000001000000000000001000001111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000001000000000000000000111"
-                    "01000000000010000000000000000111"
-                    "00000000100000000100000000000111"
-                    "00001000000000000000000100000111"
-                    "00000000010000000000000001000111"
-                    "01000000000000000000000000000111"
-                    "00000001100001100100000000000111"
-                    "00000000001011000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000000001000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000000000000000000000000111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    );
-    ASSERT_TRUE(isEqualBoard(
-                board, cloneBoard(board)
-                    ));
-}
-
-TEST(procon26_module, isEqualBoard)
-{
-    ASSERT_TRUE(isEqualBoard(
-                getBoardByString(
-                    "00100000000100000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000001000000010000000000111"
-                    "00001000000000000100000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000100000000100000111"
-                    "00000000100010000000000000000111"
-                    "01000000000100000000000000000111"
-                    "11000000000000000000000000000111"
-                    "10000001000000000000000010000111"
-                    "00000000000001000000000000000111"
-                    "00000001000000000000001000001111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000001000000000000000000111"
-                    "01000000000010000000000000000111"
-                    "00000000100000000100000000000111"
-                    "00001000000000000000000100000111"
-                    "00000000010000000000000001000111"
-                    "01000000000000000000000000000111"
-                    "00000001100001100100000000000111"
-                    "00000000001011000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000000001000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000000000000000000000000111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    ),
-                getBoardByString(
-                    "00100000000100000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000001000000010000000000111"
-                    "00001000000000000100000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000100000000100000111"
-                    "00000000100010000000000000000111"
-                    "01000000000100000000000000000111"
-                    "11000000000000000000000000000111"
-                    "10000001000000000000000010000111"
-                    "00000000000001000000000000000111"
-                    "00000001000000000000001000001111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000001000000000000000000111"
-                    "01000000000010000000000000000111"
-                    "00000000100000000100000000000111"
-                    "00001000000000000000000100000111"
-                    "00000000010000000000000001000111"
-                    "01000000000000000000000000000111"
-                    "00000001100001100100000000000111"
-                    "00000000001011000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000000001000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000000000000000000000000111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    )));
-}
-
-TEST(procon26_module, placeStone)
-{
-    Board *board = getBoardByString(
-                    "00100000000100000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000001000000010000000000111"
-                    "00001000000000000100000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000100000000100000111"
-                    "00000000100010000000000000000111"
-                    "01000000000100000000000000000111"
-                    "11000000000000000000000000000111"
-                    "10000001000000000000000010000111"
-                    "00000000000001000000000000000111"
-                    "00000001000000000000001000001111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000001000000000000000000111"
-                    "01000000000010000000000000000111"
-                    "00000000100000000100000000000111"
-                    "00001000000000000000000100000111"
-                    "00000000010000000000000001000111"
-                    "01000000000000000000000000000111"
-                    "00000001100001100100000000000111"
-                    "00000000001011000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000000001000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000000000000000000000000111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    );
-    Stone *stone = getStoneByString(
-                    "00000000"
-                    "01110000"
-                    "00110000"
-                    "00100000"
-                    "00100000"
-                    "00111000"
-                    "00000000"
-                    "00000000"
-                );
-    ASSERT_TRUE(isEqualBoard(
-                placeStone(board, stone, 7, 19),
-                getBoardByString(
-                    "00100000000100000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000001000000010000000000111"
-                    "00001000000000000100000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000100000000100000111"
-                    "00000000100010000000000000000111"
-                    "01000000000100000000000000000111"
-                    "11000000000000000000000000000111"
-                    "10000001000000000000000010000111"
-                    "00000000000001000000000000000111"
-                    "00000001000000000000001000001111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000001000000000000000000111"
-                    "01000000000010000000000000000111"
-                    "00000000100000000100000000000111"
-                    "00001000000000000000000100000111"
-                    "00000000010000000000000001000111"
-                    "01000000111000000000000000000111"
-                    "00000001111001100100000000000111"
-                    "00000000011011000000000000000111"
-                    "00000000010000000000000000000111"
-                    "00000000011100000000000000000111"
-                    "00000000000001000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000000000000000000000000111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(placeStone(board, stone, 0, 0), 0, 0),
-                getStoneByString(
-                    "00100000"
-                    "01110000"
-                    "00110000"
-                    "00101000"
-                    "00100000"
-                    "00111000"
-                    "00000000"
-                    "00000000"
-                    )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(placeStone(board, stone, -1, -1), 0, 0),
-                getStoneByString(
-                    "11100000"
-                    "01100000"
-                    "01000000"
-                    "01001000"
-                    "01110000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(placeStone(board, stone, -2, -2), 0, 0),
-                getStoneByString(
-                    "11100000"
-                    "10000000"
-                    "10000000"
-                    "11101000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    "00000000"
-                    )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(placeStone(board, stone, BOARD_SIZE - STONE_SIZE, BOARD_SIZE - STONE_SIZE), BOARD_SIZE - STONE_SIZE, BOARD_SIZE - STONE_SIZE),
-                getStoneByString(
-                    "00000111"
-                    "01110111"
-                    "00110111"
-                    "00100111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(placeStone(board, stone, BOARD_SIZE - STONE_SIZE + 1, BOARD_SIZE - STONE_SIZE + 1), BOARD_SIZE - STONE_SIZE, BOARD_SIZE - STONE_SIZE),
-                getStoneByString(
-                    "00000111"
-                    "00000111"
-                    "00111111"
-                    "00011111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    )));
-    ASSERT_TRUE(isEqualStone(
-                quarryStone(placeStone(board, stone, BOARD_SIZE - STONE_SIZE + 2, BOARD_SIZE - STONE_SIZE + 2), BOARD_SIZE - STONE_SIZE, BOARD_SIZE - STONE_SIZE),
-                getStoneByString(
-                    "00000111"
-                    "00000111"
-                    "00100111"
-                    "00011111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    "11111111"
-                    )));
-}
-
-TEST(procon26_module, getCellOfStone)
-{
-    Stone *stone = getStoneByString(
-            "01110101"
-            "00011111"
-            "00011111"
-            "00010100"
-            "00010000"
-            "00011110"
-            "00011110"
-            "00000010"
-            );
-    ASSERT_FALSE(getCellOfStone(stone, 0, 0));
-    ASSERT_FALSE(getCellOfStone(stone, 1, 1));
-    ASSERT_FALSE(getCellOfStone(stone, 2, 2));
-    ASSERT_TRUE(getCellOfStone(stone, 3, 4));
-    ASSERT_TRUE(getCellOfStone(stone, 3, 3));
-}
-
-TEST(procon26_module, getCellOfBoard)
-{
-    Board *board = getBoardByString(
-            "00100000000100000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000001000000010000000000111"
-            "00001000000000000100000000000111"
-            "00000000000000000001000000000111"
-            "00000000000000000001000000000111"
-            "00000000000000100000000100000111"
-            "00000000100010000000000000000111"
-            "01000000000100000000000000000111"
-            "11000000000000000000000000000111"
-            "10000001000000000000000010000111"
-            "00000000000001000000000000000111"
-            "00000001000000000000001000001111"
-            "00000000000000000000000000000111"
-            "00000000000000000000000000100111"
-            "00000000001000000000000000000111"
-            "01000000000010000000000000000111"
-            "00000000100000000100000000000111"
-            "00001000000000000000000100000111"
-            "00000000010000000000000001000111"
-            "01000000000000000000000000000111"
-            "00000001100001100100000000000111"
-            "00000000001011000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000000001000000000000000111"
-            "00000000000000000000000000100111"
-            "00000000000000000000000000000111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            );
-    ASSERT_FALSE(getCellOfBoard(board, 0, 0));
-    ASSERT_FALSE(getCellOfBoard(board, 1, 0));
-    ASSERT_TRUE(getCellOfBoard(board, 2, 0));
-    ASSERT_TRUE(getCellOfBoard(board, 4, 3));
-    ASSERT_FALSE(getCellOfBoard(board, 4, 4));
-    ASSERT_FALSE(getCellOfBoard(board, 12, 11));
-    ASSERT_TRUE(getCellOfBoard(board, 13, 11));
-}
-
-TEST(procon26_module, setCellOfStone)
-{
-    Stone *stone = getStoneByString(
-            "01110101"
-            "00011111"
-            "00011111"
-            "00010100"
-            "00010000"
-            "00011110"
-            "00011110"
-            "00000010"
-            );
-    setCellOfStone(stone, 0, 0, true);
-    setCellOfStone(stone, 1, 0, false);
-    setCellOfStone(stone, 2, 0, true);
-    setCellOfStone(stone, 3, 0, false);
-    setCellOfStone(stone, 4, 0, false);
-    setCellOfStone(stone, 4, 3, true);
-    ASSERT_TRUE(isEqualStone(stone,
-                getStoneByString(
-                    "10100101"
-                    "00011111"
-                    "00011111"
-                    "00011100"
-                    "00010000"
-                    "00011110"
-                    "00011110"
-                    "00000010"
-                    )));
-}
-
-TEST(procon26_module, setCellOfBoard)
-{
-    Board *board = getBoardByString(
-            "00100000000100000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000001000000010000000000111"
-            "00001000000000000100000000000111"
-            "00000000000000000001000000000111"
-            "00000000000000000001000000000111"
-            "00000000000000100000000100000111"
-            "00000000100010000000000000000111"
-            "01000000000100000000000000000111"
-            "11000000000000000000000000000111"
-            "10000001000000000000000010000111"
-            "00000000000001000000000000000111"
-            "00000001000000000000001000001111"
-            "00000000000000000000000000000111"
-            "00000000000000000000000000100111"
-            "00000000001000000000000000000111"
-            "01000000000010000000000000000111"
-            "00000000100000000100000000000111"
-            "00001000000000000000000100000111"
-            "00000000010000000000000001000111"
-            "01000000000000000000000000000111"
-            "00000001100001100100000000000111"
-            "00000000001011000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000000001000000000000000111"
-            "00000000000000000000000000100111"
-            "00000000000000000000000000000111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            );
-    setCellOfBoard(board, 0, 0, 1);
-    setCellOfBoard(board, 1, 0, 0);
-    setCellOfBoard(board, 2, 0, 0);
-    setCellOfBoard(board, 3, 0, 1);
-    setCellOfBoard(board, 11, 0, 1);
-    setCellOfBoard(board, 12, 11, 1);
-    setCellOfBoard(board, 13, 11, 0);
-    ASSERT_TRUE(isEqualBoard(board,
-                getBoardByString(
-                    "10010000000100000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000001000000010000000000111"
-                    "00001000000000000100000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000000001000000000111"
-                    "00000000000000100000000100000111"
-                    "00000000100010000000000000000111"
-                    "01000000000100000000000000000111"
-                    "11000000000000000000000000000111"
-                    "10000001000000000000000010000111"
-                    "00000000000010000000000000000111"
-                    "00000001000000000000001000001111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000001000000000000000000111"
-                    "01000000000010000000000000000111"
-                    "00000000100000000100000000000111"
-                    "00001000000000000000000100000111"
-                    "00000000010000000000000001000111"
-                    "01000000000000000000000000000111"
-                    "00000001100001100100000000000111"
-                    "00000000001011000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000000000000000000000000111"
-                    "00000000000001000000000000000111"
-                    "00000000000000000000000000100111"
-                    "00000000000000000000000000000111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    "11111111111111111111111111111111"
-                    )));
-}
-
-TEST(procon26_module, getGroupsCountStone)
-{
-    int groups_count = 0, count = 0;
-    Stone *stone1 = getStoneByString(
-            "10100101"
-            "00011111"
-            "00011111"
-            "00011100"
-            "00010000"
-            "00011110"
-            "00011110"
-            "00000010"
-            );
-    getGroupsCountStone(stone1, 0, &groups_count, &count);
-    ASSERT_EQ(groups_count, 4);
-    ASSERT_EQ(count, 37);
-    getGroupsCountStone(stone1, 1, &groups_count, &count);
-    ASSERT_EQ(groups_count, 3);
-    ASSERT_EQ(count, 27);
-    Stone *stone2 = getStoneByString(
-            "01111101"
-            "00011111"
-            "00011111"
-            "00010100"
-            "00011000"
-            "00011110"
-            "00011110"
-            "00000010"
-            );
-    groups_count = 0, count = 0;
-    getGroupsCountStone(stone2, 0, &groups_count, &count);
-    ASSERT_EQ(groups_count, 4);
-    ASSERT_EQ(count, 35);
-    getGroupsCountStone(stone2, 1, &groups_count, &count);
-    ASSERT_EQ(groups_count, 1);
-    ASSERT_EQ(count, 29);
-}
-
-TEST(procon26_module, getGroupsCountBoard)
-{
-    int groups_count = 0, count = 0;
-    Board *board1 = getBoardByString(
-            "00100000000100000000000000000111"
-            "00000000001100000000000000000111"
-            "00000000001000000010000000000111"
-            "00001000000000000100000000000111"
-            "00001010010111100101000000000111"
-            "00000001111100011111000000000111"
-            "11111111111100011111111111111111"
-            "00000001110000011100000000000111"
-            "01000001000000010000000000000111"
-            "11000001111000011110000000000111"
-            "10000001111000011110000000000111"
-            "00000000001000000010000000000111"
-            "00000000010111100101010000001111"
-            "00000001111100011111000010000111"
-            "00000001111100011111000000100111"
-            "00000001110000011100100000000111"
-            "01000001000000010000000000000111"
-            "00000001111000011110000000000111"
-            "00001001111000011110000100000111"
-            "00000000001000000010000001000111"
-            "01000000000000000000000000000111"
-            "00000001100001100100000000000111"
-            "00000000001011000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000000001000000000000000111"
-            "00000000000000000000000000100111"
-            "00000000000000000000000000000111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            );
-    groups_count = 0; count = 0;
-    getGroupsCountBoard(board1, 0, &groups_count, &count);
-    ASSERT_EQ(groups_count, 5);
-    ASSERT_EQ(count, 656);
-    groups_count = 0; count = 0;
-    getGroupsCountBoard(board1, 1, &groups_count, &count);
-    ASSERT_EQ(groups_count, 25);
-    ASSERT_EQ(count, 368);
-    Board *board2 = getBoardByString(
-            "10010000000100000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000001000000010000000000111"
-            "00001000000000000100000000000111"
-            "00000000000000000001000000000111"
-            "00000000000000000001000000000111"
-            "00000000000000100000000100000111"
-            "00000000100010000000000000000111"
-            "01000000000100000000000000000111"
-            "11000000000000000000000000000111"
-            "10000001000000000000000010000111"
-            "00000000000010000000000000000111"
-            "00000001000000000000001000001111"
-            "00000000000000000000000000000111"
-            "00000000000000000000000000100111"
-            "00000000001000000000000000000111"
-            "01000000000010000000000000000111"
-            "00000000100000000100000000000111"
-            "00001000000000000000000100000111"
-            "00000000010000000000000001000111"
-            "01000000000000000000000000000111"
-            "00000001100001100100000000000111"
-            "00000000001011000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000000000000000000000000111"
-            "00000000000001000000000000000111"
-            "00000000000000000000000000100111"
-            "00000000000000000000000000000111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            "11111111111111111111111111111111"
-            );
-    groups_count = 0; count = 0;
-    getGroupsCountBoard(board2, 0, &groups_count, &count);
-    ASSERT_EQ(groups_count, 1);
-    ASSERT_EQ(count, 767);
-    groups_count = 0; count = 0;
-    getGroupsCountBoard(board2, 1, &groups_count, &count);
-    ASSERT_EQ(groups_count, 37);
-    ASSERT_EQ(count, 257);
+	BoardBoolean board1;
+	BoardBoolean *p;
+	p = board1.place(-2, 7);
+	ASSERT_EQ(p -> check(-2, 8), 0);
+	ASSERT_EQ(p -> check(-7, 7), 0);
+	ASSERT_EQ(p -> check(-1, 15), 0);
+	ASSERT_EQ(p -> check(10, 5), 1);
+	ASSERT_EQ(p -> check(-3, -2), 1);
+	ASSERT_EQ(p -> check(-8, 4), -1);
 }

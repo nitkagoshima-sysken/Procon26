@@ -1,7 +1,7 @@
-#include "procon26_modlib.h"
-#include "procon26_modio.h"
+#include <vector>
+#include "procon26_modlib.hpp"
+#include "procon26_modio.hpp"
 
-/* Constants */
 const Stone *EMPTY_STONE = getStoneByString("0000000000000000000000000000000000000000000000000000000000000000");
 const Board *EMPTY_BOARD = getBoardByString(
         "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
@@ -32,7 +32,20 @@ int countBitOfStone(const Stone *stone)
 	return sum;
 }
 
-Stone *quarryStone(const Board *board, int x, int y)
+int countBitOfBoard(const Board *board)
+{
+	int sum = 0;
+	for (int y = 0; y < BOARD_SIZE ; y++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			sum += countBit(board->block[i + y * 4]);
+		}
+	}
+	return sum;
+}
+
+Stone *quarryStone(const Board *board, int x, int y, bool filler)
 {
 	int qX = x, qY = y;
 	Stone *tmp;
@@ -45,10 +58,10 @@ Stone *quarryStone(const Board *board, int x, int y)
 	{
 		quarried->zuku[i] = board->block[qX / STONE_SIZE + qY * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2))] << (qX % STONE_SIZE) | board->block[qX / STONE_SIZE + qY * (STONE_SIZE / 2) + (i * (STONE_SIZE / 2)) + 1] >> (STONE_SIZE - (qX % STONE_SIZE));
 	}
-	if(x < 0){ tmp = shiftRight(quarried, -x, 1); delete quarried; quarried = tmp;}
-	else if(x > BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE, 1); delete quarried; quarried = tmp;}
-	if(y < 0){ tmp = shiftDown(quarried, -y, 1); delete quarried; quarried = tmp;}
-	else if(y > BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE, 1); delete quarried; quarried = tmp;}
+	if(x < 0){ tmp = shiftRight(quarried, -x, filler); delete quarried; quarried = tmp;}
+	else if(x > BOARD_SIZE - STONE_SIZE){ tmp = shiftLeft(quarried, x - BOARD_SIZE + STONE_SIZE, filler); delete quarried; quarried = tmp;}
+	if(y < 0){ tmp = shiftDown(quarried, -y, filler); delete quarried; quarried = tmp;}
+	else if(y > BOARD_SIZE - STONE_SIZE){ tmp = shiftUp(quarried, y - BOARD_SIZE + STONE_SIZE, filler); delete quarried; quarried = tmp;}
 	return quarried;
 }
 
@@ -104,28 +117,28 @@ Stone *shiftLeft(const Stone *stone, int times, int filler)
 	return dist;
 }
 
-Stone *turn(const Stone *stone, int n)
+Stone *rotate(const Stone *stone, int n)
 {
 	switch(n % 4)
 	{
 		case 1:
-			// turn90
-			return turn90(stone);
+			// rotate90
+			return rotate90(stone);
 			
 		case 2:
-			// turn180
-			return turn180(stone);
+			// rotate180
+			return rotate180(stone);
 		
 		case 3:
-			// turn270
-			return turn270(stone);
+			// rotate270
+			return rotate270(stone);
 		
 		default:
 			return cloneStone(stone);
 	}
 }
 
-Stone *turn90(const Stone *stone)
+Stone *rotate90(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;
@@ -147,7 +160,7 @@ Stone *turn90(const Stone *stone)
 	return dist;
 }
 
-Stone *turn180(const Stone *stone)
+Stone *rotate180(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;
@@ -169,7 +182,7 @@ Stone *turn180(const Stone *stone)
 	return dist;
 }
 
-Stone *turn270(const Stone *stone)
+Stone *rotate270(const Stone *stone)
 {
 	Stone *dist = new Stone;
 	for (int i = 0; i < STONE_SIZE; i++) dist->zuku[i] = 0;
@@ -223,54 +236,34 @@ Stone *NOT(const Stone *stone)
 	return resultStone;
 }
 
-Stone *AND(const Stone *Stone1, const Stone *Stone2)
+Stone *AND(const Stone *stone1, const Stone *stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
 	{
-		resultStone->zuku[i] = Stone1->zuku[i] & Stone2->zuku[i];
+		resultStone->zuku[i] = stone1->zuku[i] & stone2->zuku[i];
 	}
 	return resultStone;
 }
 
-Stone *OR(const Stone *Stone1, const Stone *Stone2)
+Stone *OR(const Stone *stone1, const Stone *stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
 	{
-		resultStone->zuku[i] = Stone1->zuku[i] | Stone2->zuku[i];
+		resultStone->zuku[i] = stone1->zuku[i] | stone2->zuku[i];
 	}
 	return resultStone;
 }
 
-Stone *XOR(const Stone *Stone1, const Stone *Stone2)
+Stone *XOR(const Stone *stone1, const Stone *stone2)
 {
 	Stone *resultStone = new Stone;
 	for(int i = 0; i < STONE_SIZE; i++)
 	{
-		resultStone->zuku[i] = Stone1->zuku[i] ^ Stone2->zuku[i];
+		resultStone->zuku[i] = stone1->zuku[i] ^ stone2->zuku[i];
 	}
 	return resultStone;
-}
-
-inline Stone *operator~(Stone stone)
-{
-	return NOT(&stone); 
-}
-
-inline Stone *operator&(Stone Stone1, Stone Stone2)
-{
-	return AND(&Stone1, &Stone2);
-}
-
-inline Stone *operator|(Stone Stone1, Stone Stone2)
-{
-	return OR(&Stone1, &Stone2);
-}
-
-inline Stone *operator^(Stone Stone1, Stone Stone2)
-{
-	return XOR(&Stone1, &Stone2);
 }
 
 bool isEmptyStone(const Stone *stone)
@@ -282,18 +275,33 @@ bool isEmptyStone(const Stone *stone)
 	return true;
 }
 
-Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y)
+bool isEmptyBoard(const Board *board)
 {
-    Stone *center = quarryStone(board, x, y);
-    return AND(
-            OR(
-                OR(
-                    quarryStone(board, x - 1, y),
-                    quarryStone(board, x + 1, y)),
-                OR(
-                    quarryStone(board, x, y - 1),
-                    quarryStone(board, x, y + 1))),
+	for (int y = 0; y < BOARD_SIZE ; y++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if(board->block[i + y * 4] != 0) return false;
+		}
+	}
+	return true;
+}
+
+Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y, bool filler)
+{
+    Stone *center = quarryStone(board, x, y, filler);
+    Stone *a, *b, *c, *d, *e, *f, *g;
+    Stone *result = AND(
+            g = OR(
+                e = OR(
+                    a = quarryStone(board, x - 1, y, filler),
+                    b = quarryStone(board, x + 1, y, filler)),
+                f = OR(
+                    c = quarryStone(board, x, y - 1, filler),
+                    d = quarryStone(board, x, y + 1, filler))),
             stone);
+    delete a; delete b; delete c; delete d; delete e; delete f; delete g;
+    return result;
 }
 
 Board *placeStone(const Board *board, const Stone *stone, int x, int y)
@@ -314,19 +322,29 @@ Board *placeStone(const Board *board, const Stone *stone, int x, int y)
     return new_board;
 }
 
-bool canPlace(const Board *board, const Stone *stone, int x, int y)
+bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, int x, int y, bool first)
 {
-	if(isEmptyStone(*stone & *quarryStone(board, x, y))) return true;
-	return false;
+    Stone *a, *b, *c;
+    if(isEmptyStone(a = AND(stone, b = quarryStone(board, x, y)))){
+        delete a; delete b;
+        if(first){
+            return true;
+        }else if(! isEmptyStone(c = getTouchingStone(board_diff, stone, x, y, 0))){
+            delete c;
+            return true;
+        }
+    }
+    return false;
 }
 
 /*
  * その場所にブロックが置ける時はいくつのブロックが触れているかを返す
  * おけない時には-1を返す
+ * board_diffにはこれまで置いたブロックのみのボードを渡す
 */
-int checkPlacingStone(const Board *board, const Stone *stone, int x, int y)
+int checkPlacingStone(const Board *board, const Board *board_diff, const Stone *stone, int x, int y)
 {
-	if(! canPlace(board, stone, x, y)) return -1;
+	if(! canPlace(board, board_diff, stone, x, y)) return -1;
 	return countBitOfStone(getTouchingStone(board, stone, x, y));
 }
 
@@ -554,4 +572,278 @@ Board *BoardshiftLeft(const Board *board, int times, int filler)
 		dist->block[i] = (board->block[i] << times) | filler_char;
 	}
 	return dist;
+}
+
+void getGroupsStone(Stone *stone, bool target, std::vector<Stone *> &stones, int *groups_count, int *count)
+{
+    *groups_count = *count = 0;
+    Stone *done = cloneStone(EMPTY_STONE);
+    Stone *result = cloneStone(EMPTY_STONE);
+    int tmp_count;
+    for(int x = 0; x < STONE_SIZE; x ++){
+        for(int y = 0; y < STONE_SIZE; y ++){
+            tmp_count = getGroupsStoneInternal(stone, done, result, target, x, y);
+            if(tmp_count != 0){
+                stones.push_back(result);
+                result = cloneStone(EMPTY_STONE);
+                (*groups_count) ++;
+                (*count) += tmp_count;
+            }
+        }
+    }
+    if(isEmptyStone(result)) delete result;
+}
+
+int getGroupsStoneInternal(Stone *stone, Stone *done, Stone *result, bool target, int x, int y)
+{
+    if(x < 0 || y < 0 || x >= STONE_SIZE || y >= STONE_SIZE) return 0;
+    if(getCellOfStone(done, x, y)) return 0;
+    setCellOfStone(done, x, y, true);
+    if(getCellOfStone(stone, x, y) == target){
+        setCellOfStone(result, x, y, true);
+        return 1 +
+            getGroupsStoneInternal(stone, done, result, target, x - 1, y) +
+            getGroupsStoneInternal(stone, done, result, target, x + 1, y) +
+            getGroupsStoneInternal(stone, done, result, target, x, y - 1) +
+            getGroupsStoneInternal(stone, done, result, target, x, y + 1);
+    }else{
+        return 0;
+    }
+}
+
+void getGroupsBoard(Board *board, bool target, std::vector<Board *> &boards, int *groups_count, int *count)
+{
+    *groups_count = *count = 0;
+    Board *done = cloneBoard(EMPTY_BOARD);
+    Board *result = cloneBoard(EMPTY_BOARD);
+    int tmp_count;
+    for(int x = 0; x < BOARD_SIZE; x ++){
+        for(int y = 0; y < BOARD_SIZE; y ++){
+            tmp_count = getGroupsBoardInternal(board, done, result, target, x, y);
+            if(tmp_count != 0){
+                boards.push_back(result);
+                result = cloneBoard(EMPTY_BOARD);
+                (*groups_count) ++;
+                (*count) += tmp_count;
+            }
+        }
+    }
+    if(isEmptyBoard(result)) delete result;
+}
+
+int getGroupsBoardInternal(Board *board, Board *done, Board *result, bool target, int x, int y)
+{
+    if(x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE) return 0;
+    if(getCellOfBoard(done, x, y)) return 0;
+    setCellOfBoard(done, x, y, true);
+    if(getCellOfBoard(board, x, y) == target){
+        setCellOfBoard(result, x, y, true);
+        return 1 +
+            getGroupsBoardInternal(board, done, result, target, x - 1, y) +
+            getGroupsBoardInternal(board, done, result, target, x + 1, y) +
+            getGroupsBoardInternal(board, done, result, target, x, y - 1) +
+            getGroupsBoardInternal(board, done, result, target, x, y + 1);
+    }else{
+        return 0;
+    }
+}
+
+Stone *normalizeStone(const Stone *stone)
+{
+    Stone *source = cloneStone(stone), *shifted1, *shifted2;
+    while(true){
+        shifted1 = shiftLeft(source, 1);
+        shifted2 = shiftRight(shifted1, 1);
+        if(! isEqualStone(source, shifted2)){
+            delete shifted1; delete shifted2;
+            break;
+        }
+        delete source;
+        delete shifted2;
+        source = shifted1;
+    }
+    while(true){
+        shifted1 = shiftUp(source, 1);
+        shifted2 = shiftDown(shifted1, 1);
+        if(! isEqualStone(source, shifted2)){
+            delete shifted1; delete shifted2;
+            break;
+        }
+        delete source;
+        delete shifted2;
+        source = shifted1;
+    }
+    return source;
+}
+
+State *getState(Stone *stone, bool flipped, int turn){
+    State *state = new State();
+    for(int i = 0; i < STONE_SIZE; i ++)
+    {
+        state->zuku[i] = stone->zuku[i];
+    }
+    state->flipped = flipped;
+    state->turn = turn;
+    return state;
+}
+
+void getStatesOfStone(const Stone *source, std::vector<State *> &states)
+{
+    Stone *stone, *stone90, *stone180, *stone270, *flipped_stone, *flipped_stone90, *flipped_stone180, *flipped_stone270;
+    Stone *stone_n, *stone90_n, *stone180_n, *stone270_n, *flipped_stone_n, *flipped_stone90_n, *flipped_stone180_n, *flipped_stone270_n;
+    stone = cloneStone(source); stone_n = normalizeStone(stone);
+    stone90 = rotate90(stone); stone90_n = normalizeStone(stone90);
+    stone180 = rotate180(stone); stone180_n = normalizeStone(stone180);
+    stone270 = rotate270(stone); stone270_n = normalizeStone(stone270);
+    flipped_stone = flip(stone); flipped_stone_n = normalizeStone(flipped_stone);
+    flipped_stone90 = rotate90(flipped_stone); flipped_stone90_n = normalizeStone(flipped_stone90);
+    flipped_stone180 = rotate180(flipped_stone); flipped_stone180_n = normalizeStone(flipped_stone180);
+    flipped_stone270 = rotate270(flipped_stone); flipped_stone270_n = normalizeStone(flipped_stone270);
+    bool flip =
+        isEqualStone(stone_n, flipped_stone180_n) ||
+        isEqualStone(stone_n, flipped_stone_n) ||
+        isEqualStone(stone_n, flipped_stone90) ||
+        isEqualStone(stone_n, flipped_stone270); // do not add flipped stones to states
+    if(isEqualStone(stone_n, stone90_n)){
+        states.push_back(getState(stone, false, 0));
+        if(!flip){
+            states.push_back(getState(flipped_stone, true, 0));
+        }
+    }else if(isEqualStone(stone_n, stone180_n)){
+        states.push_back(getState(stone, false, 0)); states.push_back(getState(stone90, false, 1));
+        if(!flip){
+            states.push_back(getState(flipped_stone, true, 0)); states.push_back(getState(flipped_stone90, true, 1));
+        }
+    }else{
+        states.push_back(getState(stone, false, 0)); states.push_back(getState(stone90, false, 1));
+        states.push_back(getState(stone180, false, 2)); states.push_back(getState(stone270, false, 3));
+        if(!flip){
+            states.push_back(getState(flipped_stone, true, 0)); states.push_back(getState(flipped_stone90, true, 1));
+            states.push_back(getState(flipped_stone180, true, 2)); states.push_back(getState(flipped_stone270, true, 3));
+        }
+    }
+    delete stone; delete stone90; delete stone180; delete stone270;
+    delete flipped_stone; delete flipped_stone90; delete flipped_stone180; delete flipped_stone270;
+    delete stone_n; delete stone90_n; delete stone180_n; delete stone270_n;
+    delete flipped_stone_n; delete flipped_stone90_n; delete flipped_stone180_n; delete flipped_stone270_n;
+}
+
+extern void convertStonesToVectorOfStates(Stone *stones, int num, std::vector<std::vector<State *> > &states){
+    Stone *tmp = stones;
+    states.resize(num);
+    for(int i = 0; i < num; i ++){
+        getStatesOfStone(&*(stones ++), states[i]);
+    }
+    stones = tmp;
+}
+
+double evalBoard(Board *board)
+{
+	int space;
+	int maxline = 0,line = 0;
+	int column[32],maxcolumn = 0;
+	int cnt,count;
+	double density[16],aveden[4];
+	double variance[4],allvariance;
+	double pergroup;
+	double evalation;
+	
+	getGroupsCountBoard(board, 0, &cnt,&count);
+	space = 1024 - countBitOfBoard(board);
+	
+	for(int i = 0; i <  32; i++) column[i]   = 0;
+	for(int i = 0; i <  16; i++) density[i]  = 0;
+	for(int i = 0; i <   4; i++) variance[i] = 0;
+	for(int i = 0; i < 128; i++)
+	{
+		if(i % 4 == 0) 
+		{
+			if(line > maxline) maxline = line;
+			line = 0;
+		}
+		for(int j = 0; j < 8; j++) column[(i%4)*8+j] += (board->block[i] >> (7-j)) % 2;
+		density[i%4 + (i/32) * 4] += countBit(board->block[i]);
+		line                      += countBit(board->block[i]);
+	}
+	for(int i = 0; i < 32; i++) 
+	{
+		if(column[i] > maxcolumn) maxcolumn = column[i];
+	}
+	for(int i = 0; i < 4; i++)
+	{
+		 variance[i] = ((density[i*4]-density[i*4 + 1])  * (density[i*4]-density[i*4 + 1])) + ((density[i*4 + 1]-density[i*4 + 2]) * (density[i*4 + 1]-density[i*4 + 2])) + ((density[i*4 + 2]-density[i*4 + 3]) * (density[i*4 + 2]-density[i*4 + 3]));
+		 aveden[i]   =  (density[i*4] + density[i*4 + 1] + density[i*4 + 2] + density[i * 4 + 3])  / 4;
+		 variance[i] = variance[i] / (aveden[i] + 1);
+	}
+	allvariance = ((variance[0]-variance[1])  * (variance[0]-variance[1])) + ((variance[1]-variance[2]) * (variance[1]-variance[2])) + ((variance[2]-variance[3]) * (variance[2]-variance[3]));
+	allvariance = allvariance  / (1025 - count);
+	pergroup    = (double)cnt / ((double)count + 1) * 1000;	
+	evalation = space - (maxline + maxcolumn) * 4 + allvariance * 20 - pergroup;
+	return evalation;
+}
+
+int countScore(Answers &ans, Problem &prob)
+{
+	Board *obstacleBoard = new Board;
+	Board *putBoard = new Board;
+	*obstacleBoard = prob.board;
+	for(int i = 0; i < 128; i++) putBoard -> block[i] = 0;
+		
+	int i;
+	bool canPut = false;
+	bool first = true;
+	for(i = 0; i < prob.num; i++)
+	{
+		if(ans.answers[i].X == NULL_POINT && ans.answers[i].Y == NULL_POINT) continue;
+		else if(first)
+		{
+			canPut =  canPlace(obstacleBoard, putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y, first);
+			first = false;
+		}
+		else if(!ans.answers[i].flipped)
+		{
+			canPut = canPlace(obstacleBoard, putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+		else
+		{
+			canPut = canPlace(obstacleBoard, putBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+		if(!canPut) break;
+		
+		if(!ans.answers[i].flipped)
+		{
+			obstacleBoard = placeStone(obstacleBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			putBoard = placeStone(putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+		else
+		{
+			obstacleBoard = placeStone(obstacleBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			putBoard = placeStone(putBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+	}
+	int score = 0;
+	if(!canPut)
+	{
+		for(int y = 0; y < BOARD_SIZE; y++)
+		{
+			for(int x = 0; x < BOARD_SIZE; x++)
+			{
+				score += (int)!getCellOfBoard(obstacleBoard, x, y);
+			}
+		}
+		return score;
+	}
+	else
+	{
+		for(int y = 0; y < BOARD_SIZE; y++)
+		{
+			for(int x = 0; x < BOARD_SIZE; x++)
+			{
+				score += (int)!getCellOfBoard(obstacleBoard, x, y);
+			}
+		}
+		return score;
+	}
+	delete obstacleBoard;
+	delete putBoard;
 }
