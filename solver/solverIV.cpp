@@ -9,7 +9,7 @@ class SolverIV{
     public:
         static Answers *solve(Problem &problem){
             std::vector<std::vector<Stone *> > states, picked;
-            convertStonesToStates(problem.stones, problem.num, states); // TODO
+            convertStonesToStates(problem.stones, problem.num, states);
             std::vector<int> zukus;
             // count zuku of stones
             for (int i = 0; i < problem.num; i ++) {
@@ -17,15 +17,25 @@ class SolverIV{
             }
             Answers *answer = new Answers();
             StonePicker *stonePicker = new StonePicker(states, zukus, BOARD_SIZE * BOARD_SIZE - countBitOfBoard(problem.board));
-            while(true){
+            BoardBoolean boardChecker = new BoardBoolean();
+            while (true) {
+                bool end = false;
+                Answers *result = NULL;
                 stonePicker->getNext(picked);
-                if(picked.size() == 0){
-                    // TODO free used memories
-                    return NULL;
+                if (picked.size() == 0) {
+                    end = true;
+                    result = NULL;
+                } else {
+                    result = solveInternal(answer, boardChecker, problem.board, cloneBoard(EMPTY_BOARD), picked, 0, true);
+                    if (result != NULL) {
+                        end = true;
+                    }
                 }
-                Answers *result = solveInternal(answer, boardChecker, problem.board, cloneBoard(EMPTY_BOARD), picked, 0, true);
-                if(result != NULL){
-                    // TODO free used memories
+                if (end) {
+                    releaseVector(states);
+                    releaseVector(picked);
+                    delete boardChecker;
+                    delete answer;
                     return result;
                 }
             }
