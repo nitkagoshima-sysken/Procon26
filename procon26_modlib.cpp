@@ -522,58 +522,6 @@ Board *BoardXOR(const Board *Board1, const Board *Board2)
 	return resultBoard;
 }
 
-Board *BoardshiftUp(const Board *board, int times, int filler)
-{
-	Board *dist = new Board;
-	for (int i = 0; i < BOARD_SIZE - times; i++)
-	{
-		dist->block[i] = board->block[i + times];
-	}
-	for (int i = BOARD_SIZE - times; i < BOARD_SIZE; i++)
-	{
-		dist->block[i] = (filler == 0) ? 0 : (unsigned char)0xFF;
-	}
-	
-	return dist;
-}
-
-Board *BoardshiftDown(const Board *board, int times, int filler)
-{
-	Board *dist = new Board;
-	for (int i = times; i < BOARD_SIZE; i++)
-	{
-		dist->block[i] = board->block[i - times];
-	}
-	for (int i = 0; i < times; i++)
-	{
-		dist->block[i] = (filler == 0) ? 0 : (unsigned char)0xFF;
-	}
-	
-	return dist;
-}
-
-Board *BoardshiftRight(const Board *board, int times, int filler)
-{
-	Board *dist = new Board;
-	unsigned char filler_char = (filler == 0) ? 0 : (unsigned char)0xFF << (BOARD_SIZE - times);
-	for (int i = 0; i < BOARD_SIZE; i++)
-	{
-		dist->block[i] = (board->block[i] >> times) | filler_char;
-	}
-	return dist;
-}
-
-Board *BoardshiftLeft(const Board *board, int times, int filler)
-{
-	Board *dist = new Board;
-	unsigned char filler_char = (filler == 0) ? 0 : (unsigned char)0xFF >> (BOARD_SIZE - times);
-	for (int i = 0; i < BOARD_SIZE; i++)
-	{
-		dist->block[i] = (board->block[i] << times) | filler_char;
-	}
-	return dist;
-}
-
 void getGroupsStone(Stone *stone, bool target, std::vector<Stone *> &stones, int *groups_count, int *count)
 {
     *groups_count = *count = 0;
