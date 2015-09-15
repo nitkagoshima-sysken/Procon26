@@ -689,3 +689,49 @@ double evalBoard(Board *board)
 	evalation = space - (maxline + maxcolumn) * 4 + allvariance * 20 - pergroup;
 	return evalation;
 }
+
+bool releaseVector(vector<Stone *> stones)
+{
+	for(unsigned int i = 0; i < stones.size(); i++) delete stones.at(i); 
+	vector<Stone *>().swap(stones);
+	if(stones.capacity() != 0)  return false;
+	else				   	    return true;
+}
+
+bool releaseVector(vector<Board *> boards)
+{
+	for(unsigned int i = 0; i < boards.size(); i++) delete boards.at(i);
+	vector<Board *>().swap(boards);
+	if(boards.capacity() != 0)  return false;
+	else					    return true;
+}
+
+bool releaseVector(vector<State *> states)
+{
+	for(unsigned int i = 0; i < states.size(); i++) delete states.at(i); 	
+	vector<State *>().swap(states);
+	if(states.capacity() != 0)  return false;
+	else					    return true;
+}
+
+bool releaseVector(vector< vector<State *> > stones)
+{
+	for(unsigned int i = 0; i < stones.size(); i++)
+	{
+		for(unsigned int j = 0; j < stones.at(i).size(); j++) delete stones.at(i).at(j);
+	}
+	vector< vector<State *> >().swap(stones);
+	if(stones.capacity() != 0)  return false;
+	else				  	    return true;
+}
+
+bool releaseVector(vector< vector<Stone *> > stones)
+{
+	for(unsigned int i = 0; i < stones.size(); i++)
+	{
+		for(unsigned int j = 0; j < stones.at(i).size(); j++) delete stones.at(i).at(j);
+	}
+	vector< vector<Stone *> >().swap(stones);
+	if(stones.capacity() != 0)  return false;
+	else					    return true;
+}
