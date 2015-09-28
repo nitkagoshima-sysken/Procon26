@@ -52,8 +52,8 @@ class Answers
 {
 	public:
 	vector<Answer> answers;
-	// 未実装
-	// Answers *place(State *, int, int);
+	void *place(State *, int, int);
+	void *place(int, int, bool, int);
 };
 
 class StonePicker
