@@ -159,3 +159,19 @@ int BoardBoolean::check(int x, int y)
 		return (int)boolean[y + STONE_SIZE - 1][x + STONE_SIZE - 1];
 	}
 }
+
+void Answers::place(int stoneNumber, int x, int y, bool flipped, int turn)
+{
+	Answer newAns;
+	newAns.X = x; newAns.Y = y;
+	newAns.flipped = flipped;
+    newAns.stoneNumber = stoneNumber;
+	newAns.turn = turn;
+	answers.push_back(newAns);
+}
+
+void Answers::place(int stoneNumber, State *status, int x, int y)
+{
+	(*this).place(stoneNumber, x, y, status->flipped, status->turn);
+}
+	
