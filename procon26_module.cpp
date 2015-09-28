@@ -179,10 +179,7 @@ void *Answers::place(int x, int y, bool flipped, int turn)
 
 void *Answers::place(State *status, int x, int y)
 {
-	Answer newAns;
-	newAns.X = x; newAns.Y = y;
-	newAns.flipped = status->flipped;
-	newAns.turn = status->turn;
-	answers.push_back(newAns);
+	Answers ans;
+	ans.place(x, y, status->flipped, status->turn);
 }
 	
