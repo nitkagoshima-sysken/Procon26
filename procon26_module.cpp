@@ -71,3 +71,22 @@ int BoardBoolean::check(int x, int y)
 		return (int)boolean[y + STONE_SIZE - 1][x + STONE_SIZE - 1];
 	}
 }
+
+void *Answers::place(int x, int y, bool flipped, int turn)
+{
+	Answer newAns;
+	newAns.X = x; newAns.Y = y;
+	newAns.flipped = flipped;
+	newAns.turn = turn;
+	answers.push_back(newAns);
+}
+
+void *Answers::place(State *status, int x, int y)
+{
+	Answer newAns;
+	newAns.X = x; newAns.Y = y;
+	newAns.flipped = status->flipped;
+	newAns.turn = status->turn;
+	answers.push_back(newAns);
+}
+	
