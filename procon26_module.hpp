@@ -48,9 +48,12 @@ class Answer
 		string toString();
 };
 
-struct Answers
+class Answers
 {
+	public:
 	vector<Answer> answers;
+	// 未実装
+	// Answers *place(State *, int, int);
 };
 
 class StonePicker
