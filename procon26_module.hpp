@@ -4,14 +4,11 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
 #define STONE_SIZE 8
 #define BOARD_SIZE 32
-#define BOARD_LOOP 128 //BOARD_SIZE * (BOARD_SIZE / sizeof(char)) 
-#define NULL_POINT -64
 
 struct Stone
 {
@@ -49,15 +46,10 @@ class Answer
 
 class Answers
 {
-	private:
-		vector<Answer> answers;
-	
-	public:
-		void place(State *, int, int);
-		void place(int, int, bool, int);
-		void print(int);
+	vector<Answer> answers;
+	void place(State *, int, int);
+	void place(int, int, bool, int);
 };
-
 class BoardBoolean
 {
 	private:

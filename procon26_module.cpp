@@ -85,11 +85,3 @@ void Answers::place(State *status, int x, int y)
 {
 	(*this).place(x, y, status->flipped, status->turn);
 }
-
-void Answers::print(int num)
-{
-	for (int i = 0; i < num; i++)
-	{
-		cout << answers.at(i).toString() << endl;
-	}
-}
