@@ -1,6 +1,5 @@
 #include "Procon26_modio.hpp"
 #include <iostream>
-#include <fstream>
 
 using namespace std;
 
@@ -99,36 +98,4 @@ void inputStone(Stone *stones, int n)
 		}
 		stones[i] = *getStoneByString(data);
 	}
-}
-
-Problem *readProblem(string filePath)
-{
-    Problem *ret = new Problem;
-    ifstream ifs(filePath.c_str());
-	
-    string data = "";
-    for (int i = 0; i < BOARD_SIZE; i++)
-    {
-        string str;
-        ifs >> str;
-        data += str;
-    }
-    ret->board = *getBoardByString(data);
-	
-    ifs >> ret->num;
-	ret->stones = new Stone[ret->num];
-	
-	for (int i = 0; i < ret->num; i++)
-    {
-		data = "";
-        for (int j = 0; j < STONE_SIZE; j++)
-        {
-            string str;
-            ifs >> str;
-            data += str;
-        }
-        ret->stones[i] = *getStoneByString(data);
-    }
-	
-	return ret;
 }
