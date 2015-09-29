@@ -47,8 +47,8 @@ class Answer
 class Answers
 {
 	vector<Answer> answers;
-	void *place(State *, int, int);
-	void *place(int, int, bool, int);
+	void place(State *, int, int);
+	void place(int, int, bool, int);
 };
 class BoardBoolean
 {

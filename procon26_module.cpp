@@ -72,7 +72,7 @@ int BoardBoolean::check(int x, int y)
 	}
 }
 
-void *Answers::place(int x, int y, bool flipped, int turn)
+void Answers::place(int x, int y, bool flipped, int turn)
 {
 	Answer newAns;
 	newAns.X = x; newAns.Y = y;
@@ -81,7 +81,7 @@ void *Answers::place(int x, int y, bool flipped, int turn)
 	answers.push_back(newAns);
 }
 
-void *Answers::place(State *status, int x, int y)
+void Answers::place(State *status, int x, int y)
 {
 	Answers ans;
 	ans.place(x, y, status->flipped, status->turn);
