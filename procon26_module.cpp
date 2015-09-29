@@ -83,7 +83,5 @@ void Answers::place(int x, int y, bool flipped, int turn)
 
 void Answers::place(State *status, int x, int y)
 {
-	Answers ans;
-	ans.place(x, y, status->flipped, status->turn);
+	(*this).place(x, y, status->flipped, status->turn);
 }
-	
