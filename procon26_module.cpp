@@ -3,7 +3,7 @@
 string Answer::toString()
 {
 	stringstream sout;
-	sout << X << " " << Y << " " << (flipped ? "T" : "H") << " " << turn * 90;
+	sout << X << " " << Y << " " << (flipped ? "T" : "H") << " " << turn;
 	return sout.str();
 }
 
