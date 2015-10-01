@@ -12,5 +12,6 @@ extern void showStone(const Stone *);
 extern void showBoard(const Board *);
 extern void inputBoard(Board *board);
 extern void inputStone(Stone *stones, int n);
+extern Problem *readProblem(std::string filePath);
 
 #endif

@@ -1,4 +1,4 @@
-# Procon26 競技部門 モジュール仕様書 (ver1.1)
+# Procon26 競技部門 モジュール仕様書 (ver1.2)
 
 ## 1.概要
 モジュールは、問題の入出力、石の回転・反転等を行う関数・構造体・クラス群である
@@ -6,38 +6,38 @@
 
 本モジュールの構成については以下に示す。
 
-|        名称          |                   概要                            |
-| :------------------ | :------------------------------------------------- |
+|        名称          |                   概要                    |
+| :------------------ | :---------------------------------------- |
 | procon26_module.hpp | 石・ボードの構造体やクラスの定義や各定数等の定義部 |
-| procon26_modio.hpp  | 問題の入出力に関する関数等の定義部                 |
-| procon26_modlib.hpp | 石・ボードに対する処理に関するモジュールの定義部   |
-| procon26_module.cpp | クラスの実装部                                     |
-| procon26_modio.cpp  | 入出力関数の実装部                                 |
-| procon26_modlib.cpp | 石・ボードに対する関数の実装部                     |
+| procon26_modio.hpp  | 問題の入出力に関する関数等の定義部             |
+| procon26_modlib.hpp | 石・ボードに対する処理に関するモジュールの定義部    |
+| procon26_module.cpp | クラスの実装部                               |
+| procon26_modio.cpp  | 入出力関数の実装部                           |
+| procon26_modlib.cpp | 石・ボードに対する関数の実装部                  |
 
 ## 2.用語
 各種用語を以下に定義する。
 
-|  用語  |                                概要                                                |
-| :---- | :---------------------------------------------------------------------------------- |
-| block | 石や敷地を構成する最小単位であり、大きさは1[zuku]。                                 |
-| stone | 複数のblockを辺でつなげたもの。8*8[zuku]の正方形で与えられる。                      |
+|  用語  |                                概要                                     |
+| :---- | :---------------------------------------------------------------------- |
+| block | 石や敷地を構成する最小単位であり、大きさは1[zuku]。                             |
+| stone | 複数のblockを辺でつなげたもの。8*8[zuku]の正方形で与えられる。                  |
 | board | 石を敷き詰める場所。問題で与えられる"敷地"と同義。32*32[zuku]の正方形で与えられる。 |
 
 ## 3.インターフェース
 ### 3.1 procon26_module
 procon26_moduleの構成について以下に示す。
 
-|     定数名     |                                       概要                                                              |
-| :------------- | :------------------------------------------------------------------------------------------------------ |
-| STONE_SIZE     | stoneの一辺大きさ。                                                                                     |
-| BOARD_SIZE     | boardの一辺の大きさ。                                                                                   |
-| NULL_POINT     | 石が置けないときに指定する座標。                                                                        |
-| struct Stoen   | stoneを表す構造体。 unsigned char型8個の配列で表す。                                                    |
-| struct Board   | boardを表す構造体。 unsigned char型128個の配列で表す。                                                  |
-| struct Problem | 問題を表す構造体。boardとstoneの数、stoneを保持する。                                                   |
-| class Answer   | 各stoneを置いた座標、回転、反転の情報を保持する。stoneが置けなかった場合(NULL_POINT,NULL_POINT)を示す。<br> メンバ関数ToString()を持つ。|
-| struct Answers | 解答を表す構造体。 Answerクラスのリストを保持する。                                                     |
+|     定数名      | 概要 |
+| :------------- | :------ |
+| STONE_SIZE     | stoneの一辺大きさ。                                                                 |
+| BOARD_SIZE     | boardの一辺の大きさ。                                                               |
+| NULL_POINT     | 石が置けないときに指定する座標。                                                       |
+| struct Stoen   | stoneを表す構造体。 unsigned char型8個の配列で表す。                                  |
+| struct Board   | boardを表す構造体。 unsigned char型128個の配列で表す。                                |
+| struct Problem | 問題を表す構造体。boardとstoneの数、stoneを保持する。                                   |
+| class Answer   | 各stoneを置いた座標、回転、反転の情報を保持する。stoneが置けなかった場合(NULL_POINT, NULL_POINT)を示す。<br> メンバ関数ToString()を持つ。|
+| struct Answers | 解答を表す構造体。 Answerクラスのリストを保持する。                                       |
 
 ### 3.2 procon26_modio
 procon26_modioの構成について以下に示す。
@@ -45,10 +45,12 @@ procon26_modioの構成について以下に示す。
 + 定数 ` block_0 ` showStone/showBoard関数で出力する "0" 文字の設定
 + 定数 ` block_1 ` showStone/showBoard関数で出力する "1" 文字の設定
 
+
 + ` Stone *getStoneByString(std::string stone)`  
 文字列からstoneに変換する関数
  + stone : stoneの情報を持つ文字列(64文字)
  + return : 引数で与えられた文字列をStone構造体に格納し返す
+
 
 + ` Board *getBoardByString(std::string board)`  
 文字列からboardに変換する関数
@@ -56,10 +58,11 @@ procon26_modioの構成について以下に示す。
  + return : 引数で与えられた文字列をBoard構造体に格納し返す
 
 
-+ ` void inputStone(Stone *stone, int n)`  
++ ` void inputStone(Stone *stone, int n)`   
 標準入力からstoneを読み込み引数で与えたStone構造体のポインタに格納する関数
  + stone : 読み込んだstoneを格納するstone構造体ポインタ
  + n : 読み込む石の個数
+
 
 + ` void inputBoard(Board *board)`  
 標準入力からboardを読み込み引数で与えたBoard構造体のポインタに格納する関数
@@ -74,6 +77,15 @@ procon26_modioの構成について以下に示す。
 + ` void showBoard(const Board *board)`  
 標準出力にboardを出力する関数
  + board : 出力するboardの構造体ポインタ
+
+
++ ` Problem *readProblem(string filePath)`  
+引数filePathで与えられたファイルから問題を読み込み、Problem構造体に格納しそのポインタを返す関数
+ + filePath : 問題ファイルのパス
+ + 使用例 : <br>
+    `
+    Problem *prob = readProblem("quest.txt");
+    `
 
 ### 3.3 procon26_modlib(編集中)
 procon26_modlibの構成について以下に示す。

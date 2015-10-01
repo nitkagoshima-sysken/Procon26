@@ -755,3 +755,88 @@ int countScore(Answers &ans, Problem &prob)
 	delete obstacleBoard;
 	delete putBoard;
 }
+
+Board *BoardNOT(const Board *board)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = ~board->block[i];
+	}
+	return resultBoard;
+}
+
+Board *BoardAND(const Board *Board1, const Board *Board2)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = Board1->block[i] & Board2->block[i];
+	}
+	return resultBoard;
+}
+
+Board *BoardOR(const Board *Board1, const Board *Board2)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = Board1->block[i] | Board2->block[i];
+	}
+	return resultBoard;
+}
+
+Board *BoardXOR(const Board *Board1, const Board *Board2)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = Board1->block[i] ^ Board2->block[i];
+	}
+	return resultBoard;
+
+bool releaseVector(vector<Stone *> stones)
+{
+	for(unsigned int i = 0; i < stones.size(); i++) delete stones.at(i); 
+	vector<Stone *>().swap(stones);
+	if(stones.capacity() != 0)  return false;
+	else				   	    return true;
+}
+
+bool releaseVector(vector<Board *> boards)
+{
+	for(unsigned int i = 0; i < boards.size(); i++) delete boards.at(i);
+	vector<Board *>().swap(boards);
+	if(boards.capacity() != 0)  return false;
+	else					    return true;
+}
+
+bool releaseVector(vector<State *> states)
+{
+	for(unsigned int i = 0; i < states.size(); i++) delete states.at(i); 	
+	vector<State *>().swap(states);
+	if(states.capacity() != 0)  return false;
+	else					    return true;
+}
+
+bool releaseVector(vector< vector<State *> > stones)
+{
+	for(unsigned int i = 0; i < stones.size(); i++)
+	{
+		for(unsigned int j = 0; j < stones.at(i).size(); j++) delete stones.at(i).at(j);
+	}
+	vector< vector<State *> >().swap(stones);
+	if(stones.capacity() != 0)  return false;
+	else				  	    return true;
+}
+
+bool releaseVector(vector< vector<Stone *> > stones)
+{
+	for(unsigned int i = 0; i < stones.size(); i++)
+	{
+		for(unsigned int j = 0; j < stones.at(i).size(); j++) delete stones.at(i).at(j);
+	}
+	vector< vector<Stone *> >().swap(stones);
+	if(stones.capacity() != 0)  return false;
+	else					    return true;
+}

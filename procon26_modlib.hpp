@@ -50,9 +50,17 @@ extern Stone *normalizeStone(const Stone *stone);
 extern State *getState(Stone *stone, bool flipped, int turn);
 extern void getStatesOfStone(const Stone *, std::vector<State *> &);
 extern void convertStonesToVectorOfStates(Stone *, int, std::vector<std::vector<State *> > &);
+extern bool releaseVector(vector<Stone *>);
+extern bool releaseVector(vector<Board *>);
+extern bool releaseVector(vector<State *>);
+extern bool releaseVector(vector< vector<State *> >);
+extern bool releaseVector(vector< vector<Stone *> >);
 double evalBoard(Board *board);
 extern int countScore(Answers &ans, Problem &prob);
-
+extern Board *BoardNOT(const Board *board);
+extern Board *BoardAND(const Board *Board1, const Board *Board2);
+extern Board *BoardOR(const Board *Board1, const Board *Board2);
+extern Board *BoardXOR(const Board *Board1, const Board *Board2);
 
 inline Stone *operator~(Stone stone)                // Operation Overlord Logic-NOT
 {
