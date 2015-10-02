@@ -178,7 +178,7 @@ void Answers::place(int stoneNumber, int x, int y, bool flipped, int turn)
 	answers.push_back(newAns);
 }
 
-void Answers::place(int stoneNumber, State *, int x, int y)
+void Answers::place(int stoneNumber, State *status, int x, int y)
 {
 	(*this).place(stoneNumber, x, y, status->flipped, status->turn);
 }
