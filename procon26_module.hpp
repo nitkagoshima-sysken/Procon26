@@ -44,7 +44,8 @@ class Answer
 		int Y;
 		bool flipped;
 		int turn;	// 90 * turn;
-
+		int stoneNumber;
+		
 		string toString();
 };
 
