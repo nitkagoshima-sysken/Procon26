@@ -9,7 +9,7 @@ string Answer::toString()
     }
     else
     {
-        sout << X << " " << Y << " " << (flipped ? "T" : "H") << " " << turn;
+        sout << X << " " << Y << " " << (flipped ? "T" : "H") << " " << turn * 90;
     }
 	
 	return sout.str();
