@@ -175,3 +175,19 @@ void Answers::place(int stoneNumber, State *status, int x, int y)
 	(*this).place(stoneNumber, x, y, status->flipped, status->turn);
 }
 	
+void Answers::print(int stones)
+{
+    int j = 0;
+    for (int i = 0; i < stones; i++)
+    {
+        if (j < answers.size() && answers.at(j).stoneNumber == i)
+        {
+            cout << answers.at(j).toString() << endl;
+            j++;
+        }
+        else
+        {
+            cout << endl;
+        }
+    }
+}
