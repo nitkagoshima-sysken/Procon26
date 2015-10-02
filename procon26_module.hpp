@@ -55,6 +55,7 @@ class Answers
 	vector<Answer> answers;
 	void place(int stoneNumber, int x, int y, bool flipped, int turn);
 	void place(int stoneNumber, State *, int x, int y);
+	void print(int stones);
 };
 
 class StonePicker
