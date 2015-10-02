@@ -13,7 +13,7 @@ class SolverIV{
             std::vector<int> zukus;
             // count zuku of stones
             for (int i = 0; i < problem.num; i ++) {
-                zukus.push_back(countBitOfStone(&problem.stones[i]))
+                zukus.push_back(countBitOfStone(&(problem.stones[i])));
             }
             Answers *answer = new Answers();
             StonePicker *stonePicker = new StonePicker(states, zukus, BOARD_SIZE * BOARD_SIZE - countBitOfBoard(problem.board));
@@ -56,6 +56,7 @@ class SolverIV{
                     if(depth == states.size() - 1){
                         return placedAnswer;
                     }
+                    //再帰
                     BoardBoolean *placedBoardChecker = boardChecker->place(x, y);
                     Board *placedMasterBoard = placeStone(masterBoard, states[depth][i], x, y);
                     Board *placedStonesBoard = placeStone(stonesBoard, states[depth][i], x, y);
