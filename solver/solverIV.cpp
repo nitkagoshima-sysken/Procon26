@@ -16,8 +16,8 @@ class SolverIV{
                 zukus.push_back(countBitOfStone(&(problem.stones[i])));
             }
             Answers *answer = new Answers();
-            StonePicker *stonePicker = new StonePicker(states, zukus, BOARD_SIZE * BOARD_SIZE - countBitOfBoard(problem.board));
-            BoardBoolean boardChecker = new BoardBoolean();
+            StonePicker *stonePicker = new StonePicker(states, zukus, BOARD_SIZE * BOARD_SIZE - countBitOfBoard(&problem.board));
+            BoardBoolean *boardChecker = new BoardBoolean();
             while (true) {
                 bool end = false;
                 Answers *result = NULL;
@@ -26,7 +26,7 @@ class SolverIV{
                     end = true;
                     result = NULL;
                 } else {
-                    result = solveInternal(answer, boardChecker, problem.board, cloneBoard(EMPTY_BOARD), picked, 0, true);
+                    result = solveInternal(answer, boardChecker, &problem.board, cloneBoard(EMPTY_BOARD), picked, 0, true);
                     if (result != NULL) {
                         end = true;
                     }
