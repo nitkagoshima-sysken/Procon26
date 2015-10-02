@@ -53,8 +53,8 @@ class Answers
 {
 	public:
 	vector<Answer> answers;
-	void *place(State *, int, int);
-	void *place(int, int, bool, int);
+	void place(int stoneNumber, int x, int y, bool flipped, int turn);
+	void place(int stoneNumber, State *, int x, int y);
 };
 
 class StonePicker
