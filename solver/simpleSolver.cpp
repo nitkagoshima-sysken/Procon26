@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "../procon26_modlib.hpp"
 #include "../procon26_modio.hpp"
 
@@ -6,47 +7,48 @@ using namespace std;
 
 int main()
 {
-	Board *obstacleBoard = new Board;
-	Board *putBoard = new Board;
-	Stone *stones;
+	Board *obstacleBoard;			// 現在のボードの状態を保持
+	Board *putBoard = new Board;	// 今までに置いた石だけを保持
+
+	// 解答出力用ファイルストリーム
+	ofstream ofs("answer.txt");
 	
 	// 初期化
 	for (int i = 0; i < 128; i++) putBoard->block[i] = 0;
 	
-	// ボード読み込み
-	inputBoard(obstacleBoard);
+	// 問題読み込み
+	string filePath;
+	cin >> filePath;
+	Problem *prob = readProblem(filePath);
 	
-	// 石の数読み込み
-	int n;
-	cin >> n;
-	stones = new Stone[n];
+	obstacleBoard = cloneBoard(&prob->board);
 	
-	// 石読み込み
-	inputStone(stones, n);
-	//cout << endl;
+	//showBoard(obstacleBoard);
 	
 	// 実際に解く
-	bool *isPut = new bool[n];
-	for (int i = 0; i < n; i++) isPut[i] = false;
+	bool *isPut = new bool[prob->num];
+	for (int i = 0; i < prob->num; i++) isPut[i] = false;
 	
 	// 一個目の石は適当に置く
 	for (int y = -STONE_SIZE + 1; y < BOARD_SIZE; y++)
 	{
 		for (int x = -STONE_SIZE + 1; x < BOARD_SIZE; x++)
 		{
-			if (!isPut[0] && canPlace(obstacleBoard, putBoard, &stones[0], x, y))
+			if (!isPut[0] && canPlace(obstacleBoard, putBoard, &prob->stones[0], x, y, true))
 			{
-				obstacleBoard = placeStone(obstacleBoard, turn(&stones[0], 0), x, y);
-				putBoard = placeStone(putBoard, &stones[0], x, y);	
+				obstacleBoard = placeStone(obstacleBoard, rotate(&prob->stones[0], 0), x, y);
+				putBoard = placeStone(putBoard, &prob->stones[0], x, y);	
 				isPut[0] = true;
 				cout << x << " " << y << " " << "H" << " " << 0 << endl;
+				ofs << x << " " << y << " " << "H" << " " << 0 << endl;
+				//showBoard(obstacleBoard);
 				//showBoard(putBoard);
 			}
 		}
 	}
 	
 	// 二個目以降の石はより多く接するように置く
-	for (int i = 1; i < n; i++)
+	for (int i = 1; i < prob->num; i++)
 	{
 		// たくさん接した座標、反転、回転を記憶
 		int touching = -1, bestX, bestY, Turn;
@@ -59,7 +61,7 @@ int main()
 				// 回転(反転なし)
 				for (int j = 0; j < 4; j++)
 				{
-					int toutchNum = checkPlacingStone(obstacleBoard, putBoard, turn(&stones[i], j), x, y);
+					int toutchNum = checkPlacingStone(obstacleBoard, putBoard, rotate(&prob->stones[i], j), x, y);
 					if (!isPut[i] && (toutchNum != -1))
 					{
 						if (touching < toutchNum)
@@ -77,7 +79,7 @@ int main()
 				// 回転(反転あり)
 				for (int j = 0; j < 4; j++)
 				{
-					int toutchNum = checkPlacingStone(obstacleBoard, putBoard, turn(flip(&stones[i]), j), x, y);
+					int toutchNum = checkPlacingStone(obstacleBoard, putBoard, rotate(flip(&prob->stones[i]), j), x, y);
 					if (!isPut[i] && (toutchNum != -1))
 					{
 						if (touching < toutchNum)
@@ -99,16 +101,17 @@ int main()
 			// 石を置く
 			if (!flipped)
 			{
-				obstacleBoard = placeStone(obstacleBoard, turn(&stones[i], Turn), bestX, bestY);
-				putBoard      = placeStone(putBoard, turn(&stones[i], Turn), bestX, bestY);
+				obstacleBoard = placeStone(obstacleBoard, rotate(&prob->stones[i], Turn), bestX, bestY);
+				putBoard      = placeStone(putBoard, rotate(&prob->stones[i], Turn), bestX, bestY);
 			}
 			else
 			{
-				obstacleBoard = placeStone(obstacleBoard, turn(flip(&stones[i]), Turn), bestX, bestY);
-				putBoard      = placeStone(putBoard, turn(flip(&stones[i]), Turn), bestX, bestY);
+				obstacleBoard = placeStone(obstacleBoard, rotate(flip(&prob->stones[i]), Turn), bestX, bestY);
+				putBoard      = placeStone(putBoard, rotate(flip(&prob->stones[i]), Turn), bestX, bestY);
 			}
 			
 			cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
+			ofs << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
 			
 			//showBoard(putBoard);
 			
@@ -117,13 +120,14 @@ int main()
 		else
 		{
 			cout << endl;
+			ofs << endl;
 		}
 	}
 	
 	// メモリ解放
-	delete obstacleBoard;
-	delete putBoard;
-	delete[] stones;
+	delete   obstacleBoard;
+	delete   putBoard;
+	delete   prob;
 	delete[] isPut;
 	
 	return 0;
