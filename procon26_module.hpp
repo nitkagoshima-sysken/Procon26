@@ -44,7 +44,8 @@ class Answer
 		int Y;
 		bool flipped;
 		int turn;	// 90 * turn;
-
+		int stoneNumber;
+		
 		string toString();
 };
 
@@ -52,8 +53,9 @@ class Answers
 {
 	public:
 	vector<Answer> answers;
-	// 未実装
-	// Answers *place(State *, int, int);
+	void place(int stoneNumber, int x, int y, bool flipped, int turn);
+	void place(int stoneNumber, State *, int x, int y);
+	void print(int stones);
 };
 
 class StonePicker
