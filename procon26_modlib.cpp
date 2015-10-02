@@ -789,11 +789,12 @@ Board *BoardOR(const Board *Board1, const Board *Board2)
 Board *BoardXOR(const Board *Board1, const Board *Board2)
 {
 	Board *resultBoard = new Board;
-	for(int i = 0; i < BOARD_LOOP; i++)
+	for (int i = 0; i < BOARD_LOOP; i++)
 	{
 		resultBoard->block[i] = Board1->block[i] ^ Board2->block[i];
 	}
 	return resultBoard;
+}
 
 bool releaseVector(vector<Stone *> stones)
 {
