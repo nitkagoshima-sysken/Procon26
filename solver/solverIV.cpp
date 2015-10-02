@@ -8,7 +8,7 @@ class SolverIV{
 
     public:
         static Answers *solve(Problem &problem){
-            std::vector<std::vector<Stone *> > states, picked;
+            std::vector<std::vector<State *> > states, picked;
             convertStonesToVectorOfStates(problem.stones, problem.num, states);
             std::vector<int> zukus;
             // count zuku of stones
@@ -47,7 +47,7 @@ class SolverIV{
                 BoardBoolean *boardChecker,
                 Board *masterBoard,
                 Board *stonesBoard,
-                std::vector<std::vector<Stone *> > &states,
+                std::vector<std::vector<State *> > &states,
                 int depth,
                 bool first=false){
             SOLVER_FOR if(boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
