@@ -2,7 +2,7 @@
 #include "../procon26_modlib.hpp"
 #include "../procon26_modio.hpp"
 
-#define SOLVER_FOR for(int x = -(STONE_SIZE - 1); x < BOARD_SIZE + (STONE_SIZE - 1); x ++) for(int y = -(STONE_SIZE - 1); y < BOARD_SIZE + (STONE_SIZE - 1); y ++)
+#define SOLVER_FOR for(int x = -(STONE_SIZE - 1); x < BOARD_SIZE - 1; x ++) for(int y = -(STONE_SIZE - 1); y < BOARD_SIZE - 1; y ++)
 
 class SolverIV{
 
