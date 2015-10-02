@@ -9,7 +9,7 @@ class SolverIV{
     public:
         static Answers *solve(Problem &problem){
             std::vector<std::vector<Stone *> > states, picked;
-            convertStonesToStates(problem.stones, problem.num, states);
+            convertStonesToVectorOfStates(problem.stones, problem.num, states);
             std::vector<int> zukus;
             // count zuku of stones
             for (int i = 0; i < problem.num; i ++) {
