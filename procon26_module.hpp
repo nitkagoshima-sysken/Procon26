@@ -67,10 +67,10 @@ class StonePicker
         std::vector<int> zukus;
         void sortStones();
         int getSum();
-        void getStones(std::vector<std::vector<State *> > &stones);
+        void getStones(std::vector<std::vector<State *> > &stones, std::vector<int> &stoneNumbers);
     public:
         StonePicker(std::vector<std::vector<State *> > stones, std::vector<int> zukus, int blanks);
-        void getNext(std::vector<std::vector<State *> > &stones);
+        void getNext(std::vector<std::vector<State *> > &stones, std::vector<int> &stoneNumbers);
 };
 
 class BoardBoolean
