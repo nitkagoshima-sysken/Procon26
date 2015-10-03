@@ -655,7 +655,8 @@ double evalBoard(Board *board)
 	double variance[4],allvariance;
 	double pergroup;
 	double evalation;
-	
+	const int coe_1 = 4;
+	const int coe_2 = 20;
 	getGroupsCountBoard(board, 0, &cnt,&count);
 	space = 1024 - countBitOfBoard(board);
 	
@@ -686,7 +687,7 @@ double evalBoard(Board *board)
 	allvariance = ((variance[0]-variance[1])  * (variance[0]-variance[1])) + ((variance[1]-variance[2]) * (variance[1]-variance[2])) + ((variance[2]-variance[3]) * (variance[2]-variance[3]));
 	allvariance = allvariance  / (1025 - count);
 	pergroup    = (double)cnt / ((double)count + 1) * 1000;	
-	evalation = space - (maxline + maxcolumn) * 4 + allvariance * 20 - pergroup;
+	evalation = space - (maxline + maxcolumn) * coe_1 + allvariance * coe_2 - pergroup;
 	return evalation;
 }
 
