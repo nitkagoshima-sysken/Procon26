@@ -12,6 +12,7 @@ using namespace std;
 #define BOARD_SIZE 32
 #define BOARD_LOOP 128 //BOARD_SIZE * (BOARD_SIZE / sizeof(char))
 #define NULL_POINT -64
+#define INT_SIZE 32
 
 struct Stone
 {
@@ -59,8 +60,8 @@ class Answers
 class StonePicker
 {
     private:
-        static const int MAX = 32;
-        unsigned int dropStones;
+        static const int MAX = 128;
+        unsigned int dropStones[8]; // MAX / INT_SIZE
         unsigned int dropStonesMax;
         int num;
         int sum;
@@ -70,10 +71,12 @@ class StonePicker
         std::vector<int> zukus;
         void sortStones();
         int getSum();
-        void getStones(std::vector<std::vector<State *> > &stones);
+        void getStones(std::vector<std::vector<State *> > &stones, std::vector<int> &stoneNumbers);
+        bool isDrop(int num);
+        void increment(int index);
     public:
         StonePicker(std::vector<std::vector<State *> > stones, std::vector<int> zukus, int blanks);
-        void getNext(std::vector<std::vector<State *> > &stones);
+        void getNext(std::vector<std::vector<State *> > &stones, std::vector<int> &stoneNumbers);
 };
 
 class BoardBoolean
