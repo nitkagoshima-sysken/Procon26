@@ -3,15 +3,7 @@
 string Answer::toString()
 {
 	stringstream sout;
-    if (X == NULL_POINT&& Y == NULL_POINT)
-    {
-        sout << "";
-    }
-    else
-    {
-        sout << X << " " << Y << " " << (flipped ? "T" : "H") << " " << turn;
-    }
-	
+	sout << X << " " << Y << " " << (flipped ? "T" : "H") << " " << turn * 90;
 	return sout.str();
 }
 
@@ -166,4 +158,36 @@ int BoardBoolean::check(int x, int y)
 	{
 		return (int)boolean[y + STONE_SIZE - 1][x + STONE_SIZE - 1];
 	}
+}
+
+void Answers::place(int stoneNumber, int x, int y, bool flipped, int turn)
+{
+	Answer newAns;
+	newAns.X = x; newAns.Y = y;
+	newAns.flipped = flipped;
+    newAns.stoneNumber = stoneNumber;
+	newAns.turn = turn;
+	answers.push_back(newAns);
+}
+
+void Answers::place(int stoneNumber, State *status, int x, int y)
+{
+	(*this).place(stoneNumber, x, y, status->flipped, status->turn);
+}
+	
+void Answers::print(int stones)
+{
+    int j = 0;
+    for (int i = 0; i < stones; i++)
+    {
+        if (j < answers.size() && answers.at(j).stoneNumber == i)
+        {
+            cout << answers.at(j).toString() << endl;
+            j++;
+        }
+        else
+        {
+            cout << endl;
+        }
+    }
 }

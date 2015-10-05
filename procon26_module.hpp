@@ -44,13 +44,18 @@ class Answer
 		int Y;
 		bool flipped;
 		int turn;	// 90 * turn;
-
+		int stoneNumber;
+		
 		string toString();
 };
 
-struct Answers
+class Answers
 {
+	public:
 	vector<Answer> answers;
+	void place(int stoneNumber, int x, int y, bool flipped, int turn);
+	void place(int stoneNumber, State *, int x, int y);
+	void print(int stones);
 };
 
 class StonePicker
