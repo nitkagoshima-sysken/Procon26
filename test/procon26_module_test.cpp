@@ -145,3 +145,21 @@ TEST(procon26_module, BoardBoolean)
 	ASSERT_EQ(p -> check(-3, -2), 1);
 	ASSERT_EQ(p -> check(-8, 4), -1);
 }
+
+TEST(procon26_module, Answers)
+{
+	Answers answer;
+	Answer ans1; ans1.X = 1; ans1.Y = 0; ans1.turn = 2; ans1.flipped = false;
+	Answer ans2; ans2.X = 9; ans2.Y = 5; ans2.turn = 0; ans2.flipped = true;
+	State _ans2; _ans2.turn = 0; _ans2.flipped = true;
+	Answer ans3; ans3.X = NULL_POINT; ans3.Y = NULL_POINT;
+
+	answer.place(2, ans1.X, ans1.Y, ans1.flipped, ans1.turn);
+	answer.place(4, &_ans2, ans2.X, ans2.Y);
+
+	testing::internal::CaptureStdout();
+	answer.print(6);
+	string ans = "\n\n1 0 H 180\n\n9 5 T 0\n\n";
+	ASSERT_EQ(testing::internal::GetCapturedStdout(), ans);
+
+}
