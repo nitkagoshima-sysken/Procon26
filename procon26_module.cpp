@@ -15,7 +15,6 @@ StonePicker::StonePicker(std::vector<std::vector<State *> > stones_, std::vector
     for(int i = 0; i < MAX / INT_SIZE; i ++) {
         dropStones[i] = 0;
     }
-    sum = 0;
     sortStones();
     // Skip combinations which is not correct.
     bool done = false; // Skipping is done.
