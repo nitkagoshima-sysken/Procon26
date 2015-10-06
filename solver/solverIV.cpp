@@ -9,6 +9,21 @@ struct Placement{
     bool flipped;
 };
 
+int main()
+{
+	// read Problem
+	string filePath;
+	cin >> filePath;
+	Problem prob = *readProblem(filePath);
+	
+    Answers *ans = solve(prob);
+
+    // output Answers
+    ans->print(prob.num);
+    
+    return 0;
+}
+
 class SolverIV{
 
     public:
