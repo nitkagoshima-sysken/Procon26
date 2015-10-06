@@ -98,7 +98,7 @@ int main()
 	cin >> filePath;
 	Problem prob = *readProblem(filePath);
 	
-    Answers *ans = solve(prob);
+    Answers *ans = SolverIV::solve(prob);
 
     // output Answers
     ans->print(prob.num);
