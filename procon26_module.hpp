@@ -10,6 +10,9 @@ using namespace std;
 
 #define STONE_SIZE 8
 #define BOARD_SIZE 32
+#define BOARD_LOOP 128 //BOARD_SIZE * (BOARD_SIZE / sizeof(char))
+#define NULL_POINT -64
+#define INT_SIZE 32
 
 struct Stone
 {
@@ -37,7 +40,8 @@ struct Problem
 class Answer
 {
 	public:
-		int X;
+        // 石が置けない場合は、X = Y = NULL_POINT
+		int X;  
 		int Y;
 		bool flipped;
 		int turn;	// 90 * turn;
@@ -45,16 +49,19 @@ class Answer
 		string toString();
 };
 
-struct Answers
+class Answers
 {
+	public:
 	vector<Answer> answers;
+	// 未実装
+	// Answers *place(State *, int, int);
 };
 
 class StonePicker
 {
     private:
-        static const int MAX = 32;
-        unsigned int dropStones;
+        static const int MAX = 256;
+        unsigned int dropStones[8]; // MAX / INT_SIZE
         unsigned int dropStonesMax;
         int num;
         int sum;
@@ -64,10 +71,21 @@ class StonePicker
         std::vector<int> zukus;
         void sortStones();
         int getSum();
-        void getStones(std::vector<std::vector<State *> > &stones);
+        void getStones(std::vector<std::vector<State *> > &stones, std::vector<int> &stoneNumbers);
+        bool isDrop(int num);
+        void increment(int index);
     public:
         StonePicker(std::vector<std::vector<State *> > stones, std::vector<int> zukus, int blanks);
-        void getNext(std::vector<std::vector<State *> > &stones);
+        void getNext(std::vector<std::vector<State *> > &stones, std::vector<int> &stoneNumbers);
+};
+
+class BoardBoolean
+{
+	public:
+		bool boolean[BOARD_SIZE + STONE_SIZE - 1][BOARD_SIZE + STONE_SIZE - 1];
+		BoardBoolean();
+		BoardBoolean *place(int x, int y);	//石を置いた座標を入力し、bool型の2次元配列に反映する
+		int check(int x, int y);	//ボードの座標を入力し、その座標に石が置けるかどうかを確認する
 };
 
 #endif

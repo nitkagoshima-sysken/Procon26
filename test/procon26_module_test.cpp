@@ -5,7 +5,7 @@
 
 TEST(procon26_module, StonePicker){
     std::vector<std::vector<State *> > states, picked;
-    std::vector<int> zukus;
+    std::vector<int> zukus, stoneNumbers;
     Stone *stone1 = getStoneByString("1                                                               ");
     Stone *stone2 = getStoneByString("11                                                              ");
     Stone *stone3 = getStoneByString("111                                                             ");
@@ -21,114 +21,127 @@ TEST(procon26_module, StonePicker){
     zukus.push_back(2); states.push_back(states2);
     StonePicker stonePicker(states, zukus, 10);
     //0000
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 4);
-    ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
-    ASSERT_TRUE(isEqualStone(picked[1][0], stone1));
-    ASSERT_TRUE(isEqualStone(picked[2][0], stone4));
-    ASSERT_TRUE(isEqualStone(picked[3][0], stone2));
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone3)); ASSERT_EQ(0, stoneNumbers[0]);
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone1)); ASSERT_EQ(1, stoneNumbers[1]);
+    ASSERT_TRUE(isEqualStone(picked[2][0], stone4)); ASSERT_EQ(2, stoneNumbers[2]);
+    ASSERT_TRUE(isEqualStone(picked[3][0], stone2)); ASSERT_EQ(3, stoneNumbers[3]);
     //1000
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 3);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone4));
     ASSERT_TRUE(isEqualStone(picked[2][0], stone2));
     //0100
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 3);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone1));
     ASSERT_TRUE(isEqualStone(picked[2][0], stone4));
     //1100
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 2);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone4));
     //0010
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 3);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone4));
     ASSERT_TRUE(isEqualStone(picked[2][0], stone2));
     //1010
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 2);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone4));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone2));
     //0110
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 2);
-    ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
-    ASSERT_TRUE(isEqualStone(picked[1][0], stone4));
+    ASSERT_TRUE(isEqualStone(picked[0][0], stone1)); ASSERT_EQ(1, stoneNumbers[0]);
+    ASSERT_TRUE(isEqualStone(picked[1][0], stone4)); ASSERT_EQ(2, stoneNumbers[1]);
     //1110
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 1);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone4));
     //0001
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 3);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone1));
     ASSERT_TRUE(isEqualStone(picked[2][0], stone2));
     //1001
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 2);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone2));
     //0101
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 2);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone1));
     //1101
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 1);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
     //0011
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 2);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone2));
     //1011
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 1);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone2));
     //0111
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 1);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
     //1111
-    picked.clear(); stonePicker.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 0);
 
     StonePicker stonePicker2(states, zukus, 4);
     //1110
-    picked.clear(); stonePicker2.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker2.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 1);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone4));
     //0101
-    picked.clear(); stonePicker2.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker2.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 2);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone1));
     //1101
-    picked.clear(); stonePicker2.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker2.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 1);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone3));
     //0011
-    picked.clear(); stonePicker2.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker2.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 2);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
     ASSERT_TRUE(isEqualStone(picked[1][0], stone2));
     //1011
-    picked.clear(); stonePicker2.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker2.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 1);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone2));
     //0111
-    picked.clear(); stonePicker2.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker2.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 1);
     ASSERT_TRUE(isEqualStone(picked[0][0], stone1));
     //1111
-    picked.clear(); stonePicker2.getNext(picked);
+    picked.clear(); stoneNumbers.clear(); stonePicker2.getNext(picked, stoneNumbers);
     ASSERT_EQ(picked.size(), 0);
+}
+
+TEST(procon26_module, BoardBoolean)
+{
+	BoardBoolean board1;
+	BoardBoolean *p;
+	p = board1.place(-2, 7);
+	ASSERT_EQ(p -> check(-2, 8), 0);
+	ASSERT_EQ(p -> check(-7, 7), 0);
+	ASSERT_EQ(p -> check(-1, 15), 0);
+	ASSERT_EQ(p -> check(10, 5), 1);
+	ASSERT_EQ(p -> check(-3, -2), 1);
+	ASSERT_EQ(p -> check(-8, 4), -1);
 }

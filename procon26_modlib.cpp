@@ -689,3 +689,155 @@ double evalBoard(Board *board)
 	evalation = space - (maxline + maxcolumn) * 4 + allvariance * 20 - pergroup;
 	return evalation;
 }
+
+int countScore(Answers &ans, Problem &prob)
+{
+	Board *obstacleBoard = new Board;
+	Board *putBoard = new Board;
+	*obstacleBoard = prob.board;
+	for(int i = 0; i < 128; i++) putBoard -> block[i] = 0;
+		
+	int i;
+	bool canPut = false;
+	bool first = true;
+	for(i = 0; i < prob.num; i++)
+	{
+		if(ans.answers[i].X == NULL_POINT && ans.answers[i].Y == NULL_POINT) continue;
+		else if(first)
+		{
+			canPut =  canPlace(obstacleBoard, putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y, first);
+			first = false;
+		}
+		else if(!ans.answers[i].flipped)
+		{
+			canPut = canPlace(obstacleBoard, putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+		else
+		{
+			canPut = canPlace(obstacleBoard, putBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+		if(!canPut) break;
+		
+		if(!ans.answers[i].flipped)
+		{
+			obstacleBoard = placeStone(obstacleBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			putBoard = placeStone(putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+		else
+		{
+			obstacleBoard = placeStone(obstacleBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			putBoard = placeStone(putBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+		}
+	}
+	int score = 0;
+	if(!canPut)
+	{
+		for(int y = 0; y < BOARD_SIZE; y++)
+		{
+			for(int x = 0; x < BOARD_SIZE; x++)
+			{
+				score += (int)!getCellOfBoard(obstacleBoard, x, y);
+			}
+		}
+		return score;
+	}
+	else
+	{
+		for(int y = 0; y < BOARD_SIZE; y++)
+		{
+			for(int x = 0; x < BOARD_SIZE; x++)
+			{
+				score += (int)!getCellOfBoard(obstacleBoard, x, y);
+			}
+		}
+		return score;
+	}
+	delete obstacleBoard;
+	delete putBoard;
+}
+
+Board *BoardNOT(const Board *board)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = ~board->block[i];
+	}
+	return resultBoard;
+}
+
+Board *BoardAND(const Board *Board1, const Board *Board2)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = Board1->block[i] & Board2->block[i];
+	}
+	return resultBoard;
+}
+
+Board *BoardOR(const Board *Board1, const Board *Board2)
+{
+	Board *resultBoard = new Board;
+	for(int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = Board1->block[i] | Board2->block[i];
+	}
+	return resultBoard;
+}
+
+Board *BoardXOR(const Board *Board1, const Board *Board2)
+{
+	Board *resultBoard = new Board;
+	for (int i = 0; i < BOARD_LOOP; i++)
+	{
+		resultBoard->block[i] = Board1->block[i] ^ Board2->block[i];
+	}
+	return resultBoard;
+}
+
+bool releaseVector(vector<Stone *> stones)
+{
+	for(unsigned int i = 0; i < stones.size(); i++) delete stones.at(i); 
+	vector<Stone *>().swap(stones);
+	if(stones.capacity() != 0)  return false;
+	else				   	    return true;
+}
+
+bool releaseVector(vector<Board *> boards)
+{
+	for(unsigned int i = 0; i < boards.size(); i++) delete boards.at(i);
+	vector<Board *>().swap(boards);
+	if(boards.capacity() != 0)  return false;
+	else					    return true;
+}
+
+bool releaseVector(vector<State *> states)
+{
+	for(unsigned int i = 0; i < states.size(); i++) delete states.at(i); 	
+	vector<State *>().swap(states);
+	if(states.capacity() != 0)  return false;
+	else					    return true;
+}
+
+bool releaseVector(vector< vector<State *> > stones)
+{
+	for(unsigned int i = 0; i < stones.size(); i++)
+	{
+		for(unsigned int j = 0; j < stones.at(i).size(); j++) delete stones.at(i).at(j);
+	}
+	vector< vector<State *> >().swap(stones);
+	if(stones.capacity() != 0)  return false;
+	else				  	    return true;
+}
+
+bool releaseVector(vector< vector<Stone *> > stones)
+{
+	for(unsigned int i = 0; i < stones.size(); i++)
+	{
+		for(unsigned int j = 0; j < stones.at(i).size(); j++) delete stones.at(i).at(j);
+	}
+	vector< vector<Stone *> >().swap(stones);
+	if(stones.capacity() != 0)  return false;
+	else					    return true;
+}
