@@ -51,11 +51,14 @@ class Answer
 
 class Answers
 {
+	private:
+	int num;
 	public:
 	vector<Answer> answers;
+	Answers(int num);
 	void place(int stoneNumber, int x, int y, bool flipped, int turn);
 	void place(int stoneNumber, State *, int x, int y);
-	void print(int stones);
+	void print();
 };
 
 class StonePicker
