@@ -51,14 +51,13 @@ class Answer
 
 class Answers
 {
-	private:
-	int num;
 	public:
+	int num;
 	vector<Answer> answers;
 	Answers(int num);
 	void place(int stoneNumber, int x, int y, bool flipped, int turn);
 	void place(int stoneNumber, State *, int x, int y);
-	void print();
+	void print(ostream &os);
 };
 
 class StonePicker
@@ -88,6 +87,17 @@ class BoardBoolean
 		BoardBoolean();
 		BoardBoolean *place(int x, int y);	//石を置いた座標を入力し、bool型の2次元配列に反映する
 		int check(int x, int y);	//ボードの座標を入力し、その座標に石が置けるかどうかを確認する
+};
+
+class SubmissionManager
+{
+    private:
+        int cnt;
+        string fileName;
+
+    public:
+        SubmissionManager(string _fileName);
+        string submit(Answers *answer);
 };
 
 #endif
