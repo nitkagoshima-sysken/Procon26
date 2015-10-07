@@ -60,7 +60,7 @@ class SolverIV{
                 std::vector<std::vector<State *> > &states,
                 int depth,
                 bool first=false){
-            SOLVER_FOR if(boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
+            SOLVER_FOR if(first | !boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
                 if(canPlace(masterBoard, stonesBoard, states[depth][i], x, y, first)){
                     //新しくanswerを作る
                     std::vector<Placement> *placedAnswer = new std::vector<Placement>(answer->size() + 1);
