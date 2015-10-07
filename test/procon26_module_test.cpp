@@ -157,7 +157,7 @@ TEST(procon26_module, Answers)
 	answer.place(4, &_ans2, ans2.X, ans2.Y);
 
 	testing::internal::CaptureStdout();
-	answer.print();
+	answer.print(cout);
 	string ans = "\n\n1 0 H 180\n\n9 5 T 0\n\n";
 	ASSERT_EQ(testing::internal::GetCapturedStdout(), ans);
 
