@@ -205,7 +205,7 @@ SubmissionManager::SubmissionManager(string _fileName)
 string SubmissionManager::submit(Answers *answer)
 {
     stringstream sout;
-    sout << fileName << cnt++;
+    sout << fileName << cnt++ << ".txt";
     ofstream ofs(sout.str());
     answer->print(answer->num, ofs);
     return sout.str();
