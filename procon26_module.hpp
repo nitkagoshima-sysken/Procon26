@@ -51,14 +51,13 @@ class Answer
 
 class Answers
 {
-	private:
-	int num;
 	public:
+	int num;
 	vector<Answer> answers;
 	Answers(int num);
 	void place(int stoneNumber, int x, int y, bool flipped, int turn);
 	void place(int stoneNumber, State *, int x, int y);
-	void print(ostream os = cout);
+	void print(ostream &os);
 };
 
 class StonePicker
@@ -93,12 +92,12 @@ class BoardBoolean
 class SubmissionManager
 {
     private:
-        static int cnt;
+        int cnt;
         string fileName;
 
     public:
         SubmissionManager(string _fileName);
         string submit(Answers *answer);
-}
+};
 
 #endif

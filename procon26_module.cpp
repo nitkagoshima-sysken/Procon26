@@ -1,4 +1,7 @@
 #include "procon26_module.hpp"
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 string Answer::toString()
 {
@@ -179,20 +182,17 @@ void Answers::place(int stoneNumber, State *status, int x, int y)
 	(*this).place(stoneNumber, x, y, status->flipped, status->turn);
 }
 	
-void Answers::print(ostream os)
+void Answers::print(ostream &os)
 {
     int j = 0;
     for (int i = 0; i < num; i++)
     {
         if (j < answers.size() && answers.at(j).stoneNumber == i)
         {
-            os << answers.at(j).toString() << endl;
+            os << answers.at(j).toString();
             j++;
         }
-        else
-        {
-            os << endl;
-        }
+        os << endl;
     }
 }
 
@@ -206,7 +206,7 @@ string SubmissionManager::submit(Answers *answer)
 {
     stringstream sout;
     sout << fileName << cnt++ << ".txt";
-    ofstream ofs(sout.str());
-    answer->print(answer->num, ofs);
+    ofstream ofs(sout.str().c_str());
+    answer->print(ofs);
     return sout.str();
 }
