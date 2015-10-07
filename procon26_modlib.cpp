@@ -344,7 +344,10 @@ bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, i
 int checkPlacingStone(const Board *board, const Board *board_diff, const Stone *stone, int x, int y)
 {
 	if(! canPlace(board, board_diff, stone, x, y)) return -1;
-	return countBitOfStone(getTouchingStone(board, stone, x, y));
+	Stone *a;
+	int tmp = countBitOfStone(a = getTouchingStone(board, stone, x, y));
+	delete a;
+	return tmp;
 }
 
 bool isEqualStone(const Stone *stone1, const Stone *stone2)
@@ -498,6 +501,7 @@ void getGroupsStone(Stone *stone, bool target, std::vector<Stone *> &stones, int
             }
         }
     }
+    delete done;
     if(isEmptyStone(result)) delete result;
 }
 
@@ -535,6 +539,7 @@ void getGroupsBoard(Board *board, bool target, std::vector<Board *> &boards, int
             }
         }
     }
+    delete done;
     if(isEmptyBoard(result)) delete result;
 }
 
