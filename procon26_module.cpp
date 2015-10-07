@@ -160,6 +160,10 @@ int BoardBoolean::check(int x, int y)
 	}
 }
 
+Answers::Answers(int _num) {
+    num = _num;
+}
+
 void Answers::place(int stoneNumber, int x, int y, bool flipped, int turn)
 {
 	Answer newAns;
@@ -175,10 +179,10 @@ void Answers::place(int stoneNumber, State *status, int x, int y)
 	(*this).place(stoneNumber, x, y, status->flipped, status->turn);
 }
 	
-void Answers::print(int stones)
+void Answers::print()
 {
     int j = 0;
-    for (int i = 0; i < stones; i++)
+    for (int i = 0; i < num; i++)
     {
         if (j < answers.size() && answers.at(j).stoneNumber == i)
         {

@@ -3065,7 +3065,7 @@ TEST(procon26_modlib, countScore)
         "00000011"
     );
     Answer ans1, ans2, ans3, ans4, ans5;
-    Answers answer1, answer2;
+    Answers answer1(0), answer2(0);
     ans1.X = 3; ans1.Y = 2; ans1.flipped = false; ans1.turn = 0;
 	ans2.X = -2; ans2.Y = -3; ans2.flipped = true; ans2.turn = 1;
 	ans3.X = NULL_POINT; ans3.Y = NULL_POINT;
