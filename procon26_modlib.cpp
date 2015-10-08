@@ -663,6 +663,8 @@ double evalBoard(Board *board)
 	double pergroup;
 	double evalation;
 	
+	const double bias_1 = 4.0 ,bias_2 = 20.0;
+	
 	getGroupsCountBoard(board, 0, &cnt,&count);
 	space = 1024 - countBitOfBoard(board);
 	
@@ -693,7 +695,7 @@ double evalBoard(Board *board)
 	allvariance = ((variance[0]-variance[1])  * (variance[0]-variance[1])) + ((variance[1]-variance[2]) * (variance[1]-variance[2])) + ((variance[2]-variance[3]) * (variance[2]-variance[3]));
 	allvariance = allvariance  / (1025 - count);
 	pergroup    = (double)cnt / ((double)count + 1) * 1000;	
-	evalation = space - (maxline + maxcolumn) * 4 + allvariance * 20 - pergroup;
+	evalation = space - (maxline + maxcolumn) * bias_1 + allvariance * bias_2 - pergroup;
 	return evalation;
 }
 
