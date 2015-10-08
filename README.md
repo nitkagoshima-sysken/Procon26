@@ -32,11 +32,10 @@ procon26_moduleの構成について以下に示す。
 | :------------- | :------ |
 | STONE_SIZE     | stoneの一辺大きさ。                                                                 |
 | BOARD_SIZE     | boardの一辺の大きさ。                                                               |
-| NULL_POINT     | 石が置けないときに指定する座標。                                                       |
 | struct Stoen   | stoneを表す構造体。 unsigned char型8個の配列で表す。                                  |
 | struct Board   | boardを表す構造体。 unsigned char型128個の配列で表す。                                |
 | struct Problem | 問題を表す構造体。boardとstoneの数、stoneを保持する。                                   |
-| class Answer   | 各stoneを置いた座標、回転、反転の情報を保持する。stoneが置けなかった場合(NULL_POINT, NULL_POINT)を示す。<br> メンバ関数ToString()を持つ。|
+| class Answer   | 各stoneを置いた座標、回転、反転の情報を保持する。<br> メンバ関数ToString()を持つ。|
 | class Answers  | 解答を表すクラス。 Answerクラスのリストを保持する。                                       |
 
 ### 3.2 procon26_modio
