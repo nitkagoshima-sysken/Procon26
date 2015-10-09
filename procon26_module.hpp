@@ -11,7 +11,6 @@ using namespace std;
 #define STONE_SIZE 8
 #define BOARD_SIZE 32
 #define BOARD_LOOP 128 //BOARD_SIZE * (BOARD_SIZE / sizeof(char))
-#define NULL_POINT -64
 
 struct Stone
 {
@@ -39,7 +38,6 @@ struct Problem
 class Answer
 {
 	public:
-        // 石が置けない場合は、X = Y = NULL_POINT
 		int X;  
 		int Y;
 		bool flipped;
