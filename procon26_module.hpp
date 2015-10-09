@@ -81,10 +81,10 @@ class StonePicker
 class BoardBoolean
 {
 	public:
-		bool boolean[BOARD_SIZE + STONE_SIZE - 1][BOARD_SIZE + STONE_SIZE - 1];
+		char boolean[40*40/sizeof(char)];
 		BoardBoolean();
-		BoardBoolean *place(int x, int y);	//石を置いた座標を入力し、bool型の2次元配列に反映する
-		int check(int x, int y);	//ボードの座標を入力し、その座標に石が置けるかどうかを確認する
+		BoardBoolean *place(int x, int y);
+		bool check(int x, int y);
 };
 
 class SubmissionManager
