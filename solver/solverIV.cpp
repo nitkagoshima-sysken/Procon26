@@ -42,7 +42,7 @@ class SolverIV{
                     end = true;
                     result = NULL;
                 } else {
-                    result = solveInternal(answer, boardChecker, &problem.board, cloneBoard(EMPTY_BOARD), picked, 0, true);
+                    result = solveInternal(answer, boardChecker, &problem.board, cloneBoard(EMPTY_BOARD), picked, 0);
                     if (result != NULL) {
                         end = true;
                     }
@@ -81,9 +81,8 @@ class SolverIV{
                 Board *masterBoard,
                 Board *stonesBoard,
                 std::vector<std::vector<State *> > &states,
-                int depth,
-                bool first=false){
-            SOLVER_FOR if(first | !boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
+                int depth){
+            SOLVER_FOR if(depth == 0 | !boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
                 if(canPlace(masterBoard, stonesBoard, states[depth][i], x, y, first)){
                     //新しくanswerを作る
                     std::vector<Placement> *placedAnswer = new std::vector<Placement>(answer->size() + 1);
