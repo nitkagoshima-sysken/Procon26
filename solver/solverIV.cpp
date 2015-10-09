@@ -9,9 +9,20 @@ struct Placement{
     bool flipped;
 };
 
+struct cache{
+    int score;
+    std::vector<Placement> *answer;
+    BoardBoolean *boardChecker;
+    Board *masterBoard;
+    Board *stonesBoard;
+};
+
 class SolverIV{
 
     public:
+        static int limit_depth = 3;
+        static int limit_number = 10;
+
         static Answers *solve(Problem &problem){
             std::vector<std::vector<State *> > states, picked;
             convertStonesToVectorOfStates(problem.stones, problem.num, states);
@@ -52,6 +63,18 @@ class SolverIV{
         }
 
     private:
+        static void merge(std::vector<
+        static std::vector<Placement> *solve(
+                std::vector<Placement> *answer,
+                BoardBoolean *boardChecker,
+                Board *masterBoard,
+                Board *stonesBoard,
+                std::vector<std::vector<State *> > &states,
+                int depth,
+                bool first=false){
+            std::vector<Cache *> caches;
+        }
+
         static std::vector<Placement> *solveInternal(
                 std::vector<Placement> *answer,
                 BoardBoolean *boardChecker,
