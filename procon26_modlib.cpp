@@ -591,14 +591,14 @@ Stone *normalizeStone(const Stone *stone)
     return source;
 }
 
-State *getState(Stone *stone, bool flipped, int turn){
+State *getState(Stone *stone, bool flipped, int rotate){
     State *state = new State();
     for(int i = 0; i < STONE_SIZE; i ++)
     {
         state->zuku[i] = stone->zuku[i];
     }
     state->flipped = flipped;
-    state->turn = turn;
+    state->rotate = rotate;
     return state;
 }
 
@@ -713,28 +713,28 @@ int countScore(Answers &ans, Problem &prob)
 	{
 		if(first)
 		{
-			canPut =  canPlace(obstacleBoard, putBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y, first);
+			canPut =  canPlace(obstacleBoard, putBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].rotate), ans.answers[i].X, ans.answers[i].Y, first);
 			first = false;
 		}
 		else if(!ans.answers[i].flipped)
 		{
-			canPut = canPlace(obstacleBoard, putBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			canPut = canPlace(obstacleBoard, putBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].rotate), ans.answers[i].X, ans.answers[i].Y);
 		}
 		else
 		{
-			canPut = canPlace(obstacleBoard, putBoard, rotate(flip(&prob.stones[ans.answers[i].stoneNumber]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			canPut = canPlace(obstacleBoard, putBoard, rotate(flip(&prob.stones[ans.answers[i].stoneNumber]), ans.answers[i].rotate), ans.answers[i].X, ans.answers[i].Y);
 		}
 		if(!canPut) break;
 		
 		if(!ans.answers[i].flipped)
 		{
-			obstacleBoard = placeStone(obstacleBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
-			putBoard = placeStone(putBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			obstacleBoard = placeStone(obstacleBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].rotate), ans.answers[i].X, ans.answers[i].Y);
+			putBoard = placeStone(putBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].rotate), ans.answers[i].X, ans.answers[i].Y);
 		}
 		else
 		{
-			obstacleBoard = placeStone(obstacleBoard, rotate(flip(&prob.stones[ans.answers[i].stoneNumber]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
-			putBoard = placeStone(putBoard, rotate(flip(&prob.stones[ans.answers[i].stoneNumber]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			obstacleBoard = placeStone(obstacleBoard, rotate(flip(&prob.stones[ans.answers[i].stoneNumber]), ans.answers[i].rotate), ans.answers[i].X, ans.answers[i].Y);
+			putBoard = placeStone(putBoard, rotate(flip(&prob.stones[ans.answers[i].stoneNumber]), ans.answers[i].rotate), ans.answers[i].X, ans.answers[i].Y);
 		}
 	}
 	int score = 0;

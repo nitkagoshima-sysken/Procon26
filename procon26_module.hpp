@@ -20,7 +20,7 @@ struct Stone
 struct State : public Stone
 {
 	bool flipped;
-	int turn;	// 90 * turn;
+	int rotate;	// 90 * rotate;
 };
 
 struct Board
@@ -41,7 +41,7 @@ class Answer
 		int X;  
 		int Y;
 		bool flipped;
-		int turn;	// 90 * turn;
+		int rotate;	// 90 * rotate;
 		int stoneNumber;
 		
 		string toString();
@@ -53,7 +53,7 @@ class Answers
 	int num;
 	vector<Answer> answers;
 	Answers(int num);
-	void place(int stoneNumber, int x, int y, bool flipped, int turn);
+	void place(int stoneNumber, int x, int y, bool flipped, int rotate);
 	void place(int stoneNumber, State *, int x, int y);
 	void print(ostream &os);
 };

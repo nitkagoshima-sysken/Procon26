@@ -6,7 +6,7 @@ using namespace std;
 string Answer::toString()
 {
 	stringstream sout;
-	sout << X << " " << Y << " " << (flipped ? "T" : "H") << " " << turn * 90;
+	sout << X << " " << Y << " " << (flipped ? "T" : "H") << " " << rotate * 90;
 	return sout.str();
 }
 
@@ -167,19 +167,19 @@ Answers::Answers(int _num) {
     num = _num;
 }
 
-void Answers::place(int stoneNumber, int x, int y, bool flipped, int turn)
+void Answers::place(int stoneNumber, int x, int y, bool flipped, int rotate)
 {
 	Answer newAns;
 	newAns.X = x; newAns.Y = y;
 	newAns.flipped = flipped;
     newAns.stoneNumber = stoneNumber;
-	newAns.turn = turn;
+	newAns.rotate = rotate;
 	answers.push_back(newAns);
 }
 
 void Answers::place(int stoneNumber, State *status, int x, int y)
 {
-	(*this).place(stoneNumber, x, y, status->flipped, status->turn);
+	(*this).place(stoneNumber, x, y, status->flipped, status->rotate);
 }
 	
 void Answers::print(ostream &os)

@@ -2528,11 +2528,11 @@ TEST(procon26_modlib, getState)
     state = getState(stone, true, 1);
     ASSERT_TRUE(isEqualStone(stone, state));
     ASSERT_EQ(state->flipped, true);
-    ASSERT_EQ(state->turn, 1);
+    ASSERT_EQ(state->rotate, 1);
     state = getState(stone, false, 2);
     ASSERT_TRUE(isEqualStone(stone, state));
     ASSERT_EQ(state->flipped, false);
-    ASSERT_EQ(state->turn, 2);
+    ASSERT_EQ(state->rotate, 2);
 }
 
 TEST(procon26_modlib, getStatesOfStone)
@@ -2551,21 +2551,21 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone1, states);
     ASSERT_EQ(states.size(), 8);
     ASSERT_TRUE(isEqualStone(states[0], stone1));
-    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->rotate, 0);
     ASSERT_TRUE(isEqualStone(states[1], rotate90(stone1)));
-    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->turn, 1);
+    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->rotate, 1);
     ASSERT_TRUE(isEqualStone(states[2], rotate180(stone1)));
-    ASSERT_EQ(states[2]->flipped, false); ASSERT_EQ(states[2]->turn, 2);
+    ASSERT_EQ(states[2]->flipped, false); ASSERT_EQ(states[2]->rotate, 2);
     ASSERT_TRUE(isEqualStone(states[3], rotate270(stone1)));
-    ASSERT_EQ(states[3]->flipped, false); ASSERT_EQ(states[3]->turn, 3);
+    ASSERT_EQ(states[3]->flipped, false); ASSERT_EQ(states[3]->rotate, 3);
     ASSERT_TRUE(isEqualStone(states[4], flip(stone1)));
-    ASSERT_EQ(states[4]->flipped, true); ASSERT_EQ(states[4]->turn, 0);
+    ASSERT_EQ(states[4]->flipped, true); ASSERT_EQ(states[4]->rotate, 0);
     ASSERT_TRUE(isEqualStone(states[5], rotate90(flip(stone1))));
-    ASSERT_EQ(states[5]->flipped, true); ASSERT_EQ(states[5]->turn, 1);
+    ASSERT_EQ(states[5]->flipped, true); ASSERT_EQ(states[5]->rotate, 1);
     ASSERT_TRUE(isEqualStone(states[6], rotate180(flip(stone1))));
-    ASSERT_EQ(states[6]->flipped, true); ASSERT_EQ(states[6]->turn, 2);
+    ASSERT_EQ(states[6]->flipped, true); ASSERT_EQ(states[6]->rotate, 2);
     ASSERT_TRUE(isEqualStone(states[7], rotate270(flip(stone1))));
-    ASSERT_EQ(states[7]->flipped, true); ASSERT_EQ(states[7]->turn, 3);
+    ASSERT_EQ(states[7]->flipped, true); ASSERT_EQ(states[7]->rotate, 3);
     states.clear();
 
     Stone *stone2 = getStoneByString(
@@ -2581,13 +2581,13 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone2, states);
     ASSERT_EQ(states.size(), 4);
     ASSERT_TRUE(isEqualStone(states[0], stone2));
-    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->rotate, 0);
     ASSERT_TRUE(isEqualStone(states[1], rotate90(stone2)));
-    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->turn, 1);
+    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->rotate, 1);
     ASSERT_TRUE(isEqualStone(states[2], flip(stone2)));
-    ASSERT_EQ(states[2]->flipped, true); ASSERT_EQ(states[2]->turn, 0);
+    ASSERT_EQ(states[2]->flipped, true); ASSERT_EQ(states[2]->rotate, 0);
     ASSERT_TRUE(isEqualStone(states[3], rotate90(flip(stone2))));
-    ASSERT_EQ(states[3]->flipped, true); ASSERT_EQ(states[3]->turn, 1);
+    ASSERT_EQ(states[3]->flipped, true); ASSERT_EQ(states[3]->rotate, 1);
     states.clear();
 
     Stone *stone3 = getStoneByString(
@@ -2603,9 +2603,9 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone3, states);
     ASSERT_EQ(states.size(), 2);
     ASSERT_TRUE(isEqualStone(states[0], stone3));
-    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->rotate, 0);
     ASSERT_TRUE(isEqualStone(states[1], flip(stone3)));
-    ASSERT_EQ(states[1]->flipped, true); ASSERT_EQ(states[1]->turn, 0);
+    ASSERT_EQ(states[1]->flipped, true); ASSERT_EQ(states[1]->rotate, 0);
     states.clear();
 
     Stone *stone4 = getStoneByString(
@@ -2621,13 +2621,13 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone4, states);
     ASSERT_EQ(states.size(), 4);
     ASSERT_TRUE(isEqualStone(states[0], stone4));
-    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->rotate, 0);
     ASSERT_TRUE(isEqualStone(states[1], rotate90(stone4)));
-    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->turn, 1);
+    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->rotate, 1);
     ASSERT_TRUE(isEqualStone(states[2], rotate180(stone4)));
-    ASSERT_EQ(states[2]->flipped, false); ASSERT_EQ(states[2]->turn, 2);
+    ASSERT_EQ(states[2]->flipped, false); ASSERT_EQ(states[2]->rotate, 2);
     ASSERT_TRUE(isEqualStone(states[3], rotate270(stone4)));
-    ASSERT_EQ(states[3]->flipped, false); ASSERT_EQ(states[3]->turn, 3);
+    ASSERT_EQ(states[3]->flipped, false); ASSERT_EQ(states[3]->rotate, 3);
     states.clear();
 
     Stone *stone5 = getStoneByString(
@@ -2643,9 +2643,9 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone5, states);
     ASSERT_EQ(states.size(), 2);
     ASSERT_TRUE(isEqualStone(states[0], stone5));
-    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->rotate, 0);
     ASSERT_TRUE(isEqualStone(states[1], rotate90(stone5)));
-    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->turn, 1);
+    ASSERT_EQ(states[1]->flipped, false); ASSERT_EQ(states[1]->rotate, 1);
     states.clear();
 
     Stone *stone6 = getStoneByString(
@@ -2661,7 +2661,7 @@ TEST(procon26_modlib, getStatesOfStone)
     getStatesOfStone(stone6, states);
     ASSERT_EQ(states.size(), 1);
     ASSERT_TRUE(isEqualStone(states[0], stone6));
-    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->turn, 0);
+    ASSERT_EQ(states[0]->flipped, false); ASSERT_EQ(states[0]->rotate, 0);
     states.clear();
 }
 
@@ -2681,57 +2681,57 @@ TEST(procon26_modlib, convertStonesToVectorOfStates)
 
     ASSERT_EQ(statesVector[0].size(), 8);
     ASSERT_TRUE(isEqualStone(statesVector[0][0], stone1));
-    ASSERT_EQ(statesVector[0][0]->flipped, false); ASSERT_EQ(statesVector[0][0]->turn, 0);
+    ASSERT_EQ(statesVector[0][0]->flipped, false); ASSERT_EQ(statesVector[0][0]->rotate, 0);
     ASSERT_TRUE(isEqualStone(statesVector[0][1], rotate90(stone1)));
-    ASSERT_EQ(statesVector[0][1]->flipped, false); ASSERT_EQ(statesVector[0][1]->turn, 1);
+    ASSERT_EQ(statesVector[0][1]->flipped, false); ASSERT_EQ(statesVector[0][1]->rotate, 1);
     ASSERT_TRUE(isEqualStone(statesVector[0][2], rotate180(stone1)));
-    ASSERT_EQ(statesVector[0][2]->flipped, false); ASSERT_EQ(statesVector[0][2]->turn, 2);
+    ASSERT_EQ(statesVector[0][2]->flipped, false); ASSERT_EQ(statesVector[0][2]->rotate, 2);
     ASSERT_TRUE(isEqualStone(statesVector[0][3], rotate270(stone1)));
-    ASSERT_EQ(statesVector[0][3]->flipped, false); ASSERT_EQ(statesVector[0][3]->turn, 3);
+    ASSERT_EQ(statesVector[0][3]->flipped, false); ASSERT_EQ(statesVector[0][3]->rotate, 3);
     ASSERT_TRUE(isEqualStone(statesVector[0][4], flip(stone1)));
-    ASSERT_EQ(statesVector[0][4]->flipped, true); ASSERT_EQ(statesVector[0][4]->turn, 0);
+    ASSERT_EQ(statesVector[0][4]->flipped, true); ASSERT_EQ(statesVector[0][4]->rotate, 0);
     ASSERT_TRUE(isEqualStone(statesVector[0][5], rotate90(flip(stone1))));
-    ASSERT_EQ(statesVector[0][5]->flipped, true); ASSERT_EQ(statesVector[0][5]->turn, 1);
+    ASSERT_EQ(statesVector[0][5]->flipped, true); ASSERT_EQ(statesVector[0][5]->rotate, 1);
     ASSERT_TRUE(isEqualStone(statesVector[0][6], rotate180(flip(stone1))));
-    ASSERT_EQ(statesVector[0][6]->flipped, true); ASSERT_EQ(statesVector[0][6]->turn, 2);
+    ASSERT_EQ(statesVector[0][6]->flipped, true); ASSERT_EQ(statesVector[0][6]->rotate, 2);
     ASSERT_TRUE(isEqualStone(statesVector[0][7], rotate270(flip(stone1))));
-    ASSERT_EQ(statesVector[0][7]->flipped, true); ASSERT_EQ(statesVector[0][7]->turn, 3);
+    ASSERT_EQ(statesVector[0][7]->flipped, true); ASSERT_EQ(statesVector[0][7]->rotate, 3);
 
     ASSERT_EQ(statesVector[1].size(), 4);
     ASSERT_TRUE(isEqualStone(statesVector[1][0], stone2));
-    ASSERT_EQ(statesVector[1][0]->flipped, false); ASSERT_EQ(statesVector[1][0]->turn, 0);
+    ASSERT_EQ(statesVector[1][0]->flipped, false); ASSERT_EQ(statesVector[1][0]->rotate, 0);
     ASSERT_TRUE(isEqualStone(statesVector[1][1], rotate90(stone2)));
-    ASSERT_EQ(statesVector[1][1]->flipped, false); ASSERT_EQ(statesVector[1][1]->turn, 1);
+    ASSERT_EQ(statesVector[1][1]->flipped, false); ASSERT_EQ(statesVector[1][1]->rotate, 1);
     ASSERT_TRUE(isEqualStone(statesVector[1][2], flip(stone2)));
-    ASSERT_EQ(statesVector[1][2]->flipped, true); ASSERT_EQ(statesVector[1][2]->turn, 0);
+    ASSERT_EQ(statesVector[1][2]->flipped, true); ASSERT_EQ(statesVector[1][2]->rotate, 0);
     ASSERT_TRUE(isEqualStone(statesVector[1][3], rotate90(flip(stone2))));
-    ASSERT_EQ(statesVector[1][3]->flipped, true); ASSERT_EQ(statesVector[1][3]->turn, 1);
+    ASSERT_EQ(statesVector[1][3]->flipped, true); ASSERT_EQ(statesVector[1][3]->rotate, 1);
 
     ASSERT_EQ(statesVector[2].size(), 2);
     ASSERT_TRUE(isEqualStone(statesVector[2][0], stone3));
-    ASSERT_EQ(statesVector[2][0]->flipped, false); ASSERT_EQ(statesVector[2][0]->turn, 0);
+    ASSERT_EQ(statesVector[2][0]->flipped, false); ASSERT_EQ(statesVector[2][0]->rotate, 0);
     ASSERT_TRUE(isEqualStone(statesVector[2][1], flip(stone3)));
-    ASSERT_EQ(statesVector[2][1]->flipped, true); ASSERT_EQ(statesVector[2][1]->turn, 0);
+    ASSERT_EQ(statesVector[2][1]->flipped, true); ASSERT_EQ(statesVector[2][1]->rotate, 0);
 
     ASSERT_EQ(statesVector[3].size(), 4);
     ASSERT_TRUE(isEqualStone(statesVector[3][0], stone4));
-    ASSERT_EQ(statesVector[3][0]->flipped, false); ASSERT_EQ(statesVector[3][0]->turn, 0);
+    ASSERT_EQ(statesVector[3][0]->flipped, false); ASSERT_EQ(statesVector[3][0]->rotate, 0);
     ASSERT_TRUE(isEqualStone(statesVector[3][1], rotate90(stone4)));
-    ASSERT_EQ(statesVector[3][1]->flipped, false); ASSERT_EQ(statesVector[3][1]->turn, 1);
+    ASSERT_EQ(statesVector[3][1]->flipped, false); ASSERT_EQ(statesVector[3][1]->rotate, 1);
     ASSERT_TRUE(isEqualStone(statesVector[3][2], rotate180(stone4)));
-    ASSERT_EQ(statesVector[3][2]->flipped, false); ASSERT_EQ(statesVector[3][2]->turn, 2);
+    ASSERT_EQ(statesVector[3][2]->flipped, false); ASSERT_EQ(statesVector[3][2]->rotate, 2);
     ASSERT_TRUE(isEqualStone(statesVector[3][3], rotate270(stone4)));
-    ASSERT_EQ(statesVector[3][3]->flipped, false); ASSERT_EQ(statesVector[3][3]->turn, 3);
+    ASSERT_EQ(statesVector[3][3]->flipped, false); ASSERT_EQ(statesVector[3][3]->rotate, 3);
 
     ASSERT_EQ(statesVector[4].size(), 2);
     ASSERT_TRUE(isEqualStone(statesVector[4][0], stone5));
-    ASSERT_EQ(statesVector[4][0]->flipped, false); ASSERT_EQ(statesVector[4][0]->turn, 0);
+    ASSERT_EQ(statesVector[4][0]->flipped, false); ASSERT_EQ(statesVector[4][0]->rotate, 0);
     ASSERT_TRUE(isEqualStone(statesVector[4][1], rotate90(stone5)));
-    ASSERT_EQ(statesVector[4][1]->flipped, false); ASSERT_EQ(statesVector[4][1]->turn, 1);
+    ASSERT_EQ(statesVector[4][1]->flipped, false); ASSERT_EQ(statesVector[4][1]->rotate, 1);
 
     ASSERT_EQ(statesVector[5].size(), 1);
     ASSERT_TRUE(isEqualStone(statesVector[5][0], stone6));
-    ASSERT_EQ(statesVector[5][0]->flipped, false); ASSERT_EQ(statesVector[5][0]->turn, 0);
+    ASSERT_EQ(statesVector[5][0]->flipped, false); ASSERT_EQ(statesVector[5][0]->rotate, 0);
 }
 
 TEST(procon26_modlib, canPlace2)
@@ -3066,10 +3066,10 @@ TEST(procon26_modlib, countScore)
     );
     Answer ans1, ans2, ans4, ans5;
     Answers answer1(0), answer2(0);
-    ans1.X = 3; ans1.Y = 2; ans1.flipped = false; ans1.turn = 0; ans1.stoneNumber = 0;
-	ans2.X = -2; ans2.Y = -3; ans2.flipped = true; ans2.turn = 1; ans2.stoneNumber = 1;
-	ans4.X = 6; ans4.Y = 0; ans4.flipped = false; ans4.turn = 3; ans4.stoneNumber = 3;
-    ans5.X = -7; ans5.Y = 0; ans4.flipped = false; ans5.turn = 3; ans5.stoneNumber = 4;
+    ans1.X = 3; ans1.Y = 2; ans1.flipped = false; ans1.rotate = 0; ans1.stoneNumber = 0;
+	ans2.X = -2; ans2.Y = -3; ans2.flipped = true; ans2.rotate = 1; ans2.stoneNumber = 1;
+	ans4.X = 6; ans4.Y = 0; ans4.flipped = false; ans4.rotate = 3; ans4.stoneNumber = 3;
+    ans5.X = -7; ans5.Y = 0; ans4.flipped = false; ans5.rotate = 3; ans5.stoneNumber = 4;
 	answer1.answers.push_back(ans1);
 	answer1.answers.push_back(ans2);
 	answer1.answers.push_back(ans4);

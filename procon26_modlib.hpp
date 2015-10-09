@@ -15,10 +15,10 @@ extern Stone *shiftUp(const Stone *, int, int filler = 0);		// Shift-Up
 extern Stone *shiftDown(const Stone *, int, int filler = 0);		// Shift-Down
 extern Stone *shiftRight(const Stone *, int, int filler = 0);		// Shift-Right
 extern Stone *shiftLeft(const Stone *, int, int filler = 0);		// Shift-Left
-extern Stone *rotate(const Stone *, int);	// Turn-90 * n(deg)
-extern Stone *rotate90(const Stone *);		// Turn-90  (deg)
-extern Stone *rotate180(const Stone *);		// Turn-180 (deg)
-extern Stone *rotate270(const Stone *);		// Turn-270 (deg)
+extern Stone *rotate(const Stone *, int);	// Rotate-90 * n(deg)
+extern Stone *rotate90(const Stone *);		// Rotate-90  (deg)
+extern Stone *rotate180(const Stone *);		// Rotate-180 (deg)
+extern Stone *rotate270(const Stone *);		// Rotate-270 (deg)
 extern Stone *flip(const Stone *);		// flip
 extern Stone *NOT(const Stone *);			// Logic-NOT
 extern Stone *AND(const Stone *, const Stone *);	// Logic-AND
@@ -47,7 +47,7 @@ extern int getGroupsStoneInternal(Stone *, Stone *, Stone *, bool target, int x,
 extern void getGroupsBoard(Board *, bool target, std::vector<Board *> &, int *groups_count, int *count);
 extern int getGroupsBoardInternal(Board *, Board *, Board *, bool target, int x, int y);
 extern Stone *normalizeStone(const Stone *stone);
-extern State *getState(Stone *stone, bool flipped, int turn);
+extern State *getState(Stone *stone, bool flipped, int rotate);
 extern void getStatesOfStone(const Stone *, std::vector<State *> &);
 extern void convertStonesToVectorOfStates(Stone *, int, std::vector<std::vector<State *> > &);
 extern bool releaseVector(vector<Stone *>);
