@@ -9,7 +9,7 @@ struct Placement{
     bool flipped;
 };
 
-struct cache{
+struct Cache{
     int score;
     std::vector<Placement> *answer;
     BoardBoolean *boardChecker;
@@ -17,11 +17,25 @@ struct cache{
     Board *stonesBoard;
 };
 
+void releaseCaches(std::vector<Cache *> cashes, int length) {
+    for (int i = 0; i < length; i ++) {
+        releaseCache(cashes[i]);
+        delete cashes[i];
+    }
+}
+
+void releaseCache(Cache *cache) {
+        delete cashes[i]->answer;
+        delete cashes[i]->boardChecker;
+        delete cashes[i]->masterBoard;
+        delete cashes[i]->stonesBoard;
+}
+
 class SolverIV{
 
     public:
-        static int limit_depth = 3;
-        static int limit_number = 10;
+        static int limitDepth = 3;
+        static int limitNumber = 10;
 
         static Answers *solve(Problem &problem){
             std::vector<std::vector<State *> > states, picked;
@@ -42,7 +56,7 @@ class SolverIV{
                     end = true;
                     result = NULL;
                 } else {
-                    result = solveInternal(answer, boardChecker, &problem.board, cloneBoard(EMPTY_BOARD), picked, 0);
+                    result = solve(answer, boardChecker, &problem.board, cloneBoard(EMPTY_BOARD), picked);
                     if (result != NULL) {
                         end = true;
                     }
@@ -63,25 +77,74 @@ class SolverIV{
         }
 
     private:
-        static void merge(std::vector<
+        static int merge(std::vector<Cache *> &dest, std::vector<Cache *> &caches1, int l1, std::vector<Cache *> &caches2, int l2) {
+            int i = 0, i1 = 0, i2 = 0;
+            while (i < limitNumber; i1 < l1 && i2 < l2) {
+                if (caches1[i1] == caches2[i2]) {
+                    dest[i ++] = caches1[i1 ++];
+                    i2 ++;
+                } else if (caches1[i1] > caches2[i2]) {
+                    dest[i ++] = caches1[i1 ++];
+                } else {
+                    dest[i ++] = caches2[i2 ++];
+                }
+            }
+            for (; i1 < l1; i1 ++) {
+                releaseCache(caches1[i1]);
+            }
+            for (; i2 < l2; i2 ++) {
+                releaseCache(caches2[i2]);
+            }
+            return i;
+        }
+
         static std::vector<Placement> *solve(
+                std::vector<Placement> *answer,
+                BoardBoolean *boardChecker,
+                Board *masterBoard,
+                Board *stonesBoard,
+                std::vector<std::vector<State *> > &states) {
+            int depth = 0, num = states.size(), cachesSize = 0, cachesTmpSize = 1;
+            bool end = false;
+            std::vector<Cache *> caches(limitNumber), cachesTmp(limitNumber)
+            cachesTmp[0] = new Cache(0, answer, boardChecker, masterBoard, stonesBoard);
+            while (!end) {
+                if (cachesTmpSize == 0) {
+                    return NULL;
+                }
+                releaseCaches(caches, cachesSize);
+                caches = cachesTmp;
+                cachesTmpSize = 0;
+
+                depth += limitDepth;
+                number = limitNumber;
+                if (! (depth < num)) {
+                    end = true;
+                    limitNumber -= depth - (num - 1);
+                }
+                for (int i = 0; i < cachesSize; i ++) {
+                    std::vector<Cache *> *result;
+                    int resultSize;
+                    result = solveInternal(caches[i].answer, caches[i].boardChecker, caches[i].masterBoard, caches[i].stonesBoard, states, depth, &resultSize);
+                    std::vector<Cache *> copy = cachesTmp;
+                    cachesTmpSize = merge(cachesTmp, copy, cashesTmpSize, *result, resultSize);
+                }
+            }
+            // end
+            if (cashesTmpSize == 0) {
+                return NULL;
+            }
+            return cashesTmp[0].answer;
+        }
+
+        static std::vector<Cache *> *solveInternal(
                 std::vector<Placement> *answer,
                 BoardBoolean *boardChecker,
                 Board *masterBoard,
                 Board *stonesBoard,
                 std::vector<std::vector<State *> > &states,
                 int depth,
-                bool first=false){
-            std::vector<Cache *> caches;
-        }
-
-        static std::vector<Placement> *solveInternal(
-                std::vector<Placement> *answer,
-                BoardBoolean *boardChecker,
-                Board *masterBoard,
-                Board *stonesBoard,
-                std::vector<std::vector<State *> > &states,
-                int depth){
+                int *resultSize){
             SOLVER_FOR if(depth == 0 | !boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
                 if(canPlace(masterBoard, stonesBoard, states[depth][i], x, y, first)){
                     //新しくanswerを作る
@@ -98,7 +161,7 @@ class SolverIV{
                     BoardBoolean *placedBoardChecker = boardChecker->place(x, y);
                     Board *placedMasterBoard = placeStone(masterBoard, states[depth][i], x, y);
                     Board *placedStonesBoard = placeStone(stonesBoard, states[depth][i], x, y);
-                    std::vector<Placement> *result = solveInternal(placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard, states, depth + 1);
+                    std::vector<Placement> *result = solveInternal(placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard, states, depth - 1);
                     std::vector<Placement>().swap(*placedAnswer);
                     delete placedBoardChecker;
                     delete placedMasterBoard;
