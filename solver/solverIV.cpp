@@ -41,7 +41,7 @@ class SolverIV{
                     releaseVector(picked);
                     delete boardChecker;
                     delete answer;
-                    Answers *answers = new Answers();
+                    Answers *answers = new Answers(states.size());
                     for (int i = 0; i < result->size(); i ++) {
                         Placement tmp = result->at(i);
                         answers->place(stoneNumbers[i], tmp.x, tmp.y, tmp.flipped, tmp.rotate);
@@ -100,7 +100,7 @@ int main()
     Answers *ans = SolverIV::solve(prob);
 
     // output Answers
-    ans->print(prob.num);
+    ans->print(cout);
     
     return 0;
 }
