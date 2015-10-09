@@ -289,7 +289,6 @@ bool isEmptyBoard(const Board *board)
 
 Stone *getTouchingStone(const Board *board, const Stone *stone, int x, int y, bool filler)
 {
-    Stone *center = quarryStone(board, x, y, filler);
     Stone *a, *b, *c, *d, *e, *f, *g;
     Stone *result = AND(
             g = OR(
@@ -326,14 +325,17 @@ bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, i
 {
     Stone *a, *b, *c;
     if(isEmptyStone(a = AND(stone, b = quarryStone(board, x, y)))){
-        delete a; delete b;
         if(first){
+            delete a; delete b;
             return true;
         }else if(! isEmptyStone(c = getTouchingStone(board_diff, stone, x, y, 0))){
-            delete c;
+            delete a; delete b; delete c;
             return true;
+        }else{
+            delete c;
         }
     }
+    delete a; delete b;
     return false;
 }
 
@@ -345,7 +347,10 @@ bool canPlace(const Board *board, const Board *board_diff, const Stone *stone, i
 int checkPlacingStone(const Board *board, const Board *board_diff, const Stone *stone, int x, int y)
 {
 	if(! canPlace(board, board_diff, stone, x, y)) return -1;
-	return countBitOfStone(getTouchingStone(board, stone, x, y));
+	Stone *a;
+	int tmp = countBitOfStone(a = getTouchingStone(board, stone, x, y));
+	delete a;
+	return tmp;
 }
 
 bool isEqualStone(const Stone *stone1, const Stone *stone2)
@@ -499,6 +504,7 @@ void getGroupsStone(Stone *stone, bool target, std::vector<Stone *> &stones, int
             }
         }
     }
+    delete done;
     if(isEmptyStone(result)) delete result;
 }
 
@@ -536,6 +542,7 @@ void getGroupsBoard(Board *board, bool target, std::vector<Board *> &boards, int
             }
         }
     }
+    delete done;
     if(isEmptyBoard(result)) delete result;
 }
 
@@ -656,6 +663,8 @@ double evalBoard(Board *board)
 	double pergroup;
 	double evalation;
 	
+	const double bias_1 = 4.0 ,bias_2 = 20.0;
+	
 	getGroupsCountBoard(board, 0, &cnt,&count);
 	space = 1024 - countBitOfBoard(board);
 	
@@ -686,7 +695,7 @@ double evalBoard(Board *board)
 	allvariance = ((variance[0]-variance[1])  * (variance[0]-variance[1])) + ((variance[1]-variance[2]) * (variance[1]-variance[2])) + ((variance[2]-variance[3]) * (variance[2]-variance[3]));
 	allvariance = allvariance  / (1025 - count);
 	pergroup    = (double)cnt / ((double)count + 1) * 1000;	
-	evalation = space - (maxline + maxcolumn) * 4 + allvariance * 20 - pergroup;
+	evalation = space - (maxline + maxcolumn) * bias_1 + allvariance * bias_2 - pergroup;
 	return evalation;
 }
 
@@ -700,33 +709,32 @@ int countScore(Answers &ans, Problem &prob)
 	int i;
 	bool canPut = false;
 	bool first = true;
-	for(i = 0; i < prob.num; i++)
+	for(i = 0; i < ans.answers.size(); i++)
 	{
-		if(ans.answers[i].X == NULL_POINT && ans.answers[i].Y == NULL_POINT) continue;
-		else if(first)
+		if(first)
 		{
-			canPut =  canPlace(obstacleBoard, putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y, first);
+			canPut =  canPlace(obstacleBoard, putBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y, first);
 			first = false;
 		}
 		else if(!ans.answers[i].flipped)
 		{
-			canPut = canPlace(obstacleBoard, putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			canPut = canPlace(obstacleBoard, putBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
 		}
 		else
 		{
-			canPut = canPlace(obstacleBoard, putBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			canPut = canPlace(obstacleBoard, putBoard, rotate(flip(&prob.stones[ans.answers[i].stoneNumber]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
 		}
 		if(!canPut) break;
 		
 		if(!ans.answers[i].flipped)
 		{
-			obstacleBoard = placeStone(obstacleBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
-			putBoard = placeStone(putBoard, rotate(&prob.stones[i], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			obstacleBoard = placeStone(obstacleBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			putBoard = placeStone(putBoard, rotate(&prob.stones[ans.answers[i].stoneNumber], ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
 		}
 		else
 		{
-			obstacleBoard = placeStone(obstacleBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
-			putBoard = placeStone(putBoard, rotate(flip(&prob.stones[i]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			obstacleBoard = placeStone(obstacleBoard, rotate(flip(&prob.stones[ans.answers[i].stoneNumber]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
+			putBoard = placeStone(putBoard, rotate(flip(&prob.stones[ans.answers[i].stoneNumber]), ans.answers[i].turn), ans.answers[i].X, ans.answers[i].Y);
 		}
 	}
 	int score = 0;
