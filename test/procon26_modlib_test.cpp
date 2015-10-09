@@ -3064,20 +3064,17 @@ TEST(procon26_modlib, countScore)
         "00000110"
         "00000011"
     );
-    Answer ans1, ans2, ans3, ans4, ans5;
-    Answers answer1, answer2;
-    ans1.X = 3; ans1.Y = 2; ans1.flipped = false; ans1.turn = 0;
-	ans2.X = -2; ans2.Y = -3; ans2.flipped = true; ans2.turn = 1;
-	ans3.X = NULL_POINT; ans3.Y = NULL_POINT;
-	ans4.X = 6; ans4.Y = 0; ans4.flipped = false; ans4.turn = 3;
-    ans5.X = -7; ans5.Y = 0; ans4.flipped = false; ans5.turn = 3;
+    Answer ans1, ans2, ans4, ans5;
+    Answers answer1(0), answer2(0);
+    ans1.X = 3; ans1.Y = 2; ans1.flipped = false; ans1.turn = 0; ans1.stoneNumber = 0;
+	ans2.X = -2; ans2.Y = -3; ans2.flipped = true; ans2.turn = 1; ans2.stoneNumber = 1;
+	ans4.X = 6; ans4.Y = 0; ans4.flipped = false; ans4.turn = 3; ans4.stoneNumber = 3;
+    ans5.X = -7; ans5.Y = 0; ans4.flipped = false; ans5.turn = 3; ans5.stoneNumber = 4;
 	answer1.answers.push_back(ans1);
 	answer1.answers.push_back(ans2);
-	answer1.answers.push_back(ans3);
 	answer1.answers.push_back(ans4);
     answer2.answers.push_back(ans1);
     answer2.answers.push_back(ans2);
-    answer2.answers.push_back(ans3);
     answer2.answers.push_back(ans5);
     
     ASSERT_EQ(countScore(answer1, prob), 159);

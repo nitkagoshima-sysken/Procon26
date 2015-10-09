@@ -66,7 +66,7 @@ class SolverIV{
                     releaseVector(picked);
                     delete boardChecker;
                     delete answer;
-                    Answers *answers = new Answers();
+                    Answers *answers = new Answers(states.size());
                     for (int i = 0; i < result->size(); i ++) {
                         Placement tmp = result->at(i);
                         answers->place(stoneNumbers[i], tmp.x, tmp.y, tmp.flipped, tmp.rotate);
@@ -145,8 +145,8 @@ class SolverIV{
                 std::vector<std::vector<State *> > &states,
                 int depth,
                 int *resultSize){
-            SOLVER_FOR if(depth == 0 | !boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
-                if(canPlace(masterBoard, stonesBoard, states[depth][i], x, y, first)){
+            SOLVER_FOR if((depth == 0) | !boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
+                if(canPlace(masterBoard, stonesBoard, states[depth][i], x, y, depth == 0)){
                     //新しくanswerを作る
                     std::vector<Placement> *placedAnswer = new std::vector<Placement>(answer->size() + 1);
                     for(int i = 0; i < answer->size(); i ++){
@@ -186,7 +186,7 @@ int main()
     Answers *ans = SolverIV::solve(prob);
 
     // output Answers
-    ans->print(prob.num);
+    ans->print(cout);
     
     return 0;
 }
