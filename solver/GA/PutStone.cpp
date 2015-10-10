@@ -92,7 +92,7 @@ int PutStone::putStone(Gene* gene, Answers* answers, bool flag) {
 	}
 	point = countBitOfBoard(board);
 	if (flag) {
-		showBoard(board);
+//		showBoard(board);
 //		cout << endl;
 //		showBoard(board_diff);
                 if(answers != nullptr) point = countScore(*answers, *problem);

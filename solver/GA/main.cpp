@@ -4,25 +4,25 @@
 #include "../../procon26_module.hpp"
 
 int main() {
-	int gene, step;
+	int gene = 5, step = 10;
 	string pass;
 	cin >> pass;
-	cin >> gene;
-	cin >> step;
+	//cin >> gene;
+	//cin >> step;
 	Problem* problem = readProblem(pass);
 	PutStone put = PutStone(problem);
         Answers* answers = new Answers(problem->num);
 	GA ga(gene, put);
 	for (int i = 0; i < step; i++) {
-		cout << "step " << ga.getMaxPoint() << endl;
+	       // cout << "step " << ga.getMaxPoint() << endl;
 		ga.step();
 		if(ga.isEnd()) break;
 	}
 	cout << endl;
-	cout << ga.getMaxPoint() << endl;
+	cout << ga.getMaxPoint() << " ";
 	vector<bool> tmp = ga.getResult();
 	put.putStone(&tmp, answers, true);
 	SubmissionManager sm("answerGA");
-	sm.submit(answers);
+	cout << sm.submit(answers) << endl;
 	return 0;
 }
