@@ -14,6 +14,7 @@ struct Placement{
 struct Cache{
     Cache(int _score, std::vector<Placement *> *_answer, BoardBoolean *_boardChecker, Board *_masterBoard, Board *_stonesBoard);
     int score;
+    // TODO 
     std::vector<Placement *> *answer;
     BoardBoolean *boardChecker;
     Board *masterBoard;
@@ -29,17 +30,20 @@ class SolverIV{
         static int limitDepth;
         static int limitNumber;
         static int scoreFunction;
+        static int num;
+        static std::vector<int> *stoneNumbers;
+        static SubmissionManager *submissionManager;
 
         static Answers *solve(Problem &problem);
 
     private:
+        static Answers *makeAnswers(std::vector<Placement *> *answer);
         static float getScore(std::vector<Placement *> *answer, Board *masterBoard, Board *stonesBoard);
         static int merge(std::vector<Cache *> &dest, std::vector<Cache *> &caches1, int l1, std::vector<Cache *> &caches2, int l2);;
-        static std::vector<Placement *> *solve(
+        static std::vector<Cache *> *solve(
                 std::vector<Placement *> *answer,
                 BoardBoolean *boardChecker,
                 Board *masterBoard,
-                Board *stonesBoard,
                 std::vector<std::vector<State *> > &states);
         static std::vector<Cache *> *solveInternal(
                 std::vector<Placement *> *answer,

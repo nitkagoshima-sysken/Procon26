@@ -8,6 +8,8 @@ int main()
     cin >> filePath;
     Problem prob = *readProblem(filePath);
 
+    cin >> SolverIV::scoreFunction;
+
     cin >> SolverIV::limitDepth;
     cin >> SolverIV::limitNumber;
     Answers *ans = SolverIV::solve(prob);
