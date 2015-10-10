@@ -133,6 +133,38 @@ TEST(procon26_module, StonePicker){
     ASSERT_EQ(picked.size(), 0);
 }
 
+TEST(procon26_module, StonePicker){
+    std::vector<std::vector<State *> > states, picked;
+    std::vector<int> zukus, stoneNumbers;
+	int i;
+	Stone *stone[35];
+	for(i = 0;  i < 10; i ++) stone[i] = getStoneByString("1                                                               ");
+	for(i = 10; i < 30; i ++) stone[i] = getStoneByString("11                                                              ");
+	stone[30] = getStoneByString("111                                                             ");
+	stone[31] = getStoneByString("111                                                             ");
+	stone[32] = getStoneByString("11111                                                           ");
+	stone[33] = getStoneByString("1111111111111111                                                ");
+	stone[34] = getStoneByString("1111111111111111                                                ");
+	std::vector<State *> state[35];
+	
+	for(i = 0; i < 35; i++)
+	{
+		getStatesOfStone(stone[i], state[i]);
+    	zukus.push_back(i); states.push_back(state[i]);
+	}
+	StonePicker stonePicker(states, zukus, 33);
+	picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
+	//1111111111111111111111111111111100
+	ASSERT_EQ(picked.size(), 2);
+	ASSERT_TRUE(isEqualStone(picked[33][0], stone[33])); ASSERT_EQ(33, stoneNumbers[33]);
+	ASSERT_TRUE(isEqualStone(picked[34][0], stone[34])); ASSERT_EQ(34, stoneNumbers[34]);
+    picked.clear(); stoneNumbers.clear(); stonePicker.getNext(picked, stoneNumbers);
+
+	//0000000000000000000000000000000010
+	for(i = 0; i < 33; i ++) ASSERT_TRUE(isEqualStone(picked[i][0], stone[i])); 
+	ASSERT_TRUE(isEqualStone(picked[34][0], stone[34]));
+}
+
 TEST(procon26_module, BoardBoolean)
 {
 	BoardBoolean board1;
