@@ -118,23 +118,26 @@ std::vector<Placement *> *SolverIV::solve(
         if (cachesTmpSize == 0) {
             return NULL;
         }
+        if (! (depth < num)) {
+            break;
+        }
         releaseCaches(caches, cachesSize);
         caches = cachesTmp;
+        cachesSize = cachesTmpSize;
         cachesTmpSize = 0;
 
-        depth += SolverIV::limitDepth;
         int number = SolverIV::limitNumber;
-        if (! (depth < num)) {
-            end = true;
-            limitNumber -= depth - (num - 1);
+        if (!(depth + number < num)) {
+            number = num - number - 1;
         }
         for (int i = 0; i < cachesSize; i ++) {
             std::vector<Cache *> *result;
             int resultSize;
-            result = solveInternal(caches[i]->answer, caches[i]->boardChecker, caches[i]->masterBoard, caches[i]->stonesBoard, states, number, &resultSize);
+            result = solveInternal(caches[i]->answer, caches[i]->boardChecker, caches[i]->masterBoard, caches[i]->stonesBoard, states, depth, number, &resultSize);
             std::vector<Cache *> copy = cachesTmp;
             cachesTmpSize = merge(cachesTmp, copy, cachesTmpSize, *result, resultSize);
         }
+        depth += number;
     }
     // end
     if (cachesTmpSize == 0) {
@@ -150,6 +153,7 @@ std::vector<Cache *> *SolverIV::solveInternal(
         Board *stonesBoard,
         std::vector<std::vector<State *> > &states,
         int depth,
+        int limit,
         int *resultSize){
     std::vector<Cache *> *caches = new std::vector<Cache *>(100);
     *resultSize = 0;
@@ -167,15 +171,16 @@ std::vector<Cache *> *SolverIV::solveInternal(
             Board *placedMasterBoard = placeStone(masterBoard, states[depth][i], x, y);
             Board *placedStonesBoard = placeStone(stonesBoard, states[depth][i], x, y);
 
-            if(depth == 1){ // edge of limit
-                caches->at(0) = new Cache(getScore(placedAnswer, placedMasterBoard, placedStonesBoard),
+            if(limit == 1){ // edge of limit
+                float score;
+                caches->at(0) = new Cache(score = getScore(placedAnswer, placedMasterBoard, placedStonesBoard),
                         placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard);
                 *resultSize = 1;
                 return caches;
             } else {
                 //再帰
                 int resultSizeTmp;
-                std::vector<Cache *> *result = solveInternal(placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard, states, depth - 1, &resultSizeTmp);
+                std::vector<Cache *> *result = solveInternal(placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard, states, depth + 1, limit - 1, &resultSizeTmp);
                 std::vector<Cache *> *copy = new std::vector<Cache *>(*result);
                 *resultSize = merge(*caches, *copy, *resultSize, *result, resultSizeTmp);
                 for (int i = 0; i < placedAnswer->size(); i ++) {

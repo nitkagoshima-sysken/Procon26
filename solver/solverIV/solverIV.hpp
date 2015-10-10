@@ -48,5 +48,6 @@ class SolverIV{
                 Board *stonesBoard,
                 std::vector<std::vector<State *> > &states,
                 int depth,
+                int number,
                 int *resultSize);
 };
