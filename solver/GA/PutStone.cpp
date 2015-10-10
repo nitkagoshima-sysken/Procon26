@@ -84,9 +84,9 @@ int PutStone::putStone(Gene* gene, Answers* answers, bool flag) {
 				delete board_diff; board_diff = tmp;
 			}
 		}
-		if (answers) {
+		if (answers != nullptr) {
 			if(!(X == NULL_POINT && Y == NULL_POINT))
-				answers->answers.push_back(toAnswer(X, Y, result.flipped, result.turn));
+				answers->place(i, X, Y, result.flipped, result.turn);
 		}
 		if (placed && gene->at(i)) placed = false;
 	}
@@ -95,7 +95,7 @@ int PutStone::putStone(Gene* gene, Answers* answers, bool flag) {
 		showBoard(board);
 //		cout << endl;
 //		showBoard(board_diff);
-		if(answers) point = countScore(*answers, *problem);
+                if(answers != nullptr) point = countScore(*answers, *problem);
 		else point = countBitOfBoard(board_diff) + bp;
 	}
 	delete board_diff;
