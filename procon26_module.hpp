@@ -81,7 +81,7 @@ class StonePicker
 class BoardBoolean
 {
 	public:
-		char boolean[25];
+		char boolean[40*40/sizeof(char)];
 		BoardBoolean();
 		BoardBoolean *place(int x, int y);
 		bool check(int x, int y);

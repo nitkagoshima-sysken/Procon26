@@ -138,15 +138,25 @@ TEST(procon26_module, BoardBoolean)
 	BoardBoolean board1;
 	BoardBoolean *p;
 	p = board1.place(1, 1);
+	ASSERT_FALSE(board1.check(-7, -7));
 	ASSERT_TRUE(p -> check(-7, -7));
+	ASSERT_FALSE(p -> check(10, 10)); //追加
 	p = board1.place(23, 1);
+	ASSERT_FALSE(board1.check(31, -7));
 	ASSERT_TRUE(p -> check(31, -7));
+	ASSERT_FALSE(p -> check(14, 10)); //追加
 	p = board1.place(1, 23);
-	ASSERT_TRUE(p -> check(1, 23));
+	ASSERT_FALSE(board1.check(1, 31));
+	ASSERT_TRUE(p -> check(1, 31));   //(1, 23)では意味がないので変更
+	ASSERT_FALSE(p -> check(10, 14)); //追加
 	p = board1.place(23, 23);
+	ASSERT_FALSE(board1.check(31, 31));
 	ASSERT_TRUE(p -> check(31, 31));
+	ASSERT_FALSE(p -> check(14, 14)); //追加
 	p = board1.place(12, 12);
+	ASSERT_FALSE(board1.check(20, 8));
 	ASSERT_TRUE(p -> check(20, 8));
+	ASSERT_FALSE(p -> check(21, 21)); //追加
 }
 
 TEST(procon26_module, Answers)
