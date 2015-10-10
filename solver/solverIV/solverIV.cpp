@@ -127,7 +127,7 @@ std::vector<Placement *> *SolverIV::solve(
         cachesSize = cachesTmpSize;
         cachesTmpSize = 0;
 
-        int number = SolverIV::limitNumber;
+        int number = SolverIV::limitDepth;
         if (!(depth + number < num)) {
             number = num - number - 1;
         }
@@ -182,7 +182,7 @@ std::vector<Cache *> *SolverIV::solveInternal(
                 //再帰
                 int resultSizeTmp;
                 std::vector<Cache *> *result = solveInternal(placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard, states, depth + 1, limit - 1, &resultSizeTmp);
-                std::vector<Cache *> *copy = new std::vector<Cache *>(*result);
+                std::vector<Cache *> *copy = new std::vector<Cache *>(*caches);
                 *resultSize = merge(*caches, *copy, *resultSize, *result, resultSizeTmp);
                 for (int i = 0; i < placedAnswer->size(); i ++) {
                     delete placedAnswer->at(i);
