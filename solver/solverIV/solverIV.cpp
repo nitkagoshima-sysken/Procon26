@@ -158,7 +158,7 @@ std::vector<Cache *> *SolverIV::solveInternal(
         int *resultSize){
     std::vector<Cache *> *caches = new std::vector<Cache *>(100);
     *resultSize = 0;
-    SOLVER_FOR if((depth == 0) | !boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
+    SOLVER_FOR if((depth == 0) | boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
         if(canPlace(masterBoard, stonesBoard, states[depth][i], x, y, depth == 0)){
             //新しくanswerを作る
             std::vector<Placement *> *placedAnswer = new std::vector<Placement *>(answer->size() + 1);
