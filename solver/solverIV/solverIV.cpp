@@ -88,13 +88,14 @@ int SolverIV::merge(std::vector<Cache *> &dest, std::vector<Cache *> &caches1, i
     while (i < SolverIV::limitNumber && i1 < l1 && i2 < l2) {
         if (caches1[i1]->score == caches2[i2]->score) {
             dest[i ++] = caches1[i1 ++];
-            i2 ++;
         } else if (caches1[i1]->score > caches2[i2]->score) {
             dest[i ++] = caches1[i1 ++];
         } else {
             dest[i ++] = caches2[i2 ++];
         }
     }
+    while (i < SolverIV::limitNumber && i1 < l1) dest[i ++] = caches1[i1 ++];
+    while (i < SolverIV::limitNumber && i2 < l2) dest[i ++] = caches2[i2 ++];
     for (; i1 < l1; i1 ++) {
         releaseCache(caches1[i1]);
     }
