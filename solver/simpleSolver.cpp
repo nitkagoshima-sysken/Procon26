@@ -7,24 +7,20 @@ using namespace std;
 
 int main()
 {
-	Board *obstacleBoard;			// 現在のボードの状態を保持
+	Board *obstacleBoard;		// 現在のボードの状態を保持
 	Board *putBoard = new Board;	// 今までに置いた石だけを保持
+        SubmissionManager sm("answerSimple");
 
-	// 解答出力用ファイルストリーム
-	ofstream ofs("answer.txt");
-	
 	// 初期化
 	for (int i = 0; i < 128; i++) putBoard->block[i] = 0;
-	
+
 	// 問題読み込み
 	string filePath;
 	cin >> filePath;
 	Problem *prob = readProblem(filePath);
-	
+	Answers answer(prob->num);
 	obstacleBoard = cloneBoard(&prob->board);
-	
-	//showBoard(obstacleBoard);
-	
+
 	// 実際に解く
 	bool *isPut = new bool[prob->num];
 	for (int i = 0; i < prob->num; i++) isPut[i] = false;
@@ -40,9 +36,7 @@ int main()
 				putBoard = placeStone(putBoard, &prob->stones[0], x, y);	
 				isPut[0] = true;
 				cout << x << " " << y << " " << "H" << " " << 0 << endl;
-				ofs << x << " " << y << " " << "H" << " " << 0 << endl;
-				//showBoard(obstacleBoard);
-				//showBoard(putBoard);
+                                answer.place(0, x, y, false, 0);
 			}
 		}
 	}
@@ -111,19 +105,17 @@ int main()
 			}
 			
 			cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
-			ofs << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
-			
-			//showBoard(putBoard);
-			
+			answer.place(i, bestX, bestY, flipped, Turn);
 			isPut[i] = true;
 		}
 		else
 		{
 			cout << endl;
-			ofs << endl;
 		}
 	}
-	
+
+        sm.submit(&answer);
+
 	// メモリ解放
 	delete   obstacleBoard;
 	delete   putBoard;
