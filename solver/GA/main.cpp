@@ -10,19 +10,21 @@ int main() {
 	//cin >> gene;
 	//cin >> step;
 	Problem* problem = readProblem(pass);
-	PutStone put = PutStone(problem);
-        Answers* answers = new Answers(problem->num);
-	GA ga(gene, put);
-	for (int i = 0; i < step; i++) {
-	       // cout << "step " << ga.getMaxPoint() << endl;
-		ga.step();
-		if(ga.isEnd()) break;
-	}
-	cout << endl;
-	cout << ga.getMaxPoint() << " ";
-	vector<bool> tmp = ga.getResult();
-	put.putStone(&tmp, answers, true);
 	SubmissionManager sm("answerGA");
-	cout << sm.submit(answers) << endl;
-	return 0;
-}
+
+        PutStone put = PutStone(problem);
+        Answers* answers = new Answers(problem->num);
+        GA ga(gene, put);
+        for (int i = 0; i < step; i++) {
+            // cout << "step " << ga.getMaxPoint() << endl;
+            ga.step();
+            if(ga.isEnd()) break;
+        }
+        cout << endl;
+        cout <<  (1024 - ga.getMaxPoint()) << " ";
+        vector<bool> tmp = ga.getResult();
+        put.putStone(&tmp, answers, true);
+        cout << sm.submit(answers) << endl;
+
+        return 0;
+}                          
