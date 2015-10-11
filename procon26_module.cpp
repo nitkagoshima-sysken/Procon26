@@ -206,7 +206,7 @@ void Answers::print(ostream &os)
             os << answers.at(j).toString();
             j++;
         }
-        os << endl;
+        os << "\r\n";
     }
 }
 
