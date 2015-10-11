@@ -109,12 +109,9 @@ void StonePicker::sortStones()
 
 BoardBoolean::BoardBoolean()
 {
-	for(int i = 0; i < BOARD_SIZE + STONE_SIZE - 1; i++)
+	for(int i = 0; i < 40 * 39 / sizeof(int); i++)
 	{
-		for(int j = 0; j < BOARD_SIZE + STONE_SIZE - 1; j++)
-		{
-			boolean[i][j] = true;
-		}
+		boolean[i] = 0;
 	}
 }
 
@@ -123,44 +120,42 @@ BoardBoolean* BoardBoolean::place(int x, int y)
 	BoardBoolean *temp;
 	temp = new BoardBoolean;
 	int start_x, start_y, end_x, end_y;
+	x += STONE_SIZE;
+	y += STONE_SIZE - 1;
 	start_x = x - STONE_SIZE; end_x = x + STONE_SIZE;
 	start_y = y - STONE_SIZE; end_y = y + STONE_SIZE;
-	if(start_x < -(STONE_SIZE - 1))
+	if(start_x < 1)
 	{
-		start_x = -(STONE_SIZE - 1);
+		start_x = 1;
 	}
-	if(end_x > BOARD_SIZE - 1)
+	if(end_x > 39)
 	{
-		end_x = BOARD_SIZE - 1;
+		end_x = 39;
 	}
-	if(start_y < -(STONE_SIZE - 1))
+	if(start_y < 0)
 	{
-		start_y = -(STONE_SIZE - 1);
+		start_y = 0;
 	}
-	if(end_y > BOARD_SIZE - 1)
+	if(end_y > 38)
 	{
-		end_y = BOARD_SIZE - 1;
+		end_y = 38;
 	}
-	for(int i = start_y + STONE_SIZE - 1; i <= end_y + STONE_SIZE - 1; i++)
+	for(int y = start_y; y <= end_y; y++)
 	{
-		for(int j = start_x + STONE_SIZE - 1; j <= end_x + STONE_SIZE - 1; j++)
+		for(int x = start_x; x <= end_x; x++)
 		{
-			temp -> boolean[i][j] = false;
+			temp -> boolean[x / 8 + y * 5] |= 0x80 >> (x % 8);
 		}
 	}
 	return temp;
+	
 }
 
-int BoardBoolean::check(int x, int y)
+bool BoardBoolean::check(int x, int y)
 {
-	if(x < - (STONE_SIZE - 1)||x > BOARD_SIZE - 1||y < - (STONE_SIZE - 1)||y > BOARD_SIZE- 1)
-	{
-		return -1;	//Error
-	}
-	else
-	{
-		return (int)boolean[y + STONE_SIZE - 1][x + STONE_SIZE - 1];
-	}
+	x += STONE_SIZE;
+	y += STONE_SIZE - 1;
+	return (bool)(boolean[x / 8 + y * 5] & 0x80 >> (x % 8));
 }
 
 Answers::Answers(int _num) {
@@ -192,7 +187,7 @@ void Answers::print(ostream &os)
             os << answers.at(j).toString();
             j++;
         }
-        os << endl;
+        os << "\r\n";
     }
 }
 
