@@ -7,8 +7,8 @@ int main() {
 	int gene = 5, step = 10;
 	string pass;
 	cin >> pass;
-	//cin >> gene;
-	//cin >> step;
+	cin >> gene;
+	cin >> step;
 	Problem* problem = readProblem(pass);
 	SubmissionManager sm("answerGA");
 
@@ -21,9 +21,9 @@ int main() {
             if(ga.isEnd()) break;
         }
         cout << endl;
-        cout <<  (1024 - ga.getMaxPoint()) << " ";
+        //cout <<  (1024 - ga.getMaxPoint()) << " ";
         vector<bool> tmp = ga.getResult();
-        put.putStone(&tmp, answers, true);
+        cout << put.putStone(&tmp, answers, true) << " ";
         cout << sm.submit(answers) << endl;
 
         return 0;
