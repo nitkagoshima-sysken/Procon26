@@ -110,11 +110,12 @@ int main()
 		}
 		else
 		{
-			cout << endl;
+//			cout << endl;
 		}
 	}
 
-        sm.submit(&answer);
+        cout << 1024 - countBitOfBoard(obstacleBoard) << " ";
+        cout << sm.submit(&answer) << endl;
 
 	// メモリ解放
 	delete   obstacleBoard;
