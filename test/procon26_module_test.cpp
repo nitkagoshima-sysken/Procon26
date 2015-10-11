@@ -171,7 +171,7 @@ TEST(procon26_module, Answers)
 
 	testing::internal::CaptureStdout();
 	answer.print(cout);
-	string ans = "\n\n1 0 H 180\n\n9 5 T 0\n\n";
+	string ans = "\r\n\r\n1 0 H 180\r\n\r\n9 5 T 0\r\n\r\n";
 	ASSERT_EQ(testing::internal::GetCapturedStdout(), ans);
 
 }
