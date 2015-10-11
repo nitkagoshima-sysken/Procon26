@@ -35,7 +35,7 @@ int main()
 				obstacleBoard = placeStone(obstacleBoard, rotate(&prob->stones[0], 0), x, y);
 				putBoard = placeStone(putBoard, &prob->stones[0], x, y);	
 				isPut[0] = true;
-				cout << x << " " << y << " " << "H" << " " << 0 << endl;
+//				cout << x << " " << y << " " << "H" << " " << 0 << endl;
                                 answer.place(0, x, y, false, 0);
 			}
 		}
@@ -104,7 +104,7 @@ int main()
 				putBoard      = placeStone(putBoard, rotate(flip(&prob->stones[i]), Turn), bestX, bestY);
 			}
 			
-			cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
+//			cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
 			answer.place(i, bestX, bestY, flipped, Turn);
 			isPut[i] = true;
 		}
