@@ -33,6 +33,7 @@ class SolverIV{
         static int num;
         static std::vector<int> *stoneNumbers;
         static SubmissionManager *submissionManager;
+        static int max;
 
         static Answers *solve(Problem &problem);
 
