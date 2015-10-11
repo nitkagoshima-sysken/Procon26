@@ -167,6 +167,24 @@ std::vector<Cache *> *SolverIV::solveInternal(
         int *resultSize){
     std::vector<Cache *> *caches = new std::vector<Cache *>(SolverIV::limitNumber);
     *resultSize = 0;
+
+
+    if(limit != 1){ // edge of limit
+        std::vector<Placement *> *placedAnswer = new std::vector<Placement *>(*answer);
+        placedAnswer->push_back(NULL);
+        BoardBoolean *placedBoardChecker = boardChecker->place(-100, -100);
+        Board *placedMasterBoard = cloneBoard(masterBoard);
+        Board *placedStonesBoard = cloneBoard(stonesBoard);
+        int resultSizeTmp;
+        std::vector<Cache *> *result = solveInternal(placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard, states, depth + 1, limit - 1, &resultSizeTmp);
+        std::vector<Cache *> *copy = new std::vector<Cache *>(*caches);
+        *resultSize = merge(*caches, *copy, *resultSize, *result, resultSizeTmp);
+        delete placedAnswer;
+        std::vector<Cache *>().swap(*copy);
+        delete placedBoardChecker;
+        delete placedMasterBoard;
+        delete placedStonesBoard;
+    }
     SOLVER_FOR if((depth == 0) | boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
         if(canPlace(masterBoard, stonesBoard, states[depth][i], x, y, depth == 0)){
             //新しくanswerを作る
