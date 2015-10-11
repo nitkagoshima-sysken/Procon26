@@ -3,8 +3,8 @@
 
 #include "procon26_module.hpp"
 
-#define block_0    "0"
-#define block_1    "1"
+#define block_0    " "
+#define block_1    "#"
 
 extern Stone *getStoneByString(std::string);
 extern Board *getBoardByString(std::string);

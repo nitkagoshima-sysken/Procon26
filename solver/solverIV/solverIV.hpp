@@ -47,7 +47,9 @@ class SolverIV{
                 Board *masterBoard,
                 Board *stonesBoard,
                 std::vector<std::vector<State *> > &states,
-                int depth);
+                int depth,
+                int groups,
+                int plan);
         static std::vector<Cache *> *solveInternal(
                 std::vector<Placement *> *answer,
                 BoardBoolean *boardChecker,
@@ -56,5 +58,7 @@ class SolverIV{
                 std::vector<std::vector<State *> > &states,
                 int depth,
                 int number,
-                int *resultSize);
+                int *resultSize,
+                int groups,
+                int plan);
 };
