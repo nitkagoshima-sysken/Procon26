@@ -40,11 +40,13 @@ class SolverIV{
         static Answers *makeAnswers(std::vector<Placement *> *answer);
         static float getScore(std::vector<Placement *> *answer, Board *masterBoard, Board *stonesBoard);
         static int merge(std::vector<Cache *> &dest, std::vector<Cache *> &caches1, int l1, std::vector<Cache *> &caches2, int l2);;
-        static std::vector<Cache *> *solve(
+        static void solve(
                 std::vector<Placement *> *answer,
                 BoardBoolean *boardChecker,
                 Board *masterBoard,
-                std::vector<std::vector<State *> > &states);
+                Board *stonesBoard,
+                std::vector<std::vector<State *> > &states,
+                int depth);
         static std::vector<Cache *> *solveInternal(
                 std::vector<Placement *> *answer,
                 BoardBoolean *boardChecker,
