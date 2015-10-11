@@ -12,8 +12,9 @@ struct Placement{
 };
 
 struct Cache{
-    Cache(int _score, std::vector<Placement *> *_answer, BoardBoolean *_boardChecker, Board *_masterBoard, Board *_stonesBoard);
+    Cache(int _score, std::vector<Placement *> *_answer, BoardBoolean *_boardChecker, Board *_masterBoard, Board *_stonesBoard, int depth);
     int score;
+    int depth;
     // TODO 
     std::vector<Placement *> *answer;
     BoardBoolean *boardChecker;
