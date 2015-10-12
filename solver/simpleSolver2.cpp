@@ -9,7 +9,7 @@ int main()
 {
 	Board *obstacleBoard;		// 現在のボードの状態を保持
 	Board *putBoard = new Board;	// 今までに置いた石だけを保持
-        SubmissionManager sm("answerSimple2");
+        SubmissionManager sm("answerSimple3");
 
 	// 初期化
 	for (int i = 0; i < 128; i++) putBoard->block[i] = 0;
@@ -25,6 +25,10 @@ int main()
 	bool *isPut = new bool[prob->num];
 	for (int i = 0; i < prob->num; i++) isPut[i] = false;
 	
+        int counting = 1000, bestX, bestY, Turn;
+	bool canPut = false, flipped = false;
+	int touching = -1;
+
 	// 一個目の石は適当に置く
 	for (int y = -STONE_SIZE + 1; y < BOARD_SIZE; y++)
 	{
@@ -41,13 +45,32 @@ int main()
 		}
 	}
 	
+        if (canPut)
+	{
+	    // 石を置く
+            if (!flipped)
+            {
+                obstacleBoard = placeStone(obstacleBoard, rotate(&prob->stones[0], Turn), bestX, bestY);
+                putBoard      = placeStone(putBoard, rotate(&prob->stones[0], Turn), bestX, bestY);
+            }
+            else
+            {
+                obstacleBoard = placeStone(obstacleBoard, rotate(flip(&prob->stones[0]), Turn), bestX, bestY);
+                putBoard      = placeStone(putBoard, rotate(flip(&prob->stones[0]), Turn), bestX, bestY);
+            }
+
+            //			cout << bestX << " " << bestY << " " << (flipped?"T":"H") << " " << Turn * 90 << endl;
+            answer.place(0, bestX, bestY, flipped, Turn);
+            isPut[0] = true;
+        }
+
 	// 二個目以降の石はぼっち空きマスが少なくなるように置く
 	for (int i = 1; i < prob->num; i++)
 	{
 		// たくさん接した座標、反転、回転を記憶
-		int counting = 1000, bestX, bestY, Turn;
-		bool canPut = false, flipped = false;
-		int touching = -1;
+		counting = 1000;
+		canPut = false; flipped = false;
+		touching = -1;
 
 		for (int y = -STONE_SIZE + 1; y < BOARD_SIZE; y++)
 		{
