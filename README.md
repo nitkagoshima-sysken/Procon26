@@ -1,6 +1,54 @@
-# Procon26 競技部門 モジュール仕様書 (ver1.2)
+# Procon26 競技部門
 
-## 1.概要
+## 1.Solver Algorithm
++ simpleSolver/simpleSolver2/simpleSolver3
+ 貪欲に石を並べるソルバ。主に評価値として、今まで置いた石・障害物との接する面積、石を置いた時にできる空白のグループ（区切られた空白）の数
+
++ SolverIV
+ 深さ優先探索を用いたソルバ。
+
++ GolverGA
+ 遺伝的アルゴリズムを用いて、パスする石を決めるソルバ。石の並べ方はsimpleSolverとほぼ同じ考え方
+
++ 未実装：SolverIDDFS
+ IDDFS（反復進化深さ優先探索）を用いるソルバ。
+
++ 未実装：SolverX
+ simpleSolverの改良型で、空白を作った場合その形を見て、残りの石で埋めることができないなら、石を置かない的なソルバ。
+
+## 2.Develop Enviorement
+### Langage
++ C++
++ C++11
++ C#
++ Shell
+
+### OS
++ Windows7/10
++ Mac OS X 
+
+### Editer
++ Visual Stuio 2015 Community
++ Visual Sudio Code
++ Vim
+
+### Compiler
++ Microsoft C++ Compiler
++ Microsoft C# Compiler
++ G++
+
+### Version Management
++ GitHub
+
+### Test
++ Google Test
+
+## 3.Visualiser
+[Procon26-Visualiser](https://github.com/nitkagoshima-sysken/Procon26-Visualizer)
+
+## Procon26 競技部門 モジュール仕様書 (ver1.2)
+
+### 1.概要
 モジュールは、問題の入出力、石の回転・反転等を行う関数・構造体・クラス群である
 。各ソルバは、基本的に本モジュールを用いて作成する。
 
@@ -15,7 +63,7 @@
 | procon26_modio.cpp  | 入出力関数の実装部                           |
 | procon26_modlib.cpp | 石・ボードに対する関数の実装部                  |
 
-## 2.用語
+### 2.用語
 各種用語を以下に定義する。
 
 |  用語  |                                概要                                     |
@@ -24,8 +72,8 @@
 | stone | 複数のblockを辺でつなげたもの。8*8[zuku]の正方形で与えられる。                  |
 | board | 石を敷き詰める場所。問題で与えられる"敷地"と同義。32*32[zuku]の正方形で与えられる。 |
 
-## 3.インターフェース
-### 3.1 procon26_module
+### 3.インターフェース
+#### 3.1 procon26_module
 procon26_moduleの構成について以下に示す。
 
 |     定数名      | 概要 |
@@ -38,7 +86,7 @@ procon26_moduleの構成について以下に示す。
 | class Answer   | 各stoneを置いた座標、回転、反転の情報を保持する。<br> メンバ関数ToString()を持つ。|
 | class Answers  | 解答を表すクラス。 Answerクラスのリストを保持する。                                       |
 
-### 3.2 procon26_modio
+#### 3.2 procon26_modio
 procon26_modioの構成について以下に示す。
 
 + 定数 ` block_0 ` showStone/showBoard関数で出力する "0" 文字の設定
@@ -86,7 +134,7 @@ procon26_modioの構成について以下に示す。
     Problem *prob = readProblem("quest.txt");
     `
 
-### 3.3 procon26_modlib(編集中)
+#### 3.3 procon26_modlib(編集中)
 procon26_modlibの構成について以下に示す。
 
 + ` int countBit(unsigned char bit)`  
