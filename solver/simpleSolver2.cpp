@@ -65,7 +65,7 @@ int main()
                         tmp = placeStone(obstacleBoard, rotate(&prob->stones[i], j), x, y); 
                         int countNum, cnt;
                         getGroupsCountBoard(tmp, 0, &countNum, &cnt);
-                        if (countNum < counting && touching < touchNum)
+                        if (countNum < counting || (countNum == counting && touching < touchNum))
                         {
                             touching = touchNum;
                             counting = countNum;
@@ -91,7 +91,7 @@ int main()
                         tmp = placeStone(obstacleBoard, rotate(flip(&prob->stones[i]), j), x, y);
                         int countNum, cnt;
                         getGroupsCountBoard(tmp, 0, &countNum, &cnt); 
-                        if (countNum < counting && touching < touchNum)
+                        if (countNum < counting || (countNum == counting && touching < touchNum))
                         {
                             touching = touchNum;
                             counting = countNum;
