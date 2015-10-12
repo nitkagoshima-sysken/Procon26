@@ -43,8 +43,8 @@
 ### Test
 + Google Test
 
-## 3.Visualiser
-[Procon26-Visualiser](https://github.com/nitkagoshima-sysken/Procon26-Visualizer)
+## 3.Visualizer
+[Procon26-Visualizer](https://github.com/nitkagoshima-sysken/Procon26-Visualizer)
 
 ## Procon26 競技部門 モジュール仕様書 (ver1.2)
 
