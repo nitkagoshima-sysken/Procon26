@@ -12,10 +12,8 @@ int main()
 
     cin >> SolverIV::limitDepth;
     cin >> SolverIV::limitNumber;
-    Answers *ans = SolverIV::solve(prob);
-
-    // output Answers
-    ans->print(cout);
+    cin >> SolverIV::planMax;
+    SolverIV::solve(prob);
 
     return 0;
 }

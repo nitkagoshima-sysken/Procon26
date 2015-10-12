@@ -3,7 +3,7 @@
 #include "../../procon26_modlib.hpp"
 #include "../../procon26_modio.hpp"
 
-#define PLAN_MAX 4
+#define PLAN_MAX 6
 
 int SolverIV::limitDepth;
 int SolverIV::limitNumber;
@@ -12,6 +12,7 @@ int SolverIV::num;
 std::vector<int> *SolverIV::stoneNumbers;
 SubmissionManager *SolverIV::submissionManager;
 int SolverIV::max;
+int SolverIV::planMax;
 
 void releaseCaches(std::vector<Cache *> caches, int length) {
     for (int i = 0; i < length; i ++) {
@@ -46,47 +47,27 @@ Answers *SolverIV::makeAnswers(std::vector<Placement *> *answer) {
     Answers *answers = new Answers(num);
     for (int i = 0; i < answer->size(); i ++) {
         Placement *tmp = answer->at(i);
-        answers->place(stoneNumbers->at(i), tmp->x, tmp->y, tmp->flipped, tmp->rotate);
+        if (tmp != NULL) {
+            answers->place(i, tmp->x, tmp->y, tmp->flipped, tmp->rotate);
+        }
     }
     return answers;
 }
 
-Answers *SolverIV::solve(Problem &problem){
+void SolverIV::solve(Problem &problem){
     max = BOARD_SIZE * BOARD_SIZE;
     submissionManager = new SubmissionManager("answer");
-    std::vector<std::vector<State *> > states, picked;
+    std::vector<std::vector<State *> > states;
     convertStonesToVectorOfStates(problem.stones, problem.num, states);
     SolverIV::num = problem.num;
-    std::vector<int> zukus, stoneNumbers;
-    // count zuku of stones
-    for (int i = 0; i < problem.num; i ++) {
-        zukus.push_back(countBitOfStone(&(problem.stones[i])));
-    }
     std::vector<Placement *> *answer = new std::vector<Placement *>();
-    StonePicker *stonePicker = new StonePicker(states, zukus, BOARD_SIZE * BOARD_SIZE - countBitOfBoard(&problem.board));
     BoardBoolean *boardChecker = new BoardBoolean();
-    while (true) {
-        bool end = false;
-        std::vector<Placement *> *result = NULL;
-        stonePicker->getNext(picked, stoneNumbers);
-        SolverIV::stoneNumbers = &stoneNumbers;
-        if (picked.size() == 0) {
-            end = true;
-            result = NULL;
-        } else {
-            int groupsCount, count;
-            getGroupsCountBoard(&problem.board, 0, &groupsCount, &count);
-            solve(answer, boardChecker, cloneBoard(&problem.board), cloneBoard(EMPTY_BOARD), picked, 0, groupsCount, 0);
-        }
-        if (end) {
-            releaseVector(states);
-            releaseVector(picked);
-            delete boardChecker;
-            delete answer;
-            Answers *answers = makeAnswers(answer);
-            return answers;
-        }
-    }
+    int groupsCount, count;
+    getGroupsCountBoard(&problem.board, 0, &groupsCount, &count);
+    solve(answer, boardChecker, cloneBoard(&problem.board), cloneBoard(EMPTY_BOARD), states, 0, groupsCount, 0);
+    releaseVector(states);
+    delete boardChecker;
+    delete answer;
 }
 
 float SolverIV::getScore(std::vector<Placement *> *answer, Board *masterBoard, Board *stonesBoard) {
@@ -147,7 +128,7 @@ void SolverIV::solve(
     int resultSize;
     int groupsCount, count;
     getGroupsCountBoard(masterBoard, 0, &groupsCount, &count);
-    std::vector<Cache *> *result = solveInternal(answer, boardChecker, masterBoard, stonesBoard, states, depth, number, &resultSize, groupsCount, 0);
+    std::vector<Cache *> *result = solveInternal(answer, boardChecker, masterBoard, stonesBoard, states, depth, number, &resultSize, groupsCount, plan);
     if (resultSize == 0) {
         int score = BOARD_SIZE * BOARD_SIZE - countBitOfBoard(masterBoard);
         if (score < max) {
@@ -155,15 +136,15 @@ void SolverIV::solve(
             submissionManager->submit(makeAnswers(answer));
             max = score;
         }
-        if (plan < PLAN_MAX) {
-            solve(answer, boardChecker, masterBoard, stonesBoard, states, depth, groupsCount, plan + 1);
-        }
     }
     for (int i = 0; i < resultSize; i ++) {
         Cache *tmp = result->at(i);
         int groupsCount, count;
         getGroupsCountBoard(tmp->masterBoard, 0, &groupsCount, &count);
         solve(tmp->answer, tmp->boardChecker, tmp->masterBoard, tmp->stonesBoard, states, depth + number, groupsCount, 0);
+    }
+    if (plan < planMax) {
+        solve(answer, boardChecker, masterBoard, stonesBoard, states, depth, groupsCount, plan + 1);
     }
     releaseCaches(*result, resultSize);
 }
@@ -177,18 +158,16 @@ std::vector<Cache *> *SolverIV::solveInternal(
         int depth,
         int limit,
         int *resultSize, int groups, int plan){
-//    for (int i = 0; i < depth; i ++) cout << "*";
-//    cout << " " << depth << endl;
     std::vector<Cache *> *caches = new std::vector<Cache *>(SolverIV::limitNumber);
     *resultSize = 0;
 
+    std::vector<Placement *> *placedAnswer = new std::vector<Placement *>(*answer);
+    placedAnswer->push_back(NULL);
+    BoardBoolean *placedBoardChecker = boardChecker->place(-100, -100);
+    Board *placedMasterBoard = cloneBoard(masterBoard);
+    Board *placedStonesBoard = cloneBoard(stonesBoard);
 
     if(limit != 1){ // edge of limit
-        std::vector<Placement *> *placedAnswer = new std::vector<Placement *>(*answer);
-        placedAnswer->push_back(NULL);
-        BoardBoolean *placedBoardChecker = boardChecker->place(-100, -100);
-        Board *placedMasterBoard = cloneBoard(masterBoard);
-        Board *placedStonesBoard = cloneBoard(stonesBoard);
         int resultSizeTmp;
         std::vector<Cache *> *result = solveInternal(placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard, states, depth + 1, limit - 1, &resultSizeTmp, groups, plan);
         std::vector<Cache *> *copy = new std::vector<Cache *>(*caches);
@@ -198,6 +177,9 @@ std::vector<Cache *> *SolverIV::solveInternal(
         delete placedBoardChecker;
         delete placedMasterBoard;
         delete placedStonesBoard;
+    } else {
+        caches->at(0) = new Cache(getScore(placedAnswer, placedMasterBoard, placedStonesBoard),
+                placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard);
     }
     SOLVER_FOR if((depth == 0) | boardChecker->check(x, y)) for(int i = 0; i < states[depth].size(); i ++){
         if(canPlace(masterBoard, stonesBoard, states[depth][i], x, y, depth == 0)){
@@ -217,13 +199,13 @@ std::vector<Cache *> *SolverIV::solveInternal(
             BoardBoolean *placedBoardChecker = boardChecker->place(x, y);
             Board *placedStonesBoard = placeStone(stonesBoard, states[depth][i], x, y);
 
-            showBoard(placedStonesBoard);
+            //showBoard(placedStonesBoard);
 
             if(limit == 1){ // edge of limit
                 float score;
-                caches->at(0) = new Cache(score = getScore(placedAnswer, placedMasterBoard, placedStonesBoard),
+                caches->at(1) = new Cache(score = getScore(placedAnswer, placedMasterBoard, placedStonesBoard),
                         placedAnswer, placedBoardChecker, placedMasterBoard, placedStonesBoard);
-                *resultSize = 1;
+                *resultSize = 2;
                 return caches;
             } else {
                 //再帰

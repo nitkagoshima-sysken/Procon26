@@ -34,8 +34,9 @@ class SolverIV{
         static std::vector<int> *stoneNumbers;
         static SubmissionManager *submissionManager;
         static int max;
+        static int planMax;
 
-        static Answers *solve(Problem &problem);
+        static void solve(Problem &problem);
 
     private:
         static Answers *makeAnswers(std::vector<Placement *> *answer);
