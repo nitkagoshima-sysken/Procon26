@@ -5,9 +5,9 @@ using namespace std;
 
 string Answer::toString()
 {
-	stringstream sout;
-	sout << X << " " << Y << " " << (flipped ? "T" : "H") << " " << turn * 90;
-	return sout.str();
+    stringstream sout;
+    sout << X << " " << Y << " " << (flipped ? "T" : "H") << " " << turn * 90;
+    return sout.str();
 }
 
 StonePicker::StonePicker(std::vector<std::vector<State *> > stones_, std::vector<int> zukus_, int blanks_)
@@ -76,7 +76,7 @@ struct stoneData
 {
     int index;
     int myZuku;
-    
+
     bool operator<(const stoneData& right) const
     {
         return myZuku < right.myZuku;
@@ -86,7 +86,7 @@ struct stoneData
 void StonePicker::sortStones()
 {    
     std::vector<stoneData> stoneDatas;
-    
+
     for (int i = 0; i < num; i ++)
     {
         stoneData tmp;
@@ -109,53 +109,53 @@ void StonePicker::sortStones()
 
 BoardBoolean::BoardBoolean()
 {
-	for(int i = 0; i < 40 * 39 / sizeof(int); i++)
-	{
-		boolean[i] = 0;
-	}
+    for(int i = 0; i < 40 * 39 / sizeof(int); i++)
+    {
+        boolean[i] = 0;
+    }
 }
 
 BoardBoolean* BoardBoolean::place(int x, int y)
 {
-	BoardBoolean *temp;
-	temp = new BoardBoolean;
-	int start_x, start_y, end_x, end_y;
-	x += STONE_SIZE;
-	y += STONE_SIZE - 1;
-	start_x = x - STONE_SIZE; end_x = x + STONE_SIZE;
-	start_y = y - STONE_SIZE; end_y = y + STONE_SIZE;
-	if(start_x < 1)
-	{
-		start_x = 1;
-	}
-	if(end_x > 39)
-	{
-		end_x = 39;
-	}
-	if(start_y < 0)
-	{
-		start_y = 0;
-	}
-	if(end_y > 38)
-	{
-		end_y = 38;
-	}
-	for(int y = start_y; y <= end_y; y++)
-	{
-		for(int x = start_x; x <= end_x; x++)
-		{
-			temp -> boolean[x / 8 + y * 5] |= 0x80 >> (x % 8);
-		}
-	}
-	return temp;
-	
+    BoardBoolean *temp;
+    temp = new BoardBoolean;
+    int start_x, start_y, end_x, end_y;
+    x += STONE_SIZE;
+    y += STONE_SIZE - 1;
+    start_x = x - STONE_SIZE; end_x = x + STONE_SIZE;
+    start_y = y - STONE_SIZE; end_y = y + STONE_SIZE;
+    if(start_x < 1)
+    {
+        start_x = 1;
+    }
+    if(end_x > 39)
+    {
+        end_x = 39;
+    }
+    if(start_y < 0)
+    {
+        start_y = 0;
+    }
+    if(end_y > 38)
+    {
+        end_y = 38;
+    }
+    for(int y = start_y; y <= end_y; y++)
+    {
+        for(int x = start_x; x <= end_x; x++)
+        {
+            temp -> boolean[x / 8 + y * 5] |= 0x80 >> (x % 8);
+        }
+    }
+    return temp;
+
 }
 
 bool BoardBoolean::check(int x, int y)
 {
-	x += STONE_SIZE;
-	y += STONE_SIZE - 1;
-	return (bool)(boolean[x / 8 + y * 5] & 0x80 >> (x % 8));
+    x += STONE_SIZE;
+    y += STONE_SIZE - 1;
+    return (bool)(boolean[x / 8 + y * 5] & 0x80 >> (x % 8));
 }
 
 Answers::Answers(int _num) {
@@ -164,19 +164,19 @@ Answers::Answers(int _num) {
 
 void Answers::place(int stoneNumber, int x, int y, bool flipped, int turn)
 {
-	Answer newAns;
-	newAns.X = x; newAns.Y = y;
-	newAns.flipped = flipped;
+    Answer newAns;
+    newAns.X = x; newAns.Y = y;
+    newAns.flipped = flipped;
     newAns.stoneNumber = stoneNumber;
-	newAns.turn = turn;
-	answers.push_back(newAns);
+    newAns.turn = turn;
+    answers.push_back(newAns);
 }
 
 void Answers::place(int stoneNumber, State *status, int x, int y)
 {
-	(*this).place(stoneNumber, x, y, status->flipped, status->turn);
+    (*this).place(stoneNumber, x, y, status->flipped, status->turn);
 }
-	
+
 void Answers::print(ostream &os)
 {
     int j = 0;

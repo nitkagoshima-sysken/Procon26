@@ -64,22 +64,22 @@ extern Board *BoardXOR(const Board *Board1, const Board *Board2);
 
 inline Stone *operator~(Stone stone)                // Operation Overlord Logic-NOT
 {
-	return NOT(&stone);
+    return NOT(&stone);
 }
 
 inline Stone *operator&(Stone Stone1, Stone Stone2) // Operation Overlord Logic-AND
 {
-	return AND(&Stone1, &Stone2);
+    return AND(&Stone1, &Stone2);
 }
 
 inline Stone *operator|(Stone Stone1, Stone Stone2) // Operation Overlord Logic-OR
 {
-	return OR(&Stone1, &Stone2);
+    return OR(&Stone1, &Stone2);
 }
 
 inline Stone *operator^(Stone Stone1, Stone Stone2) // Operation Overlord Logic-XOR
 {
-	return XOR(&Stone1, &Stone2);
+    return XOR(&Stone1, &Stone2);
 }
 
 #endif

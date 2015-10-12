@@ -14,48 +14,48 @@ using namespace std;
 
 struct Stone
 {
-	unsigned char zuku[STONE_SIZE];
+    unsigned char zuku[STONE_SIZE];
 };
 
 struct State : public Stone
 {
-	bool flipped;
-	int turn;	// 90 * turn;
+    bool flipped;
+    int turn;	// 90 * turn;
 };
 
 struct Board
 {
-	unsigned char block[128];
+    unsigned char block[128];
 };
 
 struct Problem
 {
-	Board board;
-	int num;
-	Stone *stones;
+    Board board;
+    int num;
+    Stone *stones;
 };
 
 class Answer
 {
-	public:
-		int X;  
-		int Y;
-		bool flipped;
-		int turn;	// 90 * turn;
-		int stoneNumber;
-		
-		string toString();
+    public:
+        int X;  
+        int Y;
+        bool flipped;
+        int turn;	// 90 * turn;
+        int stoneNumber;
+
+        string toString();
 };
 
 class Answers
 {
-	public:
-	int num;
-	vector<Answer> answers;
-	Answers(int num);
-	void place(int stoneNumber, int x, int y, bool flipped, int turn);
-	void place(int stoneNumber, State *, int x, int y);
-	void print(ostream &os);
+    public:
+        int num;
+        vector<Answer> answers;
+        Answers(int num);
+        void place(int stoneNumber, int x, int y, bool flipped, int turn);
+        void place(int stoneNumber, State *, int x, int y);
+        void print(ostream &os);
 };
 
 class StonePicker
@@ -80,11 +80,11 @@ class StonePicker
 
 class BoardBoolean
 {
-	public:
-		char boolean[40*40/sizeof(char)];
-		BoardBoolean();
-		BoardBoolean *place(int x, int y);
-		bool check(int x, int y);
+    public:
+        char boolean[40*40/sizeof(char)];
+        BoardBoolean();
+        BoardBoolean *place(int x, int y);
+        bool check(int x, int y);
 };
 
 class SubmissionManager

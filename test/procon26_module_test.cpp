@@ -135,43 +135,43 @@ TEST(procon26_module, StonePicker){
 
 TEST(procon26_module, BoardBoolean)
 {
-	BoardBoolean board1;
-	BoardBoolean *p;
-	p = board1.place(1, 1);
-	ASSERT_FALSE(board1.check(-7, -7));
-	ASSERT_TRUE(p -> check(-7, -7));
-	ASSERT_FALSE(p -> check(10, 10));
-	p = board1.place(23, 1);
-	ASSERT_FALSE(board1.check(31, -7));
-	ASSERT_TRUE(p -> check(31, -7));
-	ASSERT_FALSE(p -> check(14, 10));
-	p = board1.place(1, 23);
-	ASSERT_FALSE(board1.check(1, 31));
-	ASSERT_TRUE(p -> check(1, 31));
-	ASSERT_FALSE(p -> check(10, 14));
-	p = board1.place(23, 23);
-	ASSERT_FALSE(board1.check(31, 31));
-	ASSERT_TRUE(p -> check(31, 31));
-	ASSERT_FALSE(p -> check(14, 14));
-	p = board1.place(12, 12);
-	ASSERT_FALSE(board1.check(20, 8));
-	ASSERT_TRUE(p -> check(20, 8));
-	ASSERT_FALSE(p -> check(21, 21));
+    BoardBoolean board1;
+    BoardBoolean *p;
+    p = board1.place(1, 1);
+    ASSERT_FALSE(board1.check(-7, -7));
+    ASSERT_TRUE(p -> check(-7, -7));
+    ASSERT_FALSE(p -> check(10, 10));
+    p = board1.place(23, 1);
+    ASSERT_FALSE(board1.check(31, -7));
+    ASSERT_TRUE(p -> check(31, -7));
+    ASSERT_FALSE(p -> check(14, 10));
+    p = board1.place(1, 23);
+    ASSERT_FALSE(board1.check(1, 31));
+    ASSERT_TRUE(p -> check(1, 31));
+    ASSERT_FALSE(p -> check(10, 14));
+    p = board1.place(23, 23);
+    ASSERT_FALSE(board1.check(31, 31));
+    ASSERT_TRUE(p -> check(31, 31));
+    ASSERT_FALSE(p -> check(14, 14));
+    p = board1.place(12, 12);
+    ASSERT_FALSE(board1.check(20, 8));
+    ASSERT_TRUE(p -> check(20, 8));
+    ASSERT_FALSE(p -> check(21, 21));
 }
 
 TEST(procon26_module, Answers)
 {
-	Answers answer(6);
-	Answer ans1; ans1.X = 1; ans1.Y = 0; ans1.turn = 2; ans1.flipped = false;
-	Answer ans2; ans2.X = 9; ans2.Y = 5; ans2.turn = 0; ans2.flipped = true;
-	State _ans2; _ans2.turn = 0; _ans2.flipped = true;
+    Answers answer(6);
+    Answer ans1; ans1.X = 1; ans1.Y = 0; ans1.turn = 2; ans1.flipped = false;
+    Answer ans2; ans2.X = 9; ans2.Y = 5; ans2.turn = 0; ans2.flipped = true;
+    State _ans2; _ans2.turn = 0; _ans2.flipped = true;
 
-	answer.place(2, ans1.X, ans1.Y, ans1.flipped, ans1.turn);
-	answer.place(4, &_ans2, ans2.X, ans2.Y);
+    answer.place(2, ans1.X, ans1.Y, ans1.flipped, ans1.turn);
+    answer.place(4, &_ans2, ans2.X, ans2.Y);
 
-	testing::internal::CaptureStdout();
-	answer.print(cout);
-	string ans = "\r\n\r\n1 0 H 180\r\n\r\n9 5 T 0\r\n\r\n";
-	ASSERT_EQ(testing::internal::GetCapturedStdout(), ans);
+    testing::internal::CaptureStdout();
+    answer.print(cout);
+    string ans = "\r\n\r\n1 0 H 180\r\n\r\n9 5 T 0\r\n\r\n";
+    ASSERT_EQ(testing::internal::GetCapturedStdout(), ans);
 
 }
