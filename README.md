@@ -46,6 +46,9 @@
 ## 3.Visualizer
 [Procon26-Visualizer](https://github.com/nitkagoshima-sysken/Procon26-Visualizer)
 
+## 4.Problem Generator
+[Procon26-Problem-Generator](https://github.com/nitkagoshima-sysken/procon26-competition-genmon)
+
 ## Procon26 競技部門 モジュール仕様書 (ver1.2)
 
 ### 1.概要
